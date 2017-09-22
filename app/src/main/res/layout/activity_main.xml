@@ -1,19 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.example.admin.notificationproject.MainActivity">
 
+<LinearLayout
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/LaptopAdmin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/btnShow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:text="Laptop Admin"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <Button
+            android:text="Phones Admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LaptopAdmin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:id="@+id/PhonesAdmin"
+        android:layout_weight="1"
+            android:textAllCaps="false"
+        />
+
+        <Button
+            android:text="Cars Admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/PhonesAdmin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
+            android:layout_weight="1"
+            android:id="@+id/CarsAdmin"
+            android:textAllCaps="false" />
+
+        <Button
+            android:text="Furniture Admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/CarsAdmin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:layout_weight="1"
+            android:id="@+id/FurnitureAdmin"
+            android:textAllCaps="false" />
+</LinearLayout>
 
 </LinearLayout>

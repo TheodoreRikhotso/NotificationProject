@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.notificationproject.CarActivity">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/lvCar"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentEnd="true"
+        />
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp"
+        android:id="@+id/searchView" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/searchView"
+        android:layout_marginTop="21dp"
+        android:text=" Mlab SA has a variety  of cars that their employees have access to. Some of the car brands we have include VW'S, Toyota....                        "
+        android:textColor="@android:color/black"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

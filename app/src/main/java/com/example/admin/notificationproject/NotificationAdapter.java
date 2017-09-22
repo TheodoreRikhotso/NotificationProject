@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class NotificationAdapter extends BaseAdapter {
     private Context c;
 
     private int resource;
-    private List<TitlePojo> reports;
+    private List<NotificationPojo> notificationPojos;
     private LayoutInflater inflater;
 
     public static String STORE = "";
@@ -29,20 +30,20 @@ public class NotificationAdapter extends BaseAdapter {
     private double pertotal= 0;
 
 
-    public NotificationAdapter(Context c, List<TitlePojo> reports) {
+    public NotificationAdapter(Context c, List<NotificationPojo> reports) {
         this.c = c;
-        this.reports = reports;
+        this.notificationPojos = reports;
     }
 
 
     @Override
     public int getCount() {
-        return reports.size();
+        return notificationPojos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return reports.get(position);
+        return notificationPojos.get(position);
     }
 
     @Override
@@ -60,78 +61,31 @@ public class NotificationAdapter extends BaseAdapter {
 
         }
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.report_model, parent, false);
+            rootView = inflater.inflate(R.layout.model, parent, false);
         }
 
 
-        Report report = reports.get(position);
-        TextView tvSubjcet = (TextView) rootView.findViewById(R.id.tvSubjcet);
-        TextView tvMarks = (TextView) rootView.findViewById(R.id.tvMarks);
-        TextView tvComment = (TextView) rootView.findViewById(R.id.tvComment);
-        TextView tvTerm = (TextView) rootView.findViewById(R.id.tvTerm);
-        TextView tvTotal = (TextView) rootView.findViewById(R.id.tvTotal);
-        ProgressBar pdMarks =rootView.findViewById(R.id.pbMarks);
+        NotificationPojo notificationPojo = notificationPojos.get(position);
+        TextView tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
+        TextView tvMsg = (TextView) rootView.findViewById(R.id.tvMsg);
+        TextView tvDate = (TextView) rootView.findViewById(R.id.tvDate);
+        ImageView ivIconNoti =rootView.findViewById(R.id.ivIconNoti);
+
+
+        tvDate.setText(notificationPojo.getDate());
+        tvMsg.setText(notificationPojo.getMessage());
+        tvTitle.setText(notificationPojo.getTitle());
+        Glide.with(c)
+                .load(notificationPojo.getImageUrl())
+                .into(ivIconNoti);
 
 
 
 
 
 
-        tvSubjcet.setText(report.getSubject());
-        tvTerm.setText("Term : \n"+report.getTerm()+"");
-        tvMarks.setText("Marks: \n"+report.getMarks());
-        tvComment.setText("Comments: \n"+report.getComment());
-        tvTotal.setText("Out of : \n"+report.getTotalMarks());
-
-        final double mark = report.getMarks();
-        final double markTotal =report.getTotalMarks();
-        final double total = mark /markTotal;
-        final   double per =total*100;
-
-
-        int totalsize = reports.size();
-        NAME_SUBJECT = report.getSubject()+"********"+per;
-        pertotal=pertotal+per;
-        double allPer= Math.round(pertotal/totalsize);
-        AVERAGE= allPer;
-        if(AVERAGE>40 && AVERAGE<60)
-        {
-            COMMENT="Well done you pass";
-        } if(AVERAGE<40)
-        {
-            COMMENT="Sorry it a fail!! you need to push a little hard ";
-        }
-        if(AVERAGE>59 &&AVERAGE<75)
-        {
-            COMMENT="Very well done!! ";
-        }
-        if(AVERAGE>75 &&AVERAGE<100)
-        {
-            COMMENT="Excellent Good Have pass with Distinction keep it up";
-        }
-
-
-        tvSubjcet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(c, ""+total, Toast.LENGTH_SHORT).show();
-
-                Toast.makeText(c, ""+per, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        pdMarks.setProgress((int)per);
-
-
-
-        // String name = report.getName();
-//        String letter = Character.toString(name.charAt(0));
-//        tvName.setText(letter);
-//        tvCompletName.setText(name);
         return rootView;
     }
-}
+
 
 }

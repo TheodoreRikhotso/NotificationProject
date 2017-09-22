@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "453552446313-0t1ikbbt95oji45kij2onh0635kveoh7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.notificationproject",
+            "certificate_hash": "ccf537008969e487b203ab62ea0f9623d24315b6"
+          }
+        },
+        {
           "client_id": "453552446313-kur5of27ofs20pdpbs162cr3h8uc89mo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

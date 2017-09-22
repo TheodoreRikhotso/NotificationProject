@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -13,7 +15,10 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,25 +46,21 @@ private String title,message,img_url;
         if(remoteMessage.getNotification()!=null)
         {
             Log.d(TAG,"Message body: "+remoteMessage.getData());
-            title = remoteMessage.getData().get("title");
-            message = remoteMessage.getData().get("message");
-            img_url = remoteMessage.getData().get("img_url");
+
             Date currentTime =  Calendar.getInstance().getTime();
-            sendNotification(message,title,img_url);
-            TitlePojo titlePojo = new TitlePojo();
-            titlePojo.setTitle(title);
-            titlePojo.setMessage(message);
+
+            sendNotification(CatalogAdminActivity.NOTIFY,CatalogAdminActivity.TYPE);
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
             String currentDateandTime = sdf.format(new Date());
-            titlePojo.setDate(currentDateandTime);
 
-            Database database = new Database(this);
-            database.addContact(titlePojo);
+
+
 
         }
     }
 
-    private void sendNotification(String body,String tiltes,String url) {
+    private void sendNotification(Catalog catalog,String title) {
 
         InputStream stream = null;
         Intent intent = new Intent(this,MainActivity.class);
@@ -67,8 +68,8 @@ private String title,message,img_url;
         Uri noti = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent pendingIntent =PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
         final NotificationCompat.Builder notificationBuilder =new NotificationCompat.Builder(this);
-        notificationBuilder.setContentTitle(tiltes);
-        notificationBuilder.setContentText(body);
+        notificationBuilder.setContentTitle(title);
+        notificationBuilder.setContentText(catalog.assetTitle+" Just add"+catalog.getDescription());
         notificationBuilder.setSound(noti);
 
        
@@ -78,27 +79,27 @@ private String title,message,img_url;
 
         notificationBuilder.addAction(R.drawable.ic_remove_red_eye_black_24dp,"View",pendingIntent);
         notificationBuilder.addAction(R.drawable.ic_visibility_off_black_24dp,"Ignore",pendingIntent);
-        notificationBuilder.setSmallIcon(R.drawable.ic_notifications_active_black_24dp);
-//        ImageRequest imageRequest = new ImageRequest(image, new Response.Listener<Bitmap>() {
-//            @Override
-//            public void onResponse(Bitmap response) {
-//                notificationBuilder.setStyle( new  NotificationCompat.BigPictureStyle().bigPicture(response));
-//
-//            }
-//        }, 0, 0, null, Bitmap.Config.RGB_565, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-       // MySingleton.getmInstance(this).addToRequestQue(imageRequest);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        editor.commit();
+
+        Bitmap bitmap = getBitmapFromURL(catalog.catalogimageurl);
+        notificationBuilder.setLargeIcon(bitmap);
         NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,notificationBuilder.build()) ;
 
 
+    }
+    public Bitmap getBitmapFromURL(String strURL) {
+        try {
+            URL url = new URL(strURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

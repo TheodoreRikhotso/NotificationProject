@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:id="@+id/ivIconNoti"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/car" />
+
+        <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:text="TextView" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="0dp"
+            android:gravity="end"
+            android:text="TextView" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:text="TextView" />
 </LinearLayout>

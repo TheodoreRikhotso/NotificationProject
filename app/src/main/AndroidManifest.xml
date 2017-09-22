@@ -9,27 +9,59 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LandingScreen"
+            android:label="BOOK IT" />
+        AdminNotification
+
+        <!-- <service android:name=".MyFirebaseIntanceIdService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <service android:name=".MyFirebaseMassagingService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+
+        <activity android:name=".MainActivity" />
+        CatalogAdminActivity
         <activity android:name=".AdminNotification" />
-
-        <service android:name=".MyFirebaseIntanceIdService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".MyFirebaseMassagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <activity android:name=".NotificationActivity"></activity>
+        NotificationActivity
+        <activity android:name=".CatalogAdminActivity" />
+        CatalogActivity
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".CatalogActivity" />
+        <activity
+            android:name=".DescriptionActivity"
+            android:label="@string/title_activity_description"
+            android:theme="@style/AppTheme.NoActionBar" />
+        DescriptionActivity
+        <activity android:name=".ConfirmRequestActivty" />
+        ConfirmRequestActivty
+        <activity android:name=".NotificationActivityList" />
+        NotificationActivityList
+        <activity android:name=".DashBoardActivity" />
+        <activity android:name=".ForgotPasswordAcitivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".PhoneActiviy" />
+        <activity android:name=".CarActivity" />
+        <activity android:name=".LaptopActivity" />
+        <activity android:name=".FurnitureActivity" />
+        <activity android:name=".QAndA" />
+        <activity android:name=".ViewActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
