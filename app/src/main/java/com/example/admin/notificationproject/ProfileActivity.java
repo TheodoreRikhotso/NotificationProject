@@ -125,15 +125,16 @@ public class ProfileActivity extends AppCompatActivity {
                     tvStuffNo.setText(mainStuffNo);
 
                     Toast.makeText(ProfileActivity.this, person.getImage()+"", Toast.LENGTH_SHORT).show();
-                    Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            image.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+
+//                    Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            image.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
 
 
 
@@ -207,7 +208,7 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-                if (filePath != null) {
+
                     pd.show();
 
                     StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());;
@@ -230,9 +231,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
                         }
                     });
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
             tvOk.setOnClickListener(new View.OnClickListener() {
@@ -244,7 +243,7 @@ public class ProfileActivity extends AppCompatActivity {
                     stuffNo = editStuffNo.getText().toString();
                     ProfilePojo profilePojo = new ProfilePojo();
                     profilePojo.setDepartmentName(department);
-                    Toast.makeText(ProfileActivity.this, ""+profileUri, Toast.LENGTH_SHORT).show();
+
                     profilePojo.setImage(profileUri);
                     profilePojo.setName(name);
                     profilePojo.setStuffNo(stuffNo);
