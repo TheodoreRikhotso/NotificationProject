@@ -1,9 +1,15 @@
 package com.example.admin.notificationproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +30,18 @@ public class FurnitureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_furniture);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarFurniture) ;
+        toolbar.setTitle("Furnitures");
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         DatabaseReference databaseCatalogg = FirebaseDatabase.getInstance().getReference("Furniture");
         ListViewFurniture = (RecyclerView) findViewById(R.id.lvFurniture);
@@ -56,5 +74,28 @@ public class FurnitureActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.notification, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_about:
+                Intent intent = new Intent(this,AboutImageActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_help:
+
+                return true;
+            case R.id.menu_logout:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

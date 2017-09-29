@@ -4,14 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3aa7a6a6"
     tools:context="com.example.admin.notificationproject.PhoneActiviy">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="150dp"
         android:layout_width="373dp"
         android:layout_height="180dp"
         android:id="@+id/lvPhones"
-        android:layout_below="@+id/textViewPhones"
-        android:layout_alignParentLeft="true"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/btnsearch"
+        android:background="@android:color/transparent"
+        android:id="@+id/imageButton2"
+        android:layout_below="@+id/toolbarPhone"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:text=" Mlab Sa prides itself in using a vast number of phones as testing devices and communication channels."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textView"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/imageButton2"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text=" In our catalogue below we have the following cell phone brands: Samsung, iPhone, Hawai, Alkatel, Nokia..."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:text=" In section 2017/09/22 of all our employee contracts we have included terms and conditions as to which items an employee is able to book from the company as per their contractual agreement.  "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/lvPhones"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:text=" For continence we have included faq’s please refer to them for more of our asset booking terms. "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
 </RelativeLayout>

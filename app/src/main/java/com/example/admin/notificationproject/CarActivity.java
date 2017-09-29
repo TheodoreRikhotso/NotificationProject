@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,20 @@ private List<Catalog> catalogListCars;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car);
+
+        //toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarCar) ;
+        toolbar.setTitle("Cars");
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         DatabaseReference databaseCatalo = FirebaseDatabase.getInstance().getReference("Cars");
         ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);

@@ -6,15 +6,21 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,11 +32,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth auth;
     Snackbar snackbar;
 
+    //profile
+    private DatabaseReference databaseProfile;
+    private  String[] departs ={"Department name","Finance","IT", "HR","Administrative Information Service"};
+    TextView etStuffNo;
+    Spinner spDepart;
+    public static String department,stuffno,CONTEXT;
+
+    int idTotal =0;
+    Firebase ref;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+CONTEXT ="SignUpActivity";
 
+        DatabaseReference databaseCatalogg = FirebaseDatabase.getInstance().getReference("Furniture");
         //View
         btnSignup = (Button) findViewById(R.id.signup_btn_register);
         input_email = (EditText) findViewById(R.id.signup_email);
@@ -39,9 +58,34 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btnForgotPass = (TextView) findViewById(R.id.signup_btn_forgot_pass);
         activity_sign_up = (RelativeLayout) findViewById(R.id.activity_sign_up);
 
+        //profile
+        etStuffNo = (EditText) findViewById(R.id.etStuffNo);
+        spDepart = (Spinner) findViewById(R.id.spDepart);
+
+        stuffno=etStuffNo.getText().toString();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,departs);
+        spDepart.setAdapter(adapter);
+        spDepart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                department=departs[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        databaseProfile = FirebaseDatabase.getInstance().getReference("Profile");
+
+
+        ///end profile
+
         btnSignup.setOnClickListener(this);
         btnForgotPass.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+
 
         //Init Firebase Auth
         auth = FirebaseAuth.getInstance();
@@ -60,31 +104,59 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         else if (view.getId() == R.id.signup_btn_register){
             signUpUser(input_email.getText().toString(),input_pass.getText().toString());
 
+
         }
 
 
     }
 
-    private void signUpUser(String email, String password) {
+    private void signUpUser(final String email, final String password) {
 
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+                            String id  = auth.getCurrentUser().getUid();
+
+
                             snackbar = Snackbar.make(activity_sign_up, "Error: "+task.getException(),Snackbar.LENGTH_SHORT);
                             snackbar.show();
+
+                                    Firebase.setAndroidContext(SignUpActivity.this);
+
+                                    ProfilePojo profilePojo= new ProfilePojo();
+
+                                    profilePojo.setDepartmentName(department);
+                                    profilePojo.setStuffNo(stuffno);
+                                    profilePojo.setLogId(auth.getCurrentUser().getUid());
+                                    Intent intent  = new Intent(SignUpActivity.this,LandingScreen.class);
+                                    intent.putExtra("user",profilePojo);
+
+                                    startActivity(intent);
+
+
+
+
+
 
                         }
                         else {
                             snackbar = Snackbar.make(activity_sign_up, "Register success : ",Snackbar.LENGTH_SHORT);
                             snackbar.show();
 
+
+
+
                         }
 
                     }
                 });
+
     }
+
+
+
 
 }
 

@@ -24,6 +24,10 @@ public class QAndA extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qand);
+
+
+
+
         // ename = (TextView) findViewById(R.id.etname);
         eemail = (TextView) findViewById(R.id.eemail);
         eaddress = (TextView) findViewById(R.id.eaddress);

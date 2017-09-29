@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.notificationproject">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -34,8 +36,7 @@
         <!-- </intent-filter> -->
         <!-- </service> -->
 
-        <activity android:name=".MainActivity" />
-        CatalogAdminActivity
+
         <activity android:name=".AdminNotification" />
         NotificationActivity
         <activity android:name=".CatalogAdminActivity" />
@@ -55,13 +56,17 @@
         <activity android:name=".ForgotPasswordAcitivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".PhoneActiviy" />
-        <activity android:name=".CarActivity" />
-        <activity android:name=".LaptopActivity" />
-        <activity android:name=".FurnitureActivity" />
+        <activity android:name=".PhoneActiviy"  />
+        <activity android:name=".CarActivity" android:label="Cars"/>
+        <activity android:name=".LaptopActivity" android:label="Laptops" />
+        <activity android:name=".FurnitureActivity"  android:label="Furniture"/>
         <activity android:name=".QAndA" />
         <activity android:name=".ViewActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" android:label="Profile"/>
+        <activity android:name=".AboutStuffActivity" />
+        <activity android:name=".PeopleActivity" />
+        <activity android:name=".AboutsActivity" />
+        <activity android:name=".AboutImageActivity"></activity>
     </application>
 
 </manifest>

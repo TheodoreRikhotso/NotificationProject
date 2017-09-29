@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.notificationproject.AboutsActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button2"
+                android:textColor="#F9A148"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btnBrowse_Click"
+                android:text="Browse image to upload" />
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:id="@+id/imageView"/>
+            <EditText
+                android:background="#F9A148"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtImageName"
+                android:hint="Image name"/>
+            <EditText
+                android:background="#F9A148"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtdescription"
+                android:focusableInTouchMode="false"
+                android:focusable="true"
+                android:selectAllOnFocus="true"
+                android:hint="deacription"/>
+            <EditText
+                android:background="#F9A148"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptions"
+                android:focusableInTouchMode="false"
+                android:focusable="true"
+                android:selectAllOnFocus="true"
+                android:hint="at"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#F9A148"
+                android:text="Upload image"
+                android:onClick="btnUpload_Click"/>
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show list image"
+                android:textColor="#F9A148"
+                android:onClick="btnShowListImage_Click"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

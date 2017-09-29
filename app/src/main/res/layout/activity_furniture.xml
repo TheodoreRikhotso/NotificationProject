@@ -4,17 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3aa7a6a6"
     tools:context="com.example.admin.notificationproject.FurnitureActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarFurniture"
+        android:title="Furniture"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:id="@+id/lvFurniture"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/btnsearch"
+        android:background="@android:color/transparent"
+        android:id="@+id/imageButton2"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/toolbarFurniture"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Mlab Sa prides itself in making sure that our employees have all the stationary/furniture required to increase productivity."
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/imageButton2"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="13dp"
+        android:text="In our catalogue below we have the following furniture that our employees can book to use: Projectors, LED Flat Screens, Boardrooms, Printers…"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:text=" In section 2017/09/22 of all our employee contracts we have included terms and conditions as to which items an employee is able to book from the company as per their contractual agreement.  "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/lvFurniture"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:text="For continence we have included faq’s please refer to them for more of our asset booking terms. "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp" />
 
 </RelativeLayout>
+
+
+

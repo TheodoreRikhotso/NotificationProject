@@ -15,6 +15,34 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_below="@+id/icon"
+        android:id="@+id/tiStuffNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/etStuffNo"
+            android:hint="Stuff  number"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Spinner
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/tiStuffNo"
+        android:id="@+id/spDepart"
+        android:hint="Stuff  number"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/icon"
         android:id="@+id/signup_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
