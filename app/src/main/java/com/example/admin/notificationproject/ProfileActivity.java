@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,8 +34,7 @@ import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.admin.notificationproject.R.drawable.circle;
-import static com.example.admin.notificationproject.R.id.imageView;
+import static com.example.admin.notificationproject.R.id.ivImage;
 import static com.example.admin.notificationproject.SignUpActivity.department;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -267,10 +263,19 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            uri = data.getData();
-            ivPhoto.setImageURI(uri);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
 
+
+            try {
+                //getting image from gallery
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                //Setting image to ImageView
+                ivPhoto.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
