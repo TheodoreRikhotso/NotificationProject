@@ -204,7 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-
+                if (filePath != null) {
                     pd.show();
 
                     StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());;
@@ -227,6 +227,9 @@ public class ProfileActivity extends AppCompatActivity {
                             Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
                         }
                     });
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
