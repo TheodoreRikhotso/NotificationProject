@@ -1,15 +1,12 @@
 package com.example.admin.notificationproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +21,9 @@ public class FurnitureActivity extends AppCompatActivity {
     private RecyclerView ListViewFurniture;
     private List<Catalog> catalogListFurniture;
     LinearLayoutManager layoutManager;
+    //search
+    private SearchView mSearchView;
+    private CatalogAdapter adapters;
 
 
     @Override
@@ -48,6 +48,8 @@ public class FurnitureActivity extends AppCompatActivity {
 
         catalogListFurniture = new ArrayList<>();
 
+        //search
+        mSearchView = (SearchView) findViewById(R.id.svFurniture);
 
         databaseCatalogg.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,12 +61,12 @@ public class FurnitureActivity extends AppCompatActivity {
 
                     catalogListFurniture.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    CatalogAdapter adapterr = new CatalogAdapter(FurnitureActivity.this, catalogListFurniture);
+                     adapters = new CatalogAdapter(FurnitureActivity.this, catalogListFurniture);
 
 //                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewFurniture.setLayoutManager(layoutManager);
-
-                    ListViewFurniture.setAdapter(adapterr);
+                    search(mSearchView);
+                    ListViewFurniture.setAdapter(adapters);
                 }
 
             }
@@ -75,27 +77,24 @@ public class FurnitureActivity extends AppCompatActivity {
             }
         });
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.notification, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.menu_about:
-                Intent intent = new Intent(this,AboutImageActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_help:
 
-                return true;
-            case R.id.menu_logout:
+    private void search(SearchView searchView) {
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapters.getFilter().filter(newText);
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            }
+        });
     }
+
+
 }

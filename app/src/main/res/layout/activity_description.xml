@@ -20,6 +20,8 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+
         >
 
         <ScrollView
@@ -36,18 +38,20 @@
 
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="#d1090909"  >
+    android:layout_height="230dp"
+    android:background="#d1090909"
+     >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="169dp"
+        android:layout_height="230dp"
         android:layout_marginTop="5dp"
         android:background="#d1090909" />
 </android.support.v7.widget.CardView>
                 <TextView
                     android:text="Color"
+                    android:textColor="#ec669900"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/imageView"
@@ -55,9 +59,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="14dp"
                     android:id="@+id/AssetTitle"
-                    android:textSize="20sp"
-                    android:textStyle="normal|bold"
-                    android:textColor="@android:color/white"  />
+                    android:textStyle="normal|bold" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:gravity="center"
@@ -118,12 +120,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView6"
                     android:textStyle="normal|bold"
-                    android:textSize="20sp"
                     android:layout_marginTop="15dp"
                     android:layout_below="@+id/tvAssetDescription"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:textColor="@android:color/white" />
+                    android:textColor="#ec669900"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -134,15 +135,13 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/darker_gray" />
                 <TextView
                     android:text="Size and Wieght"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
+                    android:textColor="#ec669900"
                     android:textStyle="normal|bold"
-                    android:textSize="20sp"
                     android:layout_marginTop="15dp"
                     android:layout_below="@+id/tvAssetDescription"
                     android:layout_alignParentLeft="true"
@@ -152,19 +151,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginBottom="5dp"
-
                     android:layout_below="@+id/tvSize"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:id="@+id/tvSize"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/darker_gray" />
                 <TextView
                     android:text="Display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
+                    android:textColor="#ec669900"
                     android:textStyle="normal|bold"
-                    android:textSize="20sp"
                     android:layout_marginTop="15dp"
                     />
                 <TextView
@@ -172,41 +169,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginBottom="5dp"
-android:textSize="18sp"
                     android:layout_below="@+id/tvSize"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:id="@+id/tvDisplay"
-                    android:textColor="@android:color/white"/>
-                <TextView
-                    android:text="Camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textStyle="normal|bold"
-                    android:textSize="20sp"
-                    android:layout_marginTop="15dp"
-                    android:layout_below="@+id/tvAssetDescription"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-                <TextView
+                    android:textColor="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvAssetDescription"
+            android:layout_marginTop="15dp"
+            android:text="Camera"
+            android:textColor="#ec669900"
+            android:textStyle="normal|bold" />
+
+        <TextView
                     android:text="*"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginBottom="5dp"
-android:textSize="18sp"
                     android:layout_below="@+id/tvSize"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:id="@+id/tvCamera"
-                    android:textColor="@android:color/white" />
+            android:textColor="@android:color/darker_gray" />
 
         <Button
             android:id="@+id/btnRequest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@android:color/holo_green_light"
+            android:background="#ec669900"
             android:text="Request" />
     </LinearLayout>
 <com.baoyachi.stepview.VerticalStepView

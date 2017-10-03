@@ -1,9 +1,7 @@
 package com.example.admin.notificationproject;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,9 +14,17 @@ import android.widget.TextView;
 
 import com.baoyachi.stepview.VerticalStepView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class DescriptionActivity extends AppCompatActivity {
 
@@ -27,6 +33,10 @@ public class DescriptionActivity extends AppCompatActivity {
     TextView tvDisplay, tvSize, tvCapacity, tvCamera,Color1, Color2, Color3,Color4, Color5 ;
     Button btnRequest;
     Button btn_red,btn_blue,btn_gray,btn_white,btn_black,btnEnter;
+    private String image,name,id;
+    private DatabaseReference databaseUserItem;
+    private StorageReference mStorageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +71,35 @@ public class DescriptionActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView);
         btnRequest = (Button)findViewById(R.id.btnRequest);
 
+        //usser item requested
 
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        id = user.getUid();
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UserItemPojo userItemPojo = new UserItemPojo();
+                userItemPojo.setName(name);
+                userItemPojo.setImageUri(image);
+                userItemPojo.setRefId(id);
+                Date currentTime = Calendar.getInstance().getTime();
+                DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+                Date currentLocalTime = cal.getTime();
+                DateFormat date = new SimpleDateFormat("HH:mm a");
+// you can get seconds by adding  "...:ss" to it
+                date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
 
+                String localTime = date.format(currentLocalTime);
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//                LocalDateTime now = LocalDateTime.now();
+                userItemPojo.setItemDate(dateFormat.format(currentTime)+"  "+localTime);
+
+                String userId = databaseUserItem.push().getKey();
+
+                databaseUserItem.child(userId).setValue(userItemPojo);
                 Intent intent = new Intent(getApplicationContext(), ConfirmRequestActivty.class);
                 startActivity(intent);
             }
@@ -200,26 +234,29 @@ public class DescriptionActivity extends AppCompatActivity {
         tvSize.setText(c.getSizeAndWieght());
         tvCamera.setText(c.getCamera());
 
-        List<String> source = new ArrayList<>();
-        source.add(c.getDiplay());
+        name=c.getDiplay();
 
-        source.add(c.getDiplay());
-        source.add(c.getCapacity());
-        source.add(c.getCamera());
-        source.add(c.getSizeAndWieght());
 
-        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
-                .reverseDraw(false)
-                .setStepViewTexts(source)
-                .setLinePaddingProportion(0.85f)
-                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-                .setStepViewUnComplectedTextColor(Color.parseColor("#ffff00"))
-                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this,R.drawable.unchecked))
-                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this,R.drawable.check))
-                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this,R.drawable.unchecked))
-                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"));
+//        List<String> source = new ArrayList<>();
+//        source.add(c.getDiplay());
+//
+//        source.add(c.getDiplay());
+//        source.add(c.getCapacity());
+//        source.add(c.getCamera());
+//        source.add(c.getSizeAndWieght());
+//
+//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+//                .reverseDraw(false)
+//                .setStepViewTexts(source)
+//                .setLinePaddingProportion(0.85f)
+//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+//                .setStepViewUnComplectedTextColor(Color.parseColor("#ffff00"))
+//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this,R.drawable.unchecked))
+//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this,R.drawable.check))
+//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this,R.drawable.unchecked))
+//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"));
 
 //        Color1.setText(c.getColor1());
 //        Color2.setText(c.getColor2());
@@ -229,7 +266,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
 
 
-
+        image =c.catalogimageurl;
         Glide.with(getApplicationContext())
                 .load(c.catalogimageurl)
                 .into(imageView);

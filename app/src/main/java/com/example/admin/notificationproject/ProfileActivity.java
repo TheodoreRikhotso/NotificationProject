@@ -8,7 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,9 +38,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.admin.notificationproject.R.id.ivImage;
+import static com.example.admin.notificationproject.R.drawable.person;
+import static com.example.admin.notificationproject.R.id.ListViewPhones;
 import static com.example.admin.notificationproject.SignUpActivity.department;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -54,6 +64,11 @@ public class ProfileActivity extends AppCompatActivity {
     private String mainName,mainStuffNo,mainDepart,mainImage;
     ///
     private DatabaseReference databaseProfile;
+
+    //user Items
+    List<UserItemPojo> userItemPojos;
+    RecyclerView rvUserItems;
+    LinearLayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +85,40 @@ public class ProfileActivity extends AppCompatActivity {
         ivEdit = (ImageView)findViewById(R.id.ivEdit);
 
 
+        //user item
+        DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("UserItems");
+        rvUserItems = (RecyclerView) findViewById(R.id.rvUserItems);
+        userItemPojos = new ArrayList<>();
+       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+       final  String ids =user.getUid();
+
+        databaseItems.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userItemPojos.clear();
+                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                    UserItemPojo item = itemSnapshot.getValue(UserItemPojo.class);
+
+
+
+                        userItemPojos.add(item);
+                        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                        UserItemAdapter adapterss = new UserItemAdapter(ProfileActivity.this, userItemPojos);
+
+//                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
+                        rvUserItems.setLayoutManager(layoutManager);
+
+                        rvUserItems.setAdapter(adapterss);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
@@ -81,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
            nameS.setVisibility(View.VISIBLE);
-           FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+           FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
            ProfilePojo profile = new ProfilePojo();
            profile.setDepartmentName(department);
            mainDepart = department;
@@ -89,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity {
 
            profile.setStuffNo(SignUpActivity.stuffno);
            profile.setName("Theo");
-           profile.setId(user.getUid());
+           profile.setId(users.getUid());
            Toast.makeText(this, department+" "+SignUpActivity.stuffno, Toast.LENGTH_SHORT).show();
 
            databaseProfile.child(user.getUid()).setValue(profile);
@@ -117,20 +166,21 @@ public class ProfileActivity extends AppCompatActivity {
 
                     nameS.setText(mainName);
                     nameS.setVisibility(View.VISIBLE);
-                    tvDepartment.setText(department);
+                    tvDepartment.setText(mainDepart);
+                    tvDepartment.setVisibility(View.VISIBLE);
                     tvStuffNo.setText(mainStuffNo);
 
-                    Toast.makeText(ProfileActivity.this, person.getImage()+"", Toast.LENGTH_SHORT).show();
 
-//                    Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
-//                        @Override
-//                        protected void setResource(Bitmap resource) {
-//                            RoundedBitmapDrawable circularBitmapDrawable =
-//                                    RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
-//                            circularBitmapDrawable.setCircular(true);
-//                            image.setImageDrawable(circularBitmapDrawable);
-//                        }
-//                    });
+                    Toast.makeText(ProfileActivity.this, person.getImage()+"", Toast.LENGTH_SHORT).show();
+                    Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            image.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
 
 
 
@@ -177,91 +227,6 @@ public class ProfileActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void buildDialog(int animationSource) {
-        builder = new Dialog(this);
-
-        builder.setTitle("Edit Profile");
-        builder.setContentView(R.layout.edit_profile_dialog);
-        //builder.setNegativeButton("OK", null);
-
-        ivPhoto =builder.findViewById(R.id.editMainPhoto);
-        editDepartment =builder.findViewById(R.id.editDepartment);
-        editStuffNo = builder.findViewById(R.id.editStuffNo);
-        editName = builder.findViewById(R.id.editName);
-        tvOk = builder.findViewById(R.id.tvOk);
-        editDepartment.setText(mainDepart);
-        editName.setText(mainName);
-        editStuffNo.setText(mainStuffNo);
-
-
-
-
-
-        ivPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-                if (filePath != null) {
-                    pd.show();
-
-                    StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());;
-
-                    //uploading the image
-                    UploadTask uploadTask = childRef.putFile(filePath);
-
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            pd.dismiss();
-                            Uri uir = taskSnapshot.getDownloadUrl();
-                            profileUri = uir.toString();
-                            Toast.makeText(ProfileActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            pd.dismiss();
-                            Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-            tvOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String department,name,stuffNo;
-                    name  =editName.getText().toString();
-                    department =editDepartment.getText().toString();
-                    stuffNo = editStuffNo.getText().toString();
-                    ProfilePojo profilePojo = new ProfilePojo();
-                    profilePojo.setDepartmentName(department);
-
-                    profilePojo.setImage(profileUri);
-                    profilePojo.setName(name);
-                    profilePojo.setStuffNo(stuffNo);
-
-                    FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                    databaseProfile.child(users.getUid()).setValue(profilePojo);
-                    builder.dismiss();
-                    setContentView(R.layout.activity_profile);
-
-                }
-            });
-
-
-
-
-        builder.getWindow().getAttributes().windowAnimations = animationSource;
-        builder.show();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -281,4 +246,101 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
+    private void buildDialog(int animationSource) {
+        final ProfilePojo profilePojo = new ProfilePojo();
+        builder = new Dialog(this);
+
+        builder.setTitle("Edit Profile");
+        builder.setContentView(R.layout.edit_profile_dialog);
+        //builder.setNegativeButton("OK", null);
+
+        ivPhoto =builder.findViewById(R.id.editMainPhoto);
+        editDepartment =builder.findViewById(R.id.editDepartment);
+        editStuffNo = builder.findViewById(R.id.editStuffNo);
+        editName = builder.findViewById(R.id.editName);
+        tvOk = builder.findViewById(R.id.tvOk);
+        editDepartment.setText(mainDepart);
+        editName.setText(mainName);
+        editStuffNo.setText(mainStuffNo);
+
+
+
+        Glide.with(ProfileActivity.this).load(mainImage).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivPhoto) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                ivPhoto.setImageDrawable(circularBitmapDrawable);
+            }
+        });
+
+        ivPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+
+            }
+        });
+            tvOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                        pd.show();
+                    final String department,name,stuffNo;
+                    name  =editName.getText().toString();
+                    department =editDepartment.getText().toString();
+                    stuffNo = editStuffNo.getText().toString();
+
+                        StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());;
+
+                        //uploading the image
+                        UploadTask uploadTask = childRef.putFile(filePath);
+
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                pd.dismiss();
+                                 Uri uir = taskSnapshot.getDownloadUrl();
+                                profileUri = uir.toString();
+
+                                profilePojo.setImage(uir.toString());
+                               profilePojo.setDepartmentName(department);
+                                profilePojo.setName(name);
+                                profilePojo.setStuffNo(stuffNo);
+                                Toast.makeText(ProfileActivity.this, "Check " +profilePojo.getImage(), Toast.LENGTH_SHORT).show();
+                                FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                                databaseProfile.child(users.getUid()).setValue(profilePojo);
+
+                                Toast.makeText(ProfileActivity.this, "Upload successful " +profilePojo.getImage() , Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                pd.dismiss();
+                                Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
+
+                    builder.dismiss();
+
+
+                }
+            });
+
+
+
+
+        builder.getWindow().getAttributes().windowAnimations = animationSource;
+        builder.show();
+    }
+
+
 }

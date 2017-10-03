@@ -6,27 +6,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Admin on 9/7/2017.
  */
 
-public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHolder> {
+public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHolder>   implements Filterable{
 
 
         private Activity context;
-        private List<Catalog> catalogList;
+        private List<Catalog> catalogList,catalogss;
         private Activity applicationContext;
+        private   Catalog catalog;
 
         public CatalogAdapter(Activity context, List<Catalog> catalogList) {
                 this.context = context;
                 this.catalogList = catalogList;
+
+                this.catalogss=catalogList;
         }
 
 
@@ -79,5 +85,46 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
                         item1 = itemView.findViewById(R.id.item1);
                         imageButton1 = itemView.findViewById(R.id.imageButton1);
                 }
+
+        }
+        @Override
+        public Filter getFilter() {
+
+
+                return new Filter() {
+                        @Override
+                        protected FilterResults performFiltering(CharSequence charSequence) {
+
+                                String charString = charSequence.toString();
+
+                                if (charString.isEmpty()) {
+
+                                        catalogList = catalogss;
+                                } else {
+
+                                        ArrayList<Catalog> filteredList = new ArrayList<>();
+
+                                        for (Catalog androidVersion : catalogss) {
+
+                                                if (androidVersion.getAssetTitle().toLowerCase().contains(charString) ) {
+
+                                                        filteredList.add(androidVersion);
+                                                }
+                                        }
+
+                                        catalogList = filteredList;
+                                }
+
+                                FilterResults filterResults = new FilterResults();
+                                filterResults.values = catalogList;
+                                return filterResults;
+                        }
+
+                        @Override
+                        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                                catalogList = (ArrayList<Catalog>) filterResults.values;
+                                notifyDataSetChanged();
+                        }
+                };
         }
 }

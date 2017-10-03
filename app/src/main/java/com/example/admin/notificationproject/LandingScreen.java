@@ -3,6 +3,7 @@ package com.example.admin.notificationproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,12 @@ public class LandingScreen extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_landing_screen);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tbLanding) ;
+        toolbar.setTitle("BOOK IT");
+
+        setSupportActionBar(toolbar);
+
         imCar =(ImageButton)findViewById(R.id.imCar);
         ibPhone =(ImageButton)findViewById(R.id.ibPhone);
         ibLaptop =(ImageButton)findViewById(R.id.ibLaptop);

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +21,9 @@ public class PhoneActiviy extends AppCompatActivity {
     RecyclerView ListViewPhones;
     LinearLayoutManager layoutManager;
     List<Catalog> catalogListPhones;
+    //search
+    private SearchView mSearchView;
+    private CatalogAdapter adapters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,9 @@ public class PhoneActiviy extends AppCompatActivity {
 
         catalogListPhones = new ArrayList<>();
 
+        //search
+        mSearchView = (SearchView) findViewById(R.id.svPhones);
+
         databaseCataloo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -55,12 +62,12 @@ public class PhoneActiviy extends AppCompatActivity {
 
                     catalogListPhones.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    CatalogAdapter adapterss = new CatalogAdapter(PhoneActiviy.this, catalogListPhones);
+                     adapters = new CatalogAdapter(PhoneActiviy.this, catalogListPhones);
 
 //                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewPhones.setLayoutManager(layoutManager);
-
-                    ListViewPhones.setAdapter(adapterss);
+                    search(mSearchView);
+                    ListViewPhones.setAdapter(adapters);
                 }
 
             }
@@ -68,6 +75,24 @@ public class PhoneActiviy extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void search(SearchView searchView) {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapters.getFilter().filter(newText);
+                return true;
             }
         });
     }

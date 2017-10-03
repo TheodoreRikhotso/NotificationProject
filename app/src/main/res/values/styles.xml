@@ -13,14 +13,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="spinnerItemStyle" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
 
-    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+    <style name="spinnerDropDownItemStyle" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
     <style name="DialogAnimation_Profile">

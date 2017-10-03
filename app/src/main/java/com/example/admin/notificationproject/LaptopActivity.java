@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +23,11 @@ public class LaptopActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private RecyclerView ListViewCatalog;
       private DatabaseReference databaseLaptops;
+
+    //search
+    private SearchView mSearchView;
+    private CatalogAdapter adapters;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,8 @@ public class LaptopActivity extends AppCompatActivity {
         /**
          * LAPTOPS LISTVIEW
          */
+        mSearchView = (SearchView) findViewById(R.id.svLaptop);
+
         databaseLaptops = FirebaseDatabase.getInstance().getReference("Laptops");
         databaseLaptops.addValueEventListener(new ValueEventListener() {
             @Override
@@ -54,11 +62,11 @@ public class LaptopActivity extends AppCompatActivity {
                     Catalog catalog = catalogSnapshot.getValue(Catalog.class);
                     catalogList.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    CatalogAdapter adaptery = new CatalogAdapter(LaptopActivity.this, catalogList);
+                     adapters = new CatalogAdapter(LaptopActivity.this, catalogList);
 //                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewCatalog.setLayoutManager(layoutManager);
-
-                    ListViewCatalog.setAdapter(adaptery);
+                    search(mSearchView);
+                    ListViewCatalog.setAdapter(adapters);
                 }
 
             }
@@ -70,4 +78,21 @@ public class LaptopActivity extends AppCompatActivity {
         });
     }
 
+    private void search(SearchView searchView) {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapters.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
 }

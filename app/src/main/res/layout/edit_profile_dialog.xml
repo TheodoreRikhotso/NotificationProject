@@ -88,92 +88,11 @@
         android:background="@drawable/circle"
         android:src="@drawable/person"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:layout_marginTop="230dp"
-        >
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/diagonalLayout"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Followers"
-                android:textColor="#3E3E3E"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3.5K"
-                android:textStyle="bold"
-                android:textColor="#3E3E3E"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/diagonalLayout"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Following"
-                android:textColor="#3E3E3E"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.9K"
-                android:textStyle="bold"
-                android:textColor="#3E3E3E"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"/>
 
 
-        </LinearLayout>
 
 
-</LinearLayout>
-    <TextView
-        android:id="@+id/In"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:textColor="#717171"
-        android:text="ii"/>
+  
     <TextView
         android:id="@+id/tvOk"
         android:layout_alignBottom="@+id/In"

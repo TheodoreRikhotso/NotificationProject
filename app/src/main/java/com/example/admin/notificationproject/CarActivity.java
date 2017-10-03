@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarActivity extends AppCompatActivity {
-private List<Catalog> catalogListCars;
+
+    private List<Catalog> catalogListCars;
     private RecyclerView ListViewCar;
-    LinearLayoutManager layoutManager;;
+    LinearLayoutManager layoutManager;
+    private CatalogAdapter adapters;
+    //search
+    private SearchView mSearchView;
 
     //FIREBASE CONNECTION
     private DatabaseReference databaseLaptops;
@@ -55,6 +60,8 @@ private List<Catalog> catalogListCars;
         Toast.makeText(CarActivity.this, "Car",Toast.LENGTH_LONG).show();
 
         catalogListCars = new ArrayList<>();
+        //search
+        mSearchView = (SearchView) findViewById(R.id.imageButton2);
 
         databaseCatalo.addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,13 +74,15 @@ private List<Catalog> catalogListCars;
                     ListViewCar = (RecyclerView) findViewById(R.id.lvCar);
                     catalogListCars.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    CatalogAdapter adapters = new CatalogAdapter(CarActivity.this, catalogListCars);
+                    adapters = new CatalogAdapter(CarActivity.this, catalogListCars);
 
+                    ListViewCar.setHasFixedSize(true);
                     Log.d(TAG,catalog.getCatalogtitle()+"");
-
+                    search(mSearchView);
                     ListViewCar.setLayoutManager(layoutManager);
 
                     ListViewCar.setAdapter(adapters);
+
                 }
 
             }
@@ -83,5 +92,26 @@ private List<Catalog> catalogListCars;
                 Toast.makeText(CarActivity.this, databaseError.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+
     }
+
+
+    private void search(SearchView searchView) {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapters.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
 }
