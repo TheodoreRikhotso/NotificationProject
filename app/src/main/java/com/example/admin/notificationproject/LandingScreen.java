@@ -1,20 +1,34 @@
 package com.example.admin.notificationproject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LandingScreen extends AppCompatActivity {
     private FirebaseAuth auth;
-    private ImageButton imCar,ibPhone,ibFurniture,ibLaptop,profile,notification_panel, ibFAQs,ibProfile;
-
+    private ImageButton imCar,ibPhone,ibFurniture,ibLaptop,notification_panel, ibFAQs,ibProfile;
+private CircleImageView profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,12 +54,48 @@ public class LandingScreen extends AppCompatActivity {
         ibPhone =(ImageButton)findViewById(R.id.ibPhone);
         ibLaptop =(ImageButton)findViewById(R.id.ibLaptop);
         ibFurniture =(ImageButton)findViewById(R.id.ibFurniture);
-        profile =(ImageButton)findViewById(R.id.profile);
+        profile =(CircleImageView)findViewById(R.id.profile);
         notification_panel =(ImageButton)findViewById(R.id.notification_panel);
 //        ibFAQs =(ImageButton)findViewById(R.id.ibFAQs);
 //        ibProfile =(ImageButton)findViewById(R.id.ibProfile);
         //logout
         auth = FirebaseAuth.getInstance();
+        FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
+
+        DatabaseReference buisnessAccRef = databaseUser.child(users.getUid());
+
+        buisnessAccRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot!= null) {
+                    ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
+                    if(person!= null) {
+
+
+
+                        Glide.with(LandingScreen.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(profile) {
+                            @Override
+                            protected void setResource(Bitmap resource) {
+                                RoundedBitmapDrawable circularBitmapDrawable =
+                                        RoundedBitmapDrawableFactory.create(LandingScreen.this.getResources(), resource);
+                                circularBitmapDrawable.setCircular(true);
+                                profile.setImageDrawable(circularBitmapDrawable);
+                            }
+                        });
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(LandingScreen.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         imCar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +127,7 @@ public class LandingScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

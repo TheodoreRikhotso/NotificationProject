@@ -192,7 +192,7 @@
             android:layout_marginStart="35dp"
             android:layout_toEndOf="@+id/textView10"
             android:layout_toRightOf="@+id/textView10"
-            android:text="Pick Up Date"
+            android:text="Date Requested"
             android:textColor="#ec669900"
             android:textStyle="normal|bold" />
 
