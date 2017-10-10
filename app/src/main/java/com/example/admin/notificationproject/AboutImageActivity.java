@@ -1,8 +1,9 @@
 package com.example.admin.notificationproject;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -22,18 +23,34 @@ public class AboutImageActivity extends AppCompatActivity {
     private GridView lv;
     TextView tvAbout;
     private ImageListAdapter adapter;
-    private ProgressDialog progressDialog;
+
+   // private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_image);
+
+        //        //toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarAbout) ;
+        toolbar.setTitle("About Mlab");
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         imgList = new ArrayList<>();
         tvAbout=(TextView) findViewById(R.id.tvAbout);
         //lv = (GridView) findViewById(R.id.listViewImage);
         //Show progress dialog during list image loading
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait loading list image...");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Please wait loading list image...");
+//        progressDialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("images");
 
@@ -70,7 +87,7 @@ public class AboutImageActivity extends AppCompatActivity {
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
                 //Fetch image data from firebase database
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -89,7 +106,7 @@ public class AboutImageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
             }
         });
 

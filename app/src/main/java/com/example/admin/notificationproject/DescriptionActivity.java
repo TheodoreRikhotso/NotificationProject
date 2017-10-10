@@ -2,10 +2,11 @@ package com.example.admin.notificationproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import io.netopen.hotbitmapgg.library.view.RingProgressBar;
+
 public class DescriptionActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
@@ -36,6 +39,30 @@ public class DescriptionActivity extends AppCompatActivity {
     private String image,name,id;
     private DatabaseReference databaseUserItem;
     private StorageReference mStorageReference;
+    private  FirebaseUser user;
+
+    RingProgressBar ringProgressBar1, ringProgressBar2;
+    TextView tvDay, Loading;
+    ImageView ivIcon;
+    Button btnOk;
+
+    int progress = 0;
+    Handler myHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what==0)
+            {
+                if(progress<100)
+                {
+                    progress++;
+                    // ringProgressBar1.setProgress(progress);
+                    ringProgressBar2.setProgress(progress);
+
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +101,12 @@ public class DescriptionActivity extends AppCompatActivity {
         //usser item requested
 
         databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         id = user.getUid();
+
+
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,8 +130,56 @@ public class DescriptionActivity extends AppCompatActivity {
                 String userId = databaseUserItem.push().getKey();
 
                 databaseUserItem.child(userId).setValue(userItemPojo);
-                Intent intent = new Intent(getApplicationContext(), ConfirmRequestActivty.class);
-                startActivity(intent);
+              ///DIALOG BOX INITIALIZATION
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(DescriptionActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
+
+                btnOk = mView.findViewById(R.id.btnOk);
+                tvDay = mView.findViewById(R.id.tvDay);
+                ivIcon = mView.findViewById(R.id.ivIcon);
+                ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
+                Loading = mView.findViewById(R.id.Loading);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intents = new Intent(DescriptionActivity.this,LandingScreen.class);
+                       startActivity(intents);
+                    }
+                });
+
+
+
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        for (int i = 0; i<100; i++){
+                            try{
+                                Thread.sleep(50);
+                                myHandler.sendEmptyMessage(0);
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        myHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvDay.setVisibility(View.VISIBLE);
+                                ivIcon.setVisibility(View.VISIBLE);
+                                Loading.setVisibility(View.GONE);
+
+                            }
+                        });
+                    }
+                }).start();
+
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                //DIALOG END
             }
         });
 
@@ -283,11 +361,11 @@ public class DescriptionActivity extends AppCompatActivity {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.notification, menu);
-        return true;
-    }
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.notification, menu);
+//        return true;
+//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

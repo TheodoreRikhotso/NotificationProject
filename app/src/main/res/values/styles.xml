@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/darker_gray</item>
-        <item name="colorPrimaryDark">#272121</item>
+        <item name="colorPrimary">#4CAF50 </item>
+        <item name="colorPrimaryDark">#1B5E20 </item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -16,13 +16,20 @@
     <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
-    <style name="spinnerItemStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="spinnerItemStyle" parent="Theme.AppCompat.Light.NoActionBar"/>
 
-    </style>
 
     <style name="spinnerDropDownItemStyle" parent="Theme.AppCompat.Light.NoActionBar">
 
+
     </style>
+        <style name="MyCustomToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+            <item name="android:textColorSecondary">#fff</item>
+            <item name="android:textColorPrimary">#000</item>
+
+    </style>
+
+
     <style name="DialogAnimation_Profile">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>

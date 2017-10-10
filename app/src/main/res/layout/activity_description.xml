@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d1090909"
+    android:background="@drawable/main_description_background"
     tools:context="com.example.admin.notificationproject.DescriptionActivity">
 
 
@@ -13,7 +13,7 @@
         android:id="@+id/tbDescrption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/main_background2"
         android:minHeight="?attr/actionBarSize"
         android:theme="@android:style/Widget.Toolbar.Button.Navigation" />
 
@@ -39,15 +39,16 @@
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="230dp"
-    android:background="#d1090909"
+    android:background="@drawable/main_description_background"
      >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_marginTop="5dp"
-        android:background="#d1090909" />
+        android:layout_height="234dp"
+
+        android:background="@drawable/main_description_background" />
+
 </android.support.v7.widget.CardView>
                 <TextView
                     android:text="Color"
@@ -203,8 +204,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="#ec669900"
-            android:text="Request" />
+            android:background="@drawable/btn_style"
+            android:text="Request"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 <com.baoyachi.stepview.VerticalStepView
     android:id="@+id/vStV"

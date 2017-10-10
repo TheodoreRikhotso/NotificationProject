@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@android:color/white">
+    <TextView
+        android:text="   Item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item3"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imageButton1"
+        android:textStyle="normal|bold" />
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:elevation="0dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/imageButton3"
+        app:srcCompat="@color/si_default_indicator_bg"/>
+    <LinearLayout
+        android:layout_width="190dp"
+        android:layout_height="130dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:src="@drawable/wheels01"
+                android:background="@android:color/transparent"
+
+                android:layout_width="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="40dp"
+                android:id="@+id/imb1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:text="Processor \n  Type  "
+                android:textColor="@android:color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Item1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+            <ImageButton
+                android:src="@drawable/hard_drive"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Hard \n Drive"
+                android:layout_marginBottom="3dp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Item2 "/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+            <ImageButton
+                android:src="@drawable/ram"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Memory \n  Ram"
+                android:layout_marginBottom="3dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item3"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -9,82 +9,25 @@
 
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarLaptop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/main_background2"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/btnsearch"
-            android:background="@android:color/transparent"
-            android:id="@+id/svLaptop"
-            android:layout_below="@+id/toolbarLaptop"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="13dp"
-            android:layout_marginTop="12dp"/>
-        <TextView
-            android:text=" Mlab Sa prides itself in using a vast number of laptops for android developmemt and communication channels. "
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            android:textColor="@android:color/black"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="23dp" />
-
-        <TextView
-        android:text=" In our catalogue below we have the following laptop brands: Acer, Macbooks, Lenovos , Vaio, Samsung, Hp… "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:textColor="@android:color/black"
-
-        android:layout_below="@+id/svLaptop"
-        android:layout_alignParentStart="true" />
-
-
         <android.support.v7.widget.RecyclerView
-        android:layout_width="360dp"
-        android:layout_height="180dp"
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/lvLaptop"
         android:requiresFadingEdge="vertical"
         android:fadingEdgeLength="48dp"
-        android:layout_above="@+id/textView15"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="80dp"/>
 
 
 
-    <TextView
-        android:text=" In section 2017/09/22 of all our employee contracts we have included terms and conditions as to which items an employee is able to book from the company as per their contractual agreement.  "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView15"
-        android:textColor="@android:color/black"
-        android:layout_above="@+id/textView16"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp" />
-
-    <TextView
-        android:text=" For continence we have included faq’s please refer to them for more of our asset booking terms. "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView16"
-        android:textColor="@android:color/black"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="17dp" />
-    </LinearLayout>
 
 </RelativeLayout>

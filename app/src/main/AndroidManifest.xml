@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.notificationproject">
-    <uses-permission android:name="android.permission.INTERNET"/>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,9 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".SplashScreen"
+            android:name="com.example.admin.notificationproject.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,53 +20,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LandingScreen"
-            android:label="BOOK IT" />
+        <activity android:name="com.example.admin.notificationproject.LandingScreen" />
         AdminNotification
+        <service android:name="com.example.admin.notificationproject.MyFirebaseIntanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.example.admin.notificationproject.MyFirebaseMassagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
-         <service android:name=".MyFirebaseIntanceIdService">
-         <intent-filter>
-         <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-         </intent-filter>
-         </service>
-         <service android:name=".MyFirebaseMassagingService">
-         <intent-filter>
-         <action android:name="com.google.firebase.MESSAGING_EVENT" />
-         </intent-filter>
-         </service>
-
-
-        <activity android:name=".AdminNotification" />
+        <activity android:name="com.example.admin.notificationproject.AdminNotification" />
         NotificationActivity
-        <activity android:name=".CatalogAdminActivity" />
+        <activity android:name="com.example.admin.notificationproject.CatalogAdminActivity" />
         CatalogActivity
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".CatalogActivity" />
+        <activity android:name="com.example.admin.notificationproject.NotificationActivity" />
+        <activity android:name="com.example.admin.notificationproject.CatalogActivity" />
         <activity
-            android:name=".DescriptionActivity"
+            android:name="com.example.admin.notificationproject.DescriptionActivity"
             android:label="@string/title_activity_description"
             android:theme="@style/AppTheme.NoActionBar" />
         DescriptionActivity
-        <activity android:name=".ConfirmRequestActivty" />
+        <activity android:name="com.example.admin.notificationproject.ConfirmRequestActivty" />
         ConfirmRequestActivty
-        <activity android:name=".NotificationActivityList" />
+        <activity android:name="com.example.admin.notificationproject.NotificationActivityList" />
         NotificationActivityList
-        <activity android:name=".DashBoardActivity" />
-        <activity android:name=".ForgotPasswordAcitivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".PhoneActiviy"  />
-        <activity android:name=".CarActivity" android:label="Cars"/>
-        <activity android:name=".LaptopActivity" android:label="Laptops" />
-        <activity android:name=".FurnitureActivity"  android:label="Furniture"/>
-        <activity android:name=".QAndA" />
-        <activity android:name=".ViewActivity" />
-        <activity android:name=".ProfileActivity" android:label="Profile"/>
-        <activity android:name=".AboutStuffActivity" />
-        <activity android:name=".PeopleActivity" />
-        <activity android:name=".AboutsActivity" />
-        <activity android:name=".AboutImageActivity"></activity>
+        <activity android:name="com.example.admin.notificationproject.DashBoardActivity" />
+        <activity android:name="com.example.admin.notificationproject.ForgotPasswordAcitivity" />
+        <activity android:name="com.example.admin.notificationproject.LoginActivity" />
+        <activity android:name="com.example.admin.notificationproject.SignUpActivity" />
+        <activity android:name="com.example.admin.notificationproject.PhoneActiviy" />
+        <activity
+            android:name="com.example.admin.notificationproject.CarActivity"
+            android:label="Cars" />
+        <activity
+            android:name="com.example.admin.notificationproject.LaptopActivity"
+            android:label="Laptops" />
+        <activity
+            android:name="com.example.admin.notificationproject.FurnitureActivity"
+            android:label="Furniture" />
+        <activity android:name="com.example.admin.notificationproject.QAndA" />
+        <activity android:name="com.example.admin.notificationproject.ViewActivity" />
+        <activity
+            android:name="com.example.admin.notificationproject.ProfileActivity"
+            android:label="Profile" />
+        <activity android:name="com.example.admin.notificationproject.AboutStuffActivity" />
+        <activity android:name="com.example.admin.notificationproject.PeopleActivity" />
+        <activity android:name="com.example.admin.notificationproject.AboutsActivity" />
+        <activity android:name="com.example.admin.notificationproject.AboutImageActivity" />
+        <activity android:name="com.example.admin.notificationproject.FAQ" />
+        <activity android:name="com.example.admin.notificationproject.PolicyActivity"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,15 @@
 package com.example.admin.notificationproject;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LaptopActivity extends AppCompatActivity {
+public class LaptopActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private List<Catalog> catalogList;
     private LinearLayoutManager layoutManager;
@@ -25,8 +28,8 @@ public class LaptopActivity extends AppCompatActivity {
       private DatabaseReference databaseLaptops;
 
     //search
-    private SearchView mSearchView;
-    private CatalogAdapter adapters;
+//    private SearchView mSearchView;
+    private LaptopAdapter adapters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class LaptopActivity extends AppCompatActivity {
         /**
          * LAPTOPS LISTVIEW
          */
-        mSearchView = (SearchView) findViewById(R.id.svLaptop);
+
+//        mSearchView = (SearchView) findViewById(R.id.svLaptop);
 
         databaseLaptops = FirebaseDatabase.getInstance().getReference("Laptops");
         databaseLaptops.addValueEventListener(new ValueEventListener() {
@@ -61,11 +65,11 @@ public class LaptopActivity extends AppCompatActivity {
                     ListViewCatalog = (RecyclerView) findViewById(R.id.lvLaptop);
                     Catalog catalog = catalogSnapshot.getValue(Catalog.class);
                     catalogList.add(catalog);
-                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                     adapters = new CatalogAdapter(LaptopActivity.this, catalogList);
+                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                     adapters = new LaptopAdapter(LaptopActivity.this, catalogList);
 //                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewCatalog.setLayoutManager(layoutManager);
-                    search(mSearchView);
+//                    search(mSearchView);
                     ListViewCatalog.setAdapter(adapters);
                 }
 
@@ -78,21 +82,41 @@ public class LaptopActivity extends AppCompatActivity {
         });
     }
 
-    private void search(SearchView searchView) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_items, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+        return true;
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                adapters.getFilter().filter(newText);
-                return true;
-            }
-        });
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+//    private void search(SearchView searchView) {
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//
+//                adapters.getFilter().filter(newText);
+//                return true;
+//            }
+//        });
+//    }
 }

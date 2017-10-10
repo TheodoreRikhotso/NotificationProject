@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -77,7 +77,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
                 TextView item1;
-                ImageButton imageButton1;
+                ImageView imageButton1;
 
 
                 public MyViewHolder(View itemView) {

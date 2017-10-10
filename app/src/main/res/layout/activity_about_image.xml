@@ -9,6 +9,19 @@
     xmlns:app="http://schemas.android.com/tools"
     tools:context=".AboutImageActivity">
 
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_background2"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+
+
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -16,7 +29,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#9ad2d1d1"
+            android:background="#fff"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -32,17 +45,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text=" About us
-When our youth are empowered with the right skills to innovate and create solutions, they unlock the opportunities for new businesses that will drive our economies forward. This is why we support these young innovators, founders, next generation coders and digital creatives.
+\nWhen our youth are empowered with the right skills to innovate and create solutions, they unlock the opportunities for new businesses that will drive our economies forward.
+\nThis is why we support these young innovators, founders, next generation coders and digital creatives.
 
-In September 2011 mLab Southern Africa launched as a mobile technology accelerator with the aim of supporting innovative new startups and to unlock the mobile apps economy. Since then we have grown to include programmes that support skills development through our own and partner code academies, facilitated co-creation seasons with industry and public sector partners and we continue to build on our successes as a local tech startup accelerator.
+\nIn September 2011 mLab Southern Africa launched as a mobile technology accelerator with the aim of supporting innovative new startups and to unlock the mobile apps economy.
+\nSince then we have grown to include programmes that support skills development through our own and partner code academies, facilitated co-creation seasons with industry and public sector partners and we continue to build on our successes as a local tech startup accelerator.
 
-mLab Southern Africa is a registered Nonprofit organisation that is powered through the support of The Ministry of Foreign Affairs of Finland, The Department of Science &amp; Technology, The Innovation Hub, The V&amp;A Waterfront and the World Bank infoDEV."
-                android:textAlignment="center"
+\nmLab Southern Africa is a registered Nonprofit organisation that is powered through the support of The Ministry of Foreign Affairs of Finland, The Department of Science; Technology, The Innovation Hub, The A Waterfront and the World Bank infoDEV.
+\n"
+
                 android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/editText2"
-                android:textColor="#9DC700"
+                android:textColor="#1B5E20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"

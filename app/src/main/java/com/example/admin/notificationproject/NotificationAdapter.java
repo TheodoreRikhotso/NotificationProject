@@ -69,6 +69,7 @@ public class NotificationAdapter extends BaseAdapter {
         TextView tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
         TextView tvMsg = (TextView) rootView.findViewById(R.id.tvMsg);
         TextView tvDate = (TextView) rootView.findViewById(R.id.tvDate);
+
         ImageView ivIconNoti =rootView.findViewById(R.id.ivIconNoti);
 
 

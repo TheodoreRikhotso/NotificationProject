@@ -5,7 +5,7 @@
     android:id="@+id/activity_confirm_request"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d1090909"
+    android:background="#fff"
     tools:context="com.example.admin.notificationproject.ConfirmRequestActivty">
 
 
@@ -71,22 +71,23 @@
         android:fontFamily="serif-monospace"
         android:textAlignment="gravity"
         app:max="100"
-        app:ringColor="#ccf28e0b"
+        app:ringColor="@android:color/darker_gray"
         app:ringProgressColor="#d2669012"
         app:ringWidth="10dp"
         app:style="STROKE"
-        app:textColor="#ccf28e0b"
+        app:textColor="@android:color/darker_gray"
         app:textIsShow="true"
         app:textSize="15dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnOk"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:background="@drawable/btn_style"
-        android:text="Confirm"
+        android:text="Ok"
+        android:textSize="18dp"
         android:textAllCaps="false" />
 
 

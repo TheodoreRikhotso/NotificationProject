@@ -1,15 +1,11 @@
 package com.example.admin.notificationproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ViewActivity extends AppCompatActivity {
     FirebaseDatabase database;
@@ -82,28 +79,6 @@ public class ViewActivity extends AppCompatActivity {
             }
         });
     }
-        public boolean onCreateOptionsMenu(Menu menu) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.notification, menu);
-            return true;
-        }
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle item selection
-            switch (item.getItemId()) {
-                case R.id.menu_about:
-                    Intent intent = new Intent(this,AboutImageActivity.class);
-                    startActivity(intent);
-                    return true;
-                case R.id.menu_help:
 
-                    return true;
-                case R.id.menu_logout:
-
-                    return true;
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
-        }
 
 }

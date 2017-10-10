@@ -4,255 +4,110 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    >
 
 
-    <!--<ImageButton-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="130dp"-->
-    <!--android:padding="5dp"-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--android:elevation="0dp"-->
-    <!--app:srcCompat="@android:color/darker_gray"-->
-    <!--android:scaleType="centerCrop"-->
-    <!--android:id="@+id/imageButton1"-->
-    <!--android:layout_weight="0.05"-->
-    <!--android:layout_marginTop="10dp"/>-->
+    <TextView
+        android:id="@+id/item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageButton1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:text="   Item1"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
-    <!--<TextView-->
-    <!--android:text="TextView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/item1"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:layout_marginBottom="5dp"-->
-    <!--android:textSize="18sp"-->
-    <!--android:textColor="@android:color/black" />-->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
 
-    <!--<TextView-->
-    <!--android:text="TextView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/textViewLocation"-->
-    <!--android:textSize="14sp"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:textColor="@android:color/black"-->
-    <!--android:textStyle="normal|bold" />-->
-
-
-
-
-
-
-
-
-
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
-    <!--<TextView-->
-    <!--android:text="Laptops"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/textViewTitle"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:layout_marginBottom="5dp"-->
-    <!--android:textSize="24sp"-->
-    <!--android:textColor="@android:color/black"-->
-    <!--android:textStyle="normal|bold" />-->
-    <!--</LinearLayout>-->
-
-
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
+        android:layout_gravity="center_horizontal"
+        android:elevation="0dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/imageButton1"
+        app:srcCompat="@color/si_default_indicator_bg"/>
+    <LinearLayout
+        android:layout_width="190dp"
+        android:layout_height="130dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:weightSum="5">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                >
-
-                <RelativeLayout
-                    android:layout_width="200dp"
-                    android:layout_height="180dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/frame"
-                    android:elevation="900dp"
-                    >
-
-                    <ImageButton
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:id="@+id/imageButton1"
-
-                        android:background="@android:color/transparent"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true" />
-
-                    <TextView
-                        android:text="Item1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:id="@+id/item1"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_below="@+id/imageButton1"
-                        />
-
-                </RelativeLayout>
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="120dp"-->
-                <!--android:layout_height="120dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginLeft="132dp"-->
-                <!--android:background="#d6171414"-->
-                <!--android:id="@+id/relativeLayout">-->
-
-                <!--<TextView-->
-                <!--android:text="Item2"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="13dp"-->
-                <!--android:textAlignment="center"-->
-                <!--android:id="@+id/Item2"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18sp"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentEnd="true"  />-->
-
-                <!--<ImageButton-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--app:srcCompat="@android:color/background_dark"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:id="@+id/imageButton2"-->
-                <!--android:layout_above="@+id/Item2"-->
-                <!--android:layout_centerHorizontal="true" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="120dp"-->
-                <!--android:layout_height="120dp"-->
-                <!--android:background="#d6171414"-->
-                <!--android:layout_alignTop="@+id/relativeLayout"-->
-                <!--android:layout_marginLeft="260dp">-->
-
-
-                <!--<TextView-->
-                <!--android:text="Item3"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="13dp"-->
-                <!--android:textAlignment="center"-->
-                <!--android:id="@+id/Item3"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18sp"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentEnd="true"  />-->
-
-                <!--<ImageButton-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--app:srcCompat="@android:color/background_dark"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:id="@+id/imageButton3"-->
-                <!--android:layout_above="@+id/Item3"-->
-                <!--android:layout_centerHorizontal="true" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="120dp"-->
-                <!--android:layout_height="120dp"-->
-                <!--android:background="#d6171414"-->
-                <!--android:layout_alignTop="@+id/relativeLayout"-->
-                <!--android:layout_marginLeft="390dp">-->
-
-                <!--<TextView-->
-                <!--android:text="Item4"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="13dp"-->
-                <!--android:textAlignment="center"-->
-                <!--android:id="@+id/Item4"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18sp"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentEnd="true"  />-->
-
-                <!--<ImageButton-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--app:srcCompat="@android:color/background_dark"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:layout_above="@+id/Item4"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:id="@+id/imageButton4" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="120dp"-->
-                <!--android:layout_height="120dp"-->
-                <!--android:background="#d6171414"-->
-                <!--android:layout_alignTop="@+id/relativeLayout"-->
-                <!--android:layout_marginLeft="520dp" >-->
-
-                <!--<TextView-->
-                <!--android:text="Item4"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="13dp"-->
-                <!--android:textAlignment="center"-->
-                <!--android:id="@+id/Item5"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18sp"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentEnd="true"  />-->
-
-                <!--<ImageButton-->
-                <!--android:layout_width="80dp"-->
-                <!--android:layout_height="80dp"-->
-                <!--app:srcCompat="@android:color/background_dark"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:layout_above="@+id/Item5"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:id="@+id/imageButton5" />-->
-
-
-                <!--</RelativeLayout>-->
-            </RelativeLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:src="@drawable/gas01"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="40dp"
+                android:id="@+id/imb1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:text="Starting \n   Fuel  "
+                android:textColor="@android:color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Item1"/>
         </LinearLayout>
-    </HorizontalScrollView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+            <ImageButton
+                android:src="@drawable/speed"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="4dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Starting \n Mileage"
+                android:layout_marginBottom="3dp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Item2 "/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+            <ImageButton
+                android:src="@drawable/engine"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="40dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Engine \n  Size"
+                android:layout_marginBottom="3dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item3"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

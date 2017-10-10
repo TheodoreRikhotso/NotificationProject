@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -43,8 +45,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.admin.notificationproject.R.drawable.person;
-import static com.example.admin.notificationproject.R.id.ListViewPhones;
 import static com.example.admin.notificationproject.SignUpActivity.department;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -73,8 +73,31 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarCar) ;
+        toolbar.setTitle("Profile");
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 
@@ -85,34 +108,119 @@ public class ProfileActivity extends AppCompatActivity {
         ivEdit = (ImageView)findViewById(R.id.ivEdit);
 
 
+
         //user item
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("UserItems");
+        DatabaseReference databaseItem = databaseItems.child(user.getUid());
+
         rvUserItems = (RecyclerView) findViewById(R.id.rvUserItems);
         userItemPojos = new ArrayList<>();
-       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
        final  String ids =user.getUid();
 
-        databaseItems.addValueEventListener(new ValueEventListener() {
+        Query query = FirebaseDatabase.getInstance().getReference().child("UserItems").orderByChild("refId").equalTo(user.getUid());
+//        db.child("users").orderByChild("userBloodGroup").equalTo("B+").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                List<User> data = new ArrayList<>();
+//                if (dataSnapshot.exists()) {
+//                    for (DataSnapshot snapshot :
+//                            dataSnapshot.getChildren()) {
+//                        User element = snapshot.getValue(User.class);
+//                        element.setKey(snapshot.getKey());
+//                        data.add(element);
+//
+//                    }
+//                    for (User user: data){
+//                        Log.i(TAG,"user name: " +user.getName());
+//                        Log.i(TAG,"user email: " +user.getEmail());
+//                        Log.i(TAG,"user dob: " +user.getUserDob());
+//                    }
+//        databaseItems.child("refId").orderByChild("refId").equalTo(user.getUid());
+//        databaseItems.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                userItemPojos.clear();
+//                if(dataSnapshot!=null) {
+//                    UserItemPojo item = dataSnapshot.getValue(UserItemPojo.class);
+//                    if(item!=null) {
+//
+//
+//                        userItemPojos.add(item);
+//                        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+//                        UserItemAdapter adapterss = new UserItemAdapter(ProfileActivity.this, userItemPojos);
+//
+////
+//                        rvUserItems.setLayoutManager(layoutManager);
+//
+//                        rvUserItems.setAdapter(adapterss);
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                userItemPojos.clear();
+//                if(dataSnapshot!=null) {
+//                    UserItemPojo item = dataSnapshot.getValue(UserItemPojo.class);
+//                    if(item!=null) {
+//
+//
+//                        userItemPojos.add(item);
+//                        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+//                        UserItemAdapter adapterss = new UserItemAdapter(ProfileActivity.this, userItemPojos);
+//
+////
+//                        rvUserItems.setLayoutManager(layoutManager);
+//
+//                        rvUserItems.setAdapter(adapterss);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userItemPojos.clear();
-                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                    UserItemPojo item = itemSnapshot.getValue(UserItemPojo.class);
 
+                for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
+                    UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
 
+                    int numberOfColumns = 4;
+                    rvUserItems.setLayoutManager(new GridLayoutManager(ProfileActivity.this, numberOfColumns));
+                    userItemPojos.add(item);
+                    ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.d);
+                    rvUserItems.addItemDecoration(itemDecoration);
+                    //layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                    UserItemAdapter adapterss = new UserItemAdapter(ProfileActivity.this, userItemPojos);
+                    adapterss.setHasStableIds(true);
+                    adapterss.notifyDataSetChanged();
 
-                        userItemPojos.add(item);
-                        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                        UserItemAdapter adapterss = new UserItemAdapter(ProfileActivity.this, userItemPojos);
+                   // rvUserItems.setLayoutManager(layoutManager);
 
-//                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
-                        rvUserItems.setLayoutManager(layoutManager);
-
-                        rvUserItems.setAdapter(adapterss);
-
+                    rvUserItems.setAdapter(adapterss);
                 }
-
             }
+
+
+
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -139,7 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
            profile.setStuffNo(SignUpActivity.stuffno);
            profile.setName("Theo");
            profile.setId(users.getUid());
-           Toast.makeText(this, department+" "+SignUpActivity.stuffno, Toast.LENGTH_SHORT).show();
+
 
            databaseProfile.child(user.getUid()).setValue(profile);
        }
@@ -152,39 +260,40 @@ public class ProfileActivity extends AppCompatActivity {
         });
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
 
-        databaseUser.addValueEventListener(new ValueEventListener() {
+        DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
+
+        buisnessAccRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-                    ProfilePojo person = catalogSnapshot.getValue(ProfilePojo.class);
-                    mainName =person.getName();
-                    mainDepart = person.getDepartmentName();
-                    mainStuffNo =person.getStuffNo();
-                    mainImage =person.getImage();
+        if(dataSnapshot!= null) {
+            ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
+            if(person!= null) {
+                mainName = person.getName();
+                mainDepart = person.getDepartmentName();
+                mainStuffNo = person.getStuffNo();
+                mainImage = person.getImage();
 
 
-                    nameS.setText(mainName);
-                    nameS.setVisibility(View.VISIBLE);
-                    tvDepartment.setText(mainDepart);
-                    tvDepartment.setVisibility(View.VISIBLE);
-                    tvStuffNo.setText(mainStuffNo);
+                nameS.setText(mainName);
+                nameS.setVisibility(View.VISIBLE);
+                tvDepartment.setText(mainDepart);
+                tvDepartment.setVisibility(View.VISIBLE);
+                tvStuffNo.setText(mainStuffNo);
 
 
-                    Toast.makeText(ProfileActivity.this, person.getImage()+"", Toast.LENGTH_SHORT).show();
-                    Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            image.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+                Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(image) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        image.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+            }
 
-
-
-                }
+        }
 
             }
 
@@ -304,18 +413,18 @@ public class ProfileActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 pd.dismiss();
-                                 Uri uir = taskSnapshot.getDownloadUrl();
+                                @SuppressWarnings("VisibleForTests")  Uri uir = taskSnapshot.getDownloadUrl();
                                 profileUri = uir.toString();
 
                                 profilePojo.setImage(uir.toString());
                                profilePojo.setDepartmentName(department);
                                 profilePojo.setName(name);
                                 profilePojo.setStuffNo(stuffNo);
-                                Toast.makeText(ProfileActivity.this, "Check " +profilePojo.getImage(), Toast.LENGTH_SHORT).show();
+
                                 FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
                                 databaseProfile.child(users.getUid()).setValue(profilePojo);
 
-                                Toast.makeText(ProfileActivity.this, "Upload successful " +profilePojo.getImage() , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Upload successful " , Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

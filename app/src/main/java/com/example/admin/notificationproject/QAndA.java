@@ -33,7 +33,7 @@ public class QAndA extends AppCompatActivity {
         eaddress = (TextView) findViewById(R.id.eaddress);
         save = (Button) findViewById(R.id.save);
         view = (Button) findViewById(R.id.view);
-        recyclerview = (RecyclerView) findViewById(R.id.rview);
+       // recyclerview = (RecyclerView) findViewById(R.id.rview);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
         save.setOnClickListener(new View.OnClickListener() {

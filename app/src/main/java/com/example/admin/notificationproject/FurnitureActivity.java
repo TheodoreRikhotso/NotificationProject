@@ -1,10 +1,13 @@
 package com.example.admin.notificationproject;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
@@ -17,12 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FurnitureActivity extends AppCompatActivity {
+public class FurnitureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private RecyclerView ListViewFurniture;
     private List<Catalog> catalogListFurniture;
     LinearLayoutManager layoutManager;
     //search
-    private SearchView mSearchView;
+//    private SearchView mSearchView;
     private CatalogAdapter adapters;
 
 
@@ -48,8 +51,8 @@ public class FurnitureActivity extends AppCompatActivity {
 
         catalogListFurniture = new ArrayList<>();
 
-        //search
-        mSearchView = (SearchView) findViewById(R.id.svFurniture);
+//        //search
+//        mSearchView = (SearchView) findViewById(R.id.svFurniture);
 
         databaseCatalogg.addValueEventListener(new ValueEventListener() {
             @Override
@@ -60,12 +63,12 @@ public class FurnitureActivity extends AppCompatActivity {
                     ListViewFurniture = (RecyclerView) findViewById(R.id.lvFurniture);
 
                     catalogListFurniture.add(catalog);
-                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                      adapters = new CatalogAdapter(FurnitureActivity.this, catalogListFurniture);
 
 //                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewFurniture.setLayoutManager(layoutManager);
-                    search(mSearchView);
+//                    search(mSearchView);
                     ListViewFurniture.setAdapter(adapters);
                 }
 
@@ -78,23 +81,44 @@ public class FurnitureActivity extends AppCompatActivity {
         });
     }
 
-    private void search(SearchView searchView) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_items, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+        return true;
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                adapters.getFilter().filter(newText);
-                return true;
-            }
-        });
     }
 
 
-}
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
+
+//    private void search(SearchView searchView) {
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//
+//                adapters.getFilter().filter(newText);
+//                return true;
+//            }
+//        });
+    }
+
+
+
