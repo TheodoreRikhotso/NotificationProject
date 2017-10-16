@@ -4,21 +4,23 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d2000000"
     tools:context="com.example.admin.notificationproject.FAQ">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbFQA"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorAccent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
-        android:background="#747474"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

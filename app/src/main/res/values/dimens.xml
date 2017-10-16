@@ -4,4 +4,5 @@
     <dimen name="si_default_radius_max">24dp</dimen>
     <dimen name="si_default_radius_min">8dp</dimen>
     <dimen name="d">0.002dp</dimen>
+    <integer name="anim_duration_long">500</integer>
 </resources>

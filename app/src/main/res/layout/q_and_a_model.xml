@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:clickable="true"
     android:layout_width="match_parent"
-
+    android:background="#d2000000"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     >
@@ -70,7 +70,7 @@ android:layout_marginTop="10dp"
 
         android:layout_weight="1"
         android:text="ANSWEARS"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/darker_gray"
         android:textSize="14dp" />
 
 

@@ -4,7 +4,8 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:background="@android:color/white"
+        android:background="#d2000000"
+        android:textColor="@android:color/darker_gray"
         android:id="@+id/phone_name"
         android:text="iuygkjhb"
         android:layout_width="match_parent"

@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +36,7 @@ public class FurnitureActivity extends AppCompatActivity implements SearchView.O
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarFurniture) ;
         toolbar.setTitle("Furnitures");
-
+        LandingScreen.ACYIVITY ="FURN";
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -91,34 +91,19 @@ public class FurnitureActivity extends AppCompatActivity implements SearchView.O
 
     }
 
+            public boolean onQueryTextSubmit(String query) {
 
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
+                return false;
+            }
 
-    @Override
-    public boolean onQueryTextChange(String s) {
-        return false;
-    }
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
-//    private void search(SearchView searchView) {
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                adapters.getFilter().filter(newText);
-//                return true;
-//            }
-//        });
-    }
+                adapters.getFilter().filter(newText);
+                return true;
+            }
+        }
+
 
 
 

@@ -29,6 +29,7 @@ public class LandingScreen extends AppCompatActivity {
     private FirebaseAuth auth;
     private ImageButton imCar,ibPhone,ibFurniture,ibLaptop,notification_panel, ibFAQs,ibProfile;
 private CircleImageView profile;
+    public static String ACYIVITY=" non";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -186,6 +187,10 @@ private CircleImageView profile;
                 return true;
             case R.id.menu_logout:
                 logoutUser();
+
+            case R.id.  menu_contact:
+                Intent intentt = new Intent(LandingScreen.this,ContactActivity.class);
+                startActivity(intentt);
                 return true;
             case R.id.notification_icon:
                 Intent intents = new Intent(LandingScreen.this,NotificationActivity.class);

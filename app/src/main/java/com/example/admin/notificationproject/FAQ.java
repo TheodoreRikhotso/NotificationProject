@@ -1,5 +1,6 @@
 package com.example.admin.notificationproject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -45,6 +46,7 @@ public class FAQ extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setTitleTextColor(Color.WHITE);
 
         userdetailses = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);

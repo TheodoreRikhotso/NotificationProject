@@ -1,108 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:weightSum="1"
 
-    android:background="@android:color/white">
-    <TextView
-        android:text="   Item1"
+    android:background="#d2000000">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/item3"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/imageButton1"
-        android:textStyle="normal|bold" />
-    <ImageButton
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:elevation="0dp"
-        android:background="@android:color/transparent"
-        android:id="@+id/imageButton3"
-        app:srcCompat="@color/si_default_indicator_bg"/>
-    <LinearLayout
-        android:layout_width="190dp"
-        android:layout_height="130dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp">
+        android:layout_height="310dp"
+        android:layout_gravity="center"
+        android:elevation="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageButton
-                android:src="@drawable/wheels01"
-                android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="#d2000000"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-                android:layout_width="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_height="40dp"
-                android:id="@+id/imb1"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/item3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:text="Processor \n  Type  "
-                android:textColor="@android:color/black" />
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="   Item1"
+                android:textColor="#ec669900"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+
+            <RelativeLayout
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
-                android:text="  Item1"/>
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageButton3"
+                    android:layout_width="310dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@color/si_default_indicator_bg" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Operating System  "
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="item fuel"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <View
+                        android:id="@+id/view01"
+                        android:layout_width="150dp"
+                        android:layout_height="3dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <ImageButton
+                        android:id="@+id/imb2"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Define"
+                        android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Screen Resolution"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="item fuel"
+                        android:textColor="@android:color/darker_gray"  />
+
+                    <View
+                        android:id="@+id/view02"
+                        android:layout_width="150dp"
+                        android:layout_height="3dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <ImageButton
+                        android:id="@+id/imb1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Define"
+                        android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="#9ea7a5a5"
+                android:text="View Description"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
-            <ImageButton
-                android:src="@drawable/hard_drive"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" Hard \n Drive"
-                android:layout_marginBottom="3dp"
-                android:textColor="@android:color/black" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  Item2 "/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
-            <ImageButton
-                android:src="@drawable/ram"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Memory \n  Ram"
-                android:layout_marginBottom="3dp"
-                android:textSize="14sp"
-                android:textColor="@android:color/black" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Item3"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -8,12 +8,17 @@
     android:background="#ffff"
     >
 
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarCar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/main_background2"
+        android:background="@color/colorAccent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -22,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_edit_black_24dp"
-        android:layout_marginLeft="250dp"
+        android:layout_marginLeft="310dp"
         android:layout_marginTop="15dp"/>
 
     <com.github.florent37.diagonallayout.DiagonalLayout
@@ -113,12 +118,35 @@ android:layout_below="@id/avatar"
             android:textSize="14sp"
             />
     </LinearLayout>
+    <com.baoyachi.stepview.VerticalStepView
+        android:id="@+id/vStV"
+        android:layout_below="@id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ListView
+        android:layout_below="@id/vStV"
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+        <TextView
+            android:textColor="#006400"
+            android:textStyle="bold|italic"
+            android:textSize="15dp"
+            android:id="@+id/teext"
+            android:text=" Requested Asset:"
+            android:layout_below="@id/list"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp" />
+
     <android.support.v7.widget.RecyclerView
 
+        android:requiresFadingEdge="vertical"
+        android:fadingEdgeLength="48dp"
         android:id="@+id/rvUserItems"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll"
+        android:layout_below="@id/teext"
         android:textColor="#717171"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
@@ -130,5 +158,6 @@ android:layout_below="@id/avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-
+    </RelativeLayout>
+</ScrollView>
 </RelativeLayout>

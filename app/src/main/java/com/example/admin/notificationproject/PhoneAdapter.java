@@ -2,10 +2,12 @@ package com.example.admin.notificationproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -53,7 +55,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
                 .into(holder.imageButton1);
 
 
-        holder.imageButton1.setOnClickListener(new View.OnClickListener() {
+        holder.btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Catalog c = catalog;
@@ -74,14 +76,87 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView item1;
-        ImageView imageButton1;
+
+        TextView item1, textView15, textView9,textView22, textView1;
+        ImageView imageButton1 , imb2,imb1 ;
+        View view01,view02 ;
+        Button btnView;
+        boolean isPressed;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             item1 = itemView.findViewById(R.id.item2);
             imageButton1 = itemView.findViewById(R.id.imageButton2);
+
+            textView15 = itemView.findViewById(R.id.textView15);
+            textView9 = itemView.findViewById(R.id.textView9);
+            textView22 = itemView.findViewById(R.id.textView22);
+            textView1 = itemView.findViewById(R.id.textView1);
+            imb2 = itemView.findViewById(R.id.imb2);
+            imb1 = itemView.findViewById(R.id.imb1);
+            view01 = itemView.findViewById(R.id.view01);
+            view02 = itemView.findViewById(R.id.view02);
+            btnView = itemView.findViewById(R.id.btnView);
+
+            //                        //FUEL ICON COLOR CHANGE
+            textView22.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isPressed) {
+                        textView22.setTextColor(Color.parseColor("#808080"));
+                        view02.setBackgroundColor(Color.parseColor("#808080"));
+                    } else {
+                        textView22.setTextColor(Color.parseColor("#ec669900"));
+                        view02.setBackgroundColor(Color.parseColor("#ec669900"));
+                    }
+                    isPressed = !isPressed; // reverse
+                }
+            });
+            textView15.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isPressed) {
+                        textView15.setTextColor(Color.parseColor("#808080"));
+                        view01.setBackgroundColor(Color.parseColor("#808080"));
+                    } else {
+                        textView15.setTextColor(Color.parseColor("#ec669900"));
+                        view01.setBackgroundColor(Color.parseColor("#ec669900"));
+                    }
+                    isPressed = !isPressed; // reverse
+                }
+            });
+//                        //SPEED ICON COLOR CHANGE
+            imb1.setBackgroundResource(R.drawable.storageone);
+            imb1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isPressed) {
+                        textView1.setTextColor(Color.parseColor("#808080"));//gray
+                        view.setBackgroundResource(R.drawable.storageone);
+                    } else {
+                        textView1.setTextColor(Color.parseColor("#ec669900"));//orange
+                        view.setBackgroundResource(R.drawable.storagetwo);
+                    }
+                    isPressed = !isPressed; // reverse
+                }
+            });
+            imb2.setBackgroundResource(R.drawable.displaytwo);
+            imb2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isPressed) {
+                        textView9.setTextColor(Color.parseColor("#808080"));//gray
+                        view.setBackgroundResource(R.drawable.displaytwo);
+                    } else {
+                        textView9.setTextColor(Color.parseColor("#ec669900"));//orange
+                        view.setBackgroundResource(R.drawable.displayone);
+                    }
+                    isPressed = !isPressed; // reverse
+                }
+            });
+
+
         }
 
     }

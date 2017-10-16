@@ -4,10 +4,12 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyachi.stepview.VerticalStepView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,7 +43,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -62,6 +69,9 @@ public class ProfileActivity extends AppCompatActivity {
     String profileUri;
     private Dialog builder;
     private String mainName,mainStuffNo,mainDepart,mainImage;
+     String isImage ="1";
+
+
     ///
     private DatabaseReference databaseProfile;
 
@@ -69,6 +79,10 @@ public class ProfileActivity extends AppCompatActivity {
     List<UserItemPojo> userItemPojos;
     RecyclerView rvUserItems;
     LinearLayoutManager layoutManager;
+    private VerticalStepView verticalStepView;
+    private final String[] views = {"View 1", "View 2", "View 3", "View 4", "View 5", "View 6",
+            "View 7", "View 8", "View 9", "View 10", "View 11", "View 12"};
+    private  String date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +112,9 @@ public class ProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setTitleTextColor(Color.WHITE);
 
-
+        verticalStepView = (VerticalStepView)findViewById(R.id.vStV);
 
         image =(CircleImageView)findViewById(R.id.avatar);
          nameS =(TextView)findViewById(R.id.txtName);
@@ -201,6 +216,7 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
                     UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
 
+                    date =  item.getItemDate();
                     int numberOfColumns = 4;
                     rvUserItems.setLayoutManager(new GridLayoutManager(ProfileActivity.this, numberOfColumns));
                     userItemPojos.add(item);
@@ -215,7 +231,146 @@ public class ProfileActivity extends AppCompatActivity {
 
                     rvUserItems.setAdapter(adapterss);
                 }
+                List<String> source = new ArrayList<>();
+                source.add("Booked");
+
+                source.add("Waiting for approved");
+                source.add("Approved");
+                source.add("Pick Up");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                Date currentTime = Calendar.getInstance().getTime();
+                String changeDate =dateFormat.format(currentTime);
+
+                if(date==changeDate)
+                {
+                    System.out.println("Where pdclkj"+changeDate+" "+date);
+                    verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+                            .reverseDraw(false)
+                            .setStepViewTexts(source)
+                            .setLinePaddingProportion(0.85f)
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+                            .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
+                            .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.check))
+                            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+                            .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
+                            .setStepsViewIndicatorComplectingPosition(0)
+                    ;
+                }
+                Calendar currentTime1 = Calendar.getInstance();
+
+
+
+                String dayOld=date.substring(8);
+
+                Integer oldDay = Integer.parseInt(dayOld);
+                String dayCurrent = changeDate.substring(8);
+                Integer dayInt = Integer.parseInt(dayCurrent);
+
+                int dayDiffer = dayInt-oldDay;
+                System.out.println("trim "+dayDiffer);
+                if(dayDiffer==1)
+                {
+                    System.out.println("Where pdclkj"+changeDate+" "+date);
+                    verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+                            .reverseDraw(false)
+                            .setStepViewTexts(source)
+                            .setLinePaddingProportion(0.85f)
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+                            .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
+                            .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.check))
+                            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+                            .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
+                            .setStepsViewIndicatorComplectingPosition(1)
+                    ;
+
+                }
+                if(dayDiffer==0)
+                {
+                    System.out.println("Where pdclkj"+changeDate+" "+date);
+                    verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+                            .reverseDraw(false)
+                            .setStepViewTexts(source)
+                            .setLinePaddingProportion(0.85f)
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+                            .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
+                            .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.round_uncheck))
+                            .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.check))
+                            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+                            .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
+                            .setStepsViewIndicatorComplectingPosition(0)
+                    ;
+
+                }
+
+                if(dayDiffer==2)
+                {
+                    System.out.println("Where pdclkj"+changeDate+" "+date);
+                    verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+                            .reverseDraw(false)
+                            .setStepViewTexts(source)
+                            .setLinePaddingProportion(0.85f)
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+                            .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
+                            .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.check))
+                            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+                            .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
+                            .setStepsViewIndicatorComplectingPosition(2)
+                    ;
+
+                }
+                if(dayDiffer==3)
+                {
+                    System.out.println("Where pdclkj"+changeDate+" "+date);
+                    verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+                            .reverseDraw(false)
+                            .setStepViewTexts(source)
+                            .setLinePaddingProportion(0.85f)
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+                            .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
+                            .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.check))
+                            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+                            .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
+                            .setStepsViewIndicatorComplectingPosition(3)
+                    ;
+
+                }
+                if(dayDiffer>3)
+                {
+                    System.out.println("Where pdclkj"+changeDate+" "+date);
+                    verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
+                            .reverseDraw(false)
+                            .setStepViewTexts(source)
+                            .setLinePaddingProportion(0.85f)
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
+                            .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
+                            .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
+                            .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.check))
+                            .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(),R.drawable.unchecked))
+                            .setStepViewComplectedTextColor(Color.parseColor("#000000"))
+                            .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
+                            .setStepsViewIndicatorComplectingPosition(3)
+                    ;
+
+                }
+
+
             }
+
 
 
 
@@ -312,7 +467,14 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+
+
+
     }
+
+
+
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.notification, menu);
@@ -373,7 +535,6 @@ public class ProfileActivity extends AppCompatActivity {
         editStuffNo.setText(mainStuffNo);
 
 
-
         Glide.with(ProfileActivity.this).load(mainImage).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivPhoto) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -387,6 +548,7 @@ public class ProfileActivity extends AppCompatActivity {
         ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            isImage="2";
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
@@ -404,37 +566,45 @@ public class ProfileActivity extends AppCompatActivity {
                     department =editDepartment.getText().toString();
                     stuffNo = editStuffNo.getText().toString();
 
-                        StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());;
 
-                        //uploading the image
-                        UploadTask uploadTask = childRef.putFile(filePath);
+if(isImage=="2") {
+    StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());;
+    //uploading the image
+    UploadTask uploadTask = childRef.putFile(filePath);
+    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        @Override
+        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            pd.dismiss();
+            @SuppressWarnings("VisibleForTests") Uri uir = taskSnapshot.getDownloadUrl();
+            profileUri = uir.toString();
 
-                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                pd.dismiss();
-                                @SuppressWarnings("VisibleForTests")  Uri uir = taskSnapshot.getDownloadUrl();
-                                profileUri = uir.toString();
+            profilePojo.setImage(uir.toString());
+            profilePojo.setDepartmentName(department);
+            profilePojo.setName(name);
+            profilePojo.setStuffNo(stuffNo);
 
-                                profilePojo.setImage(uir.toString());
-                               profilePojo.setDepartmentName(department);
-                                profilePojo.setName(name);
-                                profilePojo.setStuffNo(stuffNo);
+            FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+            databaseProfile.child(users.getUid()).setValue(profilePojo);
 
-                                FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                                databaseProfile.child(users.getUid()).setValue(profilePojo);
+            Toast.makeText(ProfileActivity.this, "Upload successful ", Toast.LENGTH_SHORT).show();
+        }
+    }).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            pd.dismiss();
+            Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+        }
+    });
 
-                                Toast.makeText(ProfileActivity.this, "Upload successful " , Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                pd.dismiss();
-                                Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                            }
-                        });
+}else {
+    profilePojo.setImage(mainImage);
+    profilePojo.setDepartmentName(department);
+    profilePojo.setName(name);
+    profilePojo.setStuffNo(stuffNo);
 
-
+    FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+    databaseProfile.child(users.getUid()).setValue(profilePojo);
+}
 
 
 

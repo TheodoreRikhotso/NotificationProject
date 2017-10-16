@@ -5,7 +5,7 @@
     android:id="@+id/activity_confirm_request"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#d2000000"
     tools:context="com.example.admin.notificationproject.ConfirmRequestActivty">
 
 
@@ -75,7 +75,7 @@
         app:ringProgressColor="#d2669012"
         app:ringWidth="10dp"
         app:style="STROKE"
-        app:textColor="@android:color/darker_gray"
+        app:textColor="#eca115"
         app:textIsShow="true"
         app:textSize="15dp" />
 
@@ -85,11 +85,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/btn_style"
         android:text="Ok"
-        android:textSize="18dp"
-        android:textAllCaps="false" />
-
+        android:textAllCaps="false"
+        android:textSize="18dp" />
 
 
     <RelativeLayout
@@ -136,8 +136,6 @@
             android:textColor="#ec669900"
             android:textStyle="normal|bold" />
 
-
-        [11:21]
 
         <TextView
             android:id="@+id/textView9"

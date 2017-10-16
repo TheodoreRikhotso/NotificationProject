@@ -1,6 +1,7 @@
 package com.example.admin.notificationproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,7 +34,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
     ImageView imageView;
-    TextView tvDisplay, tvSize, tvCapacity, tvCamera,Color1, Color2, Color3,Color4, Color5 ;
+    TextView tvDisplay, tvSize, tvCapacity, tvCamera,text1, text2, text3,text4;
     Button btnRequest;
     Button btn_red,btn_blue,btn_gray,btn_white,btn_black,btnEnter;
     private String image,name,id;
@@ -87,12 +88,19 @@ public class DescriptionActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setTitleTextColor(Color.WHITE);
 
 
         tvSize = (TextView) findViewById(R.id.tvSize);
         tvCamera = (TextView) findViewById(R.id.tvCamera);
         tvCapacity = (TextView) findViewById(R.id.tvCapacity);
         tvDisplay = (TextView) findViewById(R.id.tvDisplay);
+
+        //hj
+        text1 = (TextView) findViewById(R.id.text1);
+        text2 = (TextView) findViewById(R.id.text2);
+        text3 = (TextView) findViewById(R.id.text3);
+        text4 = (TextView) findViewById(R.id.text4);
 
 
         imageView = (ImageView)findViewById(R.id.imageView);
@@ -110,12 +118,17 @@ public class DescriptionActivity extends AppCompatActivity {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 UserItemPojo userItemPojo = new UserItemPojo();
                 userItemPojo.setName(name);
                 userItemPojo.setImageUri(image);
                 userItemPojo.setRefId(id);
+
+
                 Date currentTime = Calendar.getInstance().getTime();
-                DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
                 Date currentLocalTime = cal.getTime();
                 DateFormat date = new SimpleDateFormat("HH:mm a");
@@ -125,7 +138,8 @@ public class DescriptionActivity extends AppCompatActivity {
                 String localTime = date.format(currentLocalTime);
 //                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 //                LocalDateTime now = LocalDateTime.now();
-                userItemPojo.setItemDate(dateFormat.format(currentTime)+"  "+localTime);
+                userItemPojo.setItemDate(dateFormat.format(currentTime));
+                userItemPojo.setItemTime(localTime);
 
                 String userId = databaseUserItem.push().getKey();
 
@@ -314,27 +328,31 @@ public class DescriptionActivity extends AppCompatActivity {
 
         name=c.getDiplay();
 
-
-//        List<String> source = new ArrayList<>();
-//        source.add(c.getDiplay());
+        if(LandingScreen.ACYIVITY =="FURN")
+        {
+            text1.setText("Quantity");
+            text2.setText("Size");
+            text3.setText("Dimensions");
+            text4.setText(View.GONE);
+        }
+        if(LandingScreen.ACYIVITY =="PHONE")
+        {
+            btn_blue.setVisibility(View.GONE);
+            text1.setText("Display Resolution");
+            text2.setText("Battery");
+            text3.setText("RAM:");
+            text4.setText("Camera:");
+        }
+        if(LandingScreen.ACYIVITY =="CAR")
+        {
+            btn_red.setVisibility(View.GONE);
+            btn_blue.setVisibility(View.GONE);
+            text1.setText("Speed");
+            text2.setText("Engine");
+            text3.setText("Drive Type");
+            text4.setText("Gear");
+        }
 //
-//        source.add(c.getDiplay());
-//        source.add(c.getCapacity());
-//        source.add(c.getCamera());
-//        source.add(c.getSizeAndWieght());
-//
-//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size()-2)
-//                .reverseDraw(false)
-//                .setStepViewTexts(source)
-//                .setLinePaddingProportion(0.85f)
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#ffff00"))
-//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this,R.drawable.unchecked))
-//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this,R.drawable.check))
-//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this,R.drawable.unchecked))
-//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"));
 
 //        Color1.setText(c.getColor1());
 //        Color2.setText(c.getColor2());

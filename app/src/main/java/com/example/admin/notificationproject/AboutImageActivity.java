@@ -1,5 +1,6 @@
 package com.example.admin.notificationproject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +44,7 @@ public class AboutImageActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setTitleTextColor(Color.WHITE);
 
         imgList = new ArrayList<>();
         tvAbout=(TextView) findViewById(R.id.tvAbout);

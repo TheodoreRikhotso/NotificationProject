@@ -1,5 +1,6 @@
 package com.example.admin.notificationproject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +41,7 @@ public class NotificationActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setTitleTextColor(Color.WHITE);
 
 
         titlePojos = new ArrayList<>();

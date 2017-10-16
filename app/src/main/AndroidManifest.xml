@@ -12,67 +12,69 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.example.admin.notificationproject.SplashScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".SplashScreen"
+            android:label="Profile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.admin.notificationproject.LandingScreen" />
-        AdminNotification
-        <service android:name="com.example.admin.notificationproject.MyFirebaseIntanceIdService">
+
+        <activity
+            android:name=".LandingScreen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".CatalogAdminActivity" />
+
+        <service android:name=".MyFirebaseIntanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.example.admin.notificationproject.MyFirebaseMassagingService">
+        <service android:name=".MyFirebaseMassagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name="com.example.admin.notificationproject.AdminNotification" />
+        <activity android:name=".AdminNotification" />
         NotificationActivity
-        <activity android:name="com.example.admin.notificationproject.CatalogAdminActivity" />
+        <activity android:name=".MainActivity" />
         CatalogActivity
-        <activity android:name="com.example.admin.notificationproject.NotificationActivity" />
-        <activity android:name="com.example.admin.notificationproject.CatalogActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".CatalogActivity" />
         <activity
-            android:name="com.example.admin.notificationproject.DescriptionActivity"
+            android:name=".DescriptionActivity"
             android:label="@string/title_activity_description"
             android:theme="@style/AppTheme.NoActionBar" />
         DescriptionActivity
-        <activity android:name="com.example.admin.notificationproject.ConfirmRequestActivty" />
+        <activity android:name=".ConfirmRequestActivty" />
         ConfirmRequestActivty
-        <activity android:name="com.example.admin.notificationproject.NotificationActivityList" />
+        <activity android:name=".NotificationActivityList" />
         NotificationActivityList
-        <activity android:name="com.example.admin.notificationproject.DashBoardActivity" />
-        <activity android:name="com.example.admin.notificationproject.ForgotPasswordAcitivity" />
-        <activity android:name="com.example.admin.notificationproject.LoginActivity" />
-        <activity android:name="com.example.admin.notificationproject.SignUpActivity" />
-        <activity android:name="com.example.admin.notificationproject.PhoneActiviy" />
+        <activity android:name=".DashBoardActivity" />
+        <activity android:name=".ForgotPasswordAcitivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".PhoneActiviy" />
         <activity
-            android:name="com.example.admin.notificationproject.CarActivity"
+            android:name=".CarActivity"
             android:label="Cars" />
         <activity
-            android:name="com.example.admin.notificationproject.LaptopActivity"
+            android:name=".LaptopActivity"
             android:label="Laptops" />
         <activity
-            android:name="com.example.admin.notificationproject.FurnitureActivity"
+            android:name=".FurnitureActivity"
             android:label="Furniture" />
-        <activity android:name="com.example.admin.notificationproject.QAndA" />
-        <activity android:name="com.example.admin.notificationproject.ViewActivity" />
-        <activity
-            android:name="com.example.admin.notificationproject.ProfileActivity"
-            android:label="Profile" />
-        <activity android:name="com.example.admin.notificationproject.AboutStuffActivity" />
-        <activity android:name="com.example.admin.notificationproject.PeopleActivity" />
-        <activity android:name="com.example.admin.notificationproject.AboutsActivity" />
-        <activity android:name="com.example.admin.notificationproject.AboutImageActivity" />
-        <activity android:name="com.example.admin.notificationproject.FAQ" />
-        <activity android:name="com.example.admin.notificationproject.PolicyActivity"></activity>
+        <activity android:name=".QAndA" />
+        <activity android:name=".ViewActivity" />
+        <activity android:name=".AboutStuffActivity" />
+        <activity android:name=".PeopleActivity" />
+        <activity android:name=".AboutsActivity" />
+        <activity android:name=".AboutImageActivity" />
+        <activity android:name=".FAQ" />
+        <activity android:name=".PolicyActivity" />
+        <activity android:name=".ContactActivity"></activity>
     </application>
 
 </manifest>

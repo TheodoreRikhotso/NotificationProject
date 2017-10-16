@@ -47,6 +47,7 @@ private String title,message,img_url;
         {
             Log.d(TAG,"Message body: "+remoteMessage.getData());
 
+
             Date currentTime =  Calendar.getInstance().getTime();
 
             sendNotification(CatalogAdminActivity.NOTIFY,CatalogAdminActivity.TYPE);
@@ -63,22 +64,25 @@ private String title,message,img_url;
     private void sendNotification(Catalog catalog,String title) {
 
         InputStream stream = null;
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,LandingScreen.class);
+        Intent intentPP = new Intent(this,MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Uri noti = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent pendingIntent =PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntentS =PendingIntent.getActivity(this,0,intentPP,PendingIntent.FLAG_ONE_SHOT);
+        //PendingIntent pendingIntent =PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
         final NotificationCompat.Builder notificationBuilder =new NotificationCompat.Builder(this);
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(catalog.assetTitle+" Just add"+catalog.getDescription());
         notificationBuilder.setSound(noti);
-
+        notificationBuilder.addAction(R.drawable.ic_remove_red_eye_black_24dp,"View",pendingIntent);
+        notificationBuilder.addAction(R.drawable.ic_visibility_off_black_24dp,"Ignore",pendingIntentS);
        
         notificationBuilder.setContentIntent(pendingIntent);
         notificationBuilder.setAutoCancel(true);
 
 
-        notificationBuilder.addAction(R.drawable.ic_remove_red_eye_black_24dp,"View",pendingIntent);
-        notificationBuilder.addAction(R.drawable.ic_visibility_off_black_24dp,"Ignore",pendingIntent);
+
 
         Bitmap bitmap = getBitmapFromURL(catalog.catalogimageurl);
         notificationBuilder.setLargeIcon(bitmap);

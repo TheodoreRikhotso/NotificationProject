@@ -40,6 +40,8 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLaptop) ;
         toolbar.setTitle("Laptops");
 
+        LandingScreen.ACYIVITY ="LAP";
+
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -92,31 +94,15 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
 
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
+            public boolean onQueryTextSubmit(String query) {
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
+                return false;
+            }
 
-//    private void search(SearchView searchView) {
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                adapters.getFilter().filter(newText);
-//                return true;
-//            }
-//        });
-//    }
-}
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapters.getFilter().filter(newText);
+                return true;
+            }
+        }

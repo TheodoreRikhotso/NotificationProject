@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_description_background"
+    android:background="#d2000000"
     tools:context="com.example.admin.notificationproject.DescriptionActivity">
 
 
@@ -13,9 +13,9 @@
         android:id="@+id/tbDescrption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/main_background2"
+        android:background="@color/colorAccent"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@android:style/Widget.Toolbar.Button.Navigation" />
+        android:theme="?attr/actionBarTheme" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
@@ -23,6 +23,7 @@
 
 
         >
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -46,8 +47,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="234dp"
-
-        android:background="@drawable/main_description_background" />
+        android:background="#d2000000" />
 
 </android.support.v7.widget.CardView>
                 <TextView
@@ -116,10 +116,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
                 <TextView
+
                     android:text="Capacity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView6"
+                    android:id="@+id/text1"
                     android:textStyle="normal|bold"
                     android:layout_marginTop="15dp"
                     android:layout_below="@+id/tvAssetDescription"
@@ -142,6 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ec669900"
+                    android:id="@+id/text2"
                     android:textStyle="normal|bold"
                     android:layout_marginTop="15dp"
                     android:layout_below="@+id/tvAssetDescription"
@@ -158,6 +160,7 @@
                     android:id="@+id/tvSize"
                     android:textColor="@android:color/darker_gray" />
                 <TextView
+                    android:id="@+id/text3"
                     android:text="Display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,7 +180,7 @@
                     android:textColor="@android:color/darker_gray"/>
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/text4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -209,10 +212,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
-<com.baoyachi.stepview.VerticalStepView
-    android:id="@+id/vStV"
-    android:layout_width="wrap_content"
-    android:layout_height="200dp"/>
+
 
 
 </LinearLayout>

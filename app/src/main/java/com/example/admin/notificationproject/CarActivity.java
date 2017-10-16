@@ -1,9 +1,11 @@
 package com.example.admin.notificationproject;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -48,6 +50,11 @@ public class CarActivity extends AppCompatActivity implements SearchView.OnQuery
 //        //toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarCar0) ;
         toolbar.setTitle("Cars");
+        toolbar.setTitleTextColor(Color.WHITE);
+
+
+
+
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
@@ -58,7 +65,8 @@ public class CarActivity extends AppCompatActivity implements SearchView.OnQuery
             }
         });
 
-
+//get A
+        LandingScreen.ACYIVITY ="CAR";
 
 
         DatabaseReference databaseCatalo = FirebaseDatabase.getInstance().getReference("Cars");
@@ -72,19 +80,24 @@ public class CarActivity extends AppCompatActivity implements SearchView.OnQuery
         databaseCatalo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(CarActivity.this, "stop",Toast.LENGTH_SHORT).show();
+
                 catalogListCars.clear();
                 for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
                     String  TAG ="MANI";
                     Catalog catalog = catalogSnapshot.getValue(Catalog.class);
                     ListViewCar = (RecyclerView) findViewById(R.id.lvCar);
                     catalogListCars.add(catalog);
-                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                    int numberOfColumns = 4;
+                    ListViewCar.setLayoutManager(new GridLayoutManager(CarActivity.this, numberOfColumns));
+//                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                     adapters = new CatalogAdapter(CarActivity.this, catalogListCars);
 
                     ListViewCar.setHasFixedSize(true);
                     Log.d(TAG,catalog.getCatalogtitle()+"");
 //                    search(mSearchView);
+
+
+
                     ListViewCar.setLayoutManager(layoutManager);
 
                     ListViewCar.setAdapter(adapters);
@@ -111,33 +124,19 @@ public class CarActivity extends AppCompatActivity implements SearchView.OnQuery
 
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
+            public boolean onQueryTextSubmit(String query) {
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapters.getFilter().filter(newText);
+                return true;
+            }
+        }
 
 
-//    private void search(SearchView searchView) {
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                adapters.getFilter().filter(newText);
-//                return true;
-//            }
-//        });
-//    }
 
-}
+
