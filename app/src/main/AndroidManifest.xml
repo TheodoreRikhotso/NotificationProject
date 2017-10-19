@@ -13,16 +13,16 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".SplashScreen"
-            android:label="Profile">
+            android:label="Boot It">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LandingScreen"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CatalogAdminActivity" />
 
@@ -74,7 +74,11 @@
         <activity android:name=".AboutImageActivity" />
         <activity android:name=".FAQ" />
         <activity android:name=".PolicyActivity" />
-        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".ProfileActivityIcon" />
+        <activity android:name=".PhoneDescriptionActivity" />
+        <activity android:name=".LaptopDescriptionActivity" />
+        <activity android:name=".FurnitureDescriptionActivity"></activity>
     </application>
 
 </manifest>

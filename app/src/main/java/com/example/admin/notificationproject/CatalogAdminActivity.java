@@ -18,12 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,7 +45,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-
 /**
  * Created by Admin on 9/7/2017.
  */
@@ -59,13 +55,13 @@ public class CatalogAdminActivity extends AppCompatActivity {
 
         //FIREBASE CONNECTION
         String TAG ="URI";
-    EditText etTitle,etCamera, etCapacity, etSize, etDipslay,etProccessor,etMemory,etBattery,etOs,etQty;
+    EditText etSerialNo,etTotalQty,etDuration,etOs,etRam,etBattery,etMemory,etTitle;
     Button btnAdd;
     ImageButton IBAdmin, imageView ;
     StorageReference filePath;
-    Spinner spColor1,spColor2,spColor3,spColor4,spColor5;
-    private String color1,color2, color3, color4, color5, edColor5;
 
+
+    private ProgressDialog mDialog;
 
     //IMAGE
     Uri uri;
@@ -76,8 +72,6 @@ public class CatalogAdminActivity extends AppCompatActivity {
     private DatabaseReference databaseLaptops,databaseNot;
     private StorageReference mStorageReference;
 
-    private ProgressDialog mDialog;
-    private String[] colors= {"Select Color","Black","White","Blue","Dark Grey","Red"};
 
     @Override
     protected void onStart() {
@@ -118,138 +112,60 @@ public class CatalogAdminActivity extends AppCompatActivity {
             imageView = (ImageButton) findViewById(R.id.imageView);
 
 //
-            etCapacity = (EditText) findViewById(R.id.etCapacity);
-            etCamera = (EditText) findViewById(R.id.etCamera);
-            etSize = (EditText) findViewById(R.id.etSize);
-            etDipslay = (EditText) findViewById(R.id.etDisplay);
-            etTitle = (EditText) findViewById(R.id.edTitle);
-
-            etProccessor = (EditText) findViewById(R.id.etProccessor);
-            etOs = (EditText) findViewById(R.id.etOs);
+            etSerialNo = (EditText) findViewById(R.id.etSerialNo);
             etBattery = (EditText) findViewById(R.id.etBattery);
+            etDuration = (EditText) findViewById(R.id.etDuration);
+            etTotalQty = (EditText) findViewById(R.id.etToatalQuantity);
+            etTitle = (EditText) findViewById(R.id.etTitle);
             etMemory = (EditText) findViewById(R.id.etMemory);
-            etQty = (EditText) findViewById(R.id.etQty);
+            etRam = (EditText) findViewById(R.id.etRam);
+            etOs = (EditText) findViewById(R.id.etOs);
 
 
-            spColor1 = (Spinner) findViewById(R.id.spColor1);
-            spColor2 = (Spinner) findViewById(R.id.spColor2);
-            spColor3 = (Spinner) findViewById(R.id.spColor3);
-            spColor4 = (Spinner) findViewById(R.id.spColor4);
-            spColor5 = (Spinner) findViewById(R.id.spColor5);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,colors);
-            spColor1.setAdapter(adapter);
-            spColor2.setAdapter(adapter);
-            spColor3.setAdapter(adapter);
-            spColor4.setAdapter(adapter);
-            spColor5.setAdapter(adapter);
-            //
+
+
             if(MainActivity.CATA.equals("phone")) {
-                etProccessor.setHint("Proccesor");
-                etSize.setHint("ram");
-                etDipslay.setHint("display");
-                etMemory.setHint("memory");
-                etCamera.setHint("camera");
+
+                etMemory.setHint("Memory");
                 etBattery.setHint("Battery");
-                etCapacity.setHint("Bluetooth");
-                etOs.setHint("operating System ");
+                etRam.setHint("Ram");
+                etOs.setHint("Operating System ");
 
 
             }
-            if(MainActivity.CATA.equals("car")) {
-                etProccessor.setHint("fuel");
-                etSize.setHint("seater");
-                etMemory.setHint("door");
-                etCamera.setHint("mileage");
-                etBattery.setHint("Engine");
-                etOs.setHint("Drive type");
-                etDipslay.setHint("gear");
-                etCapacity.setHint("Speed");
-
-
-            }
+//            if(MainActivity.CATA.equals("car")) {
+//                etProccessor.setHint("fuel");
+//                etSize.setHint("seater");
+//                etMemory.setHint("door");
+//                etCamera.setHint("mileage");
+//                etBattery.setHint("Engine");
+//                etOs.setHint("Drive type");
+//                etDipslay.setHint("gear");
+//                etCapacity.setHint("Speed");
+//
+//
+//            }Speed
             if(MainActivity.CATA.equals("laptop")) {
 
-                etOs.setHint("operating System");
-                etSize.setHint("ram");
-                etProccessor.setHint("proccessor");
-                etMemory.setHint("hardDrive");
-                etBattery.setHint("bluetooth");
-                etCamera.setHint("camera");
-                etCapacity.setHint("graphics");
-                etSize.setHint("Speed");
+                etMemory.setHint("Graphics");
+                etBattery.setHint("Storage");
+                etRam.setHint("Ram");
+                etOs.setHint("Operating System ");
 
 
             }
             if(MainActivity.CATA.equals("Furniture")) {
 
-                etOs.setHint("Quantity");
-                etSize.setHint("Size");
-                etProccessor.setHint("Duration");
-                etMemory.setHint("");
-                etBattery.setHint("bluetooth");
-                etCamera.setHint("camera");
-                etCapacity.setHint("graphics");
-                etSize.setHint("Speed");
+                etMemory.setHint("Quantity");
+                etBattery.setHint("Type");
+                etRam.setHint("Deliverance");
+                etOs.setVisibility(View.GONE);
 
 
             }
 
-            spColor1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    color1=colors[i];
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-            spColor2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    color2=colors[i];
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-            spColor3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    color3=colors[i];
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-            spColor4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    color4=colors[i];
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-            spColor5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    color5=colors[i];
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
 
 
 
@@ -309,17 +225,18 @@ public class CatalogAdminActivity extends AppCompatActivity {
     private void AddAsset() {
 
 
-        final String diplay = etDipslay.getText().toString().trim();
-        final String size = etSize.getText().toString().trim();
-        final String camera = etCamera.getText().toString().trim();
-        final String capacity = etCapacity.getText().toString().trim();
+//        etMemory.setHint("Memory");
+//        etBattery.setHint("Battery");
+//        etRam.setHint("Ram");
+//        etOs.setHint("Operating System ");
         final String title = etTitle.getText().toString().trim();
-
-        final String procesor = etProccessor.getText().toString().trim();
+        final String serialNo = etSerialNo.getText().toString().trim();
+        final String duration = etDuration.getText().toString().trim();
+        final String total = etTotalQty.getText().toString().trim();
         final String memory = etMemory.getText().toString().trim();
         final String battery = etBattery.getText().toString().trim();
         final String os = etOs.getText().toString().trim();
-
+        final String ram  =etRam.getText().toString().trim();
 
 
         mDialog.setMessage("please wait ...");
@@ -343,6 +260,84 @@ public class CatalogAdminActivity extends AppCompatActivity {
         if (MainActivity.CATA.equals("furniture")) {
             filePath = mStorageReference.child("FurnitureImages").child(uri.getLastPathSegment());
         }
+
+        if (MainActivity.CATA.equals("furniture")) {
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
+                    etMemory.setHint("Quantity");
+                    etBattery.setHint("Type");
+                    etRam.setHint("Deliverance");
+                    etOs.setVisibility(View.GONE);
+
+
+                    //CREATES A NEW UNIQUE ID IN DATABASE
+                    String id = databaseLaptops.push().getKey();
+                    Catalog catalog = new Catalog(id, imageUri.toString());
+
+                    catalog.setAssetTitle(title);
+                    FurniturePojo lap =new FurniturePojo();
+                    //lap.set;
+
+                    lap.setDeliverance(ram);
+                    lap.setType(battery);
+
+
+                    lap.setTotalQuantity(total);
+                    lap.setQuantity(memory);
+
+                    lap.setId(id);
+                    lap.setDuration(duration);
+                    lap.setSerialNo(serialNo);
+                    lap.setTitle(title);
+                    lap.setImage(imageUri.toString());
+
+                    catalog.setCatalogimageurl(imageUri.toString());
+
+
+                    ///notifacaion
+                    NOTIFY = catalog;
+                    TYPE = MainActivity.CATA;
+                    String idi = databaseNot.push().getKey();
+                    Date currentTime = Calendar.getInstance().getTime();
+                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+
+                    Time now = new Time();
+                    now.setToNow();
+                    NotificationPojo notificationPojo = new NotificationPojo();
+                    notificationPojo.setMessage(catalog.assetTitle);
+                    notificationPojo.setId(idi);
+                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+                    notificationPojo.setTitle(catalog.getAssetTitle());
+                    notificationPojo.setMessage(catalog.getAssetTitle());
+                    notificationPojo.setDate(dateFormat.format(currentTime));
+
+                    databaseNot.child(idi).setValue(notificationPojo);
+
+
+                    sendNotification(notificationPojo, MainActivity.CATA);
+//                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
+                    databaseLaptops.child(id).setValue(lap);
+                    mDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+            filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
         if (MainActivity.CATA.equals("laptop")) {
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
@@ -350,56 +345,28 @@ public class CatalogAdminActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
 
-/* etProccessor.setHint("Proccesor");
-                 etProccessor.setHint("Proccesor");
-                etSize.setHint("ram");
-                etDipslay.setHint("display");
-                etMemory.setHint("memory");
-                etCamera.setHint("camera");
-                etBattery.setHint("Battery");
-                etCapacity.setHint("Bluetooth");
-                etOs.setHint("operating System ");
 
-
-                 final String diplay = etDipslay.getText().toString().trim();
-        final String size = etSize.getText().toString().trim();
-        final String camera = etCamera.getText().toString().trim();
-        final String capacity = etCapacity.getText().toString().trim();
-        final String title = etTitle.getText().toString().trim();
-
-        final String procesor = etProccessor.getText().toString().trim();
-        final String memory = etMemory.getText().toString().trim();
-        final String battery = etBattery.getText().toString().trim();
-        final String os = etOs.getText().toString().trim();*/
 
                     //CREATES A NEW UNIQUE ID IN DATABASE
                     String id = databaseLaptops.push().getKey();
                     Catalog catalog = new Catalog(id, imageUri.toString());
-                    catalog.setColor1(color1);
-                    catalog.setColor2(color2);
-                    catalog.setColor3(color3);
-                    catalog.setColor4(color4);
-                    catalog.setColor5(color5);
+
                     catalog.setAssetTitle(title);
-                    PhonePojo lap =new PhonePojo();
+                    Laptop lap =new Laptop();
                     //lap.set;
-                    lap.setDisplay(diplay);
-                    lap.setProccessor(procesor);
-                    lap.setRam(size);
-                    lap.setBattery(battery);
-                    lap.setCamera(camera);
+
+                    lap.setRam(ram);
+                    lap.setStorage(battery);
+
                     lap.setOs(os);
+                    lap.setTotalQuantity(total);
                     lap.setGraphics(memory);
-                    lap.setMemory(battery);
-                    lap.setTilte(title);
+
                     lap.setId(id);
-                    lap.setImageUrl(imageUri.toString());
-
-
-                    catalog.setCamera(camera);
-                    catalog.setCapacity(capacity);
-                    catalog.setSizeAndWieght(size);
-                    catalog.setDiplay(diplay);
+                    lap.setDuration(duration);
+                    lap.setSerialNo(serialNo);
+                    lap.setTitle(title);
+                    lap.setImage(imageUri.toString());
 
                     catalog.setCatalogimageurl(imageUri.toString());
 
@@ -446,157 +413,30 @@ public class CatalogAdminActivity extends AppCompatActivity {
         }
 
         if (MainActivity.CATA.equals("phone")) {
-        filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
-
-/* etProccessor.setHint("Proccesor");
-                etSize.setHint("ram");
-                etDipslay.setHint("display");
-                etMemory.setHint("Graphics");
-                etCamera.setHint("camera");
-                etBattery.setHint("Hard Drive");
-                etCapacity.setHint("Hard Drive");
-                etOs.setHint("operating System ")
-
-
-                 final String diplay = etDipslay.getText().toString().trim();
-        final String size = etSize.getText().toString().trim();
-        final String camera = etCamera.getText().toString().trim();
-        final String capacity = etCapacity.getText().toString().trim();
-        final String title = etTitle.getText().toString().trim();
-
-        final String procesor = etProccessor.getText().toString().trim();
-        final String memory = etMemory.getText().toString().trim();
-        final String battery = etBattery.getText().toString().trim();
-        final String os = etOs.getText().toString().trim();*/
-
-                //CREATES A NEW UNIQUE ID IN DATABASE
-                String id = databaseLaptops.push().getKey();
-                Catalog catalog = new Catalog(id, imageUri.toString());
-                catalog.setColor1(color1);
-                catalog.setColor2(color2);
-                catalog.setColor3(color3);
-                catalog.setColor4(color4);
-                catalog.setColor5(color5);
-                catalog.setAssetTitle(title);
-                Laptop lap =new Laptop();
-                lap.setBluetooth(capacity);
-                lap.setProccessor(procesor);
-                lap.setRam(size);
-                lap.setDiplay(diplay);
-                lap.setCamera(camera);
-                lap.setOs(os);
-                lap.setGraphics(memory);
-                lap.setHardDrive(battery);
-
-
-                catalog.setCamera(camera);
-                catalog.setCapacity(capacity);
-                catalog.setSizeAndWieght(size);
-                catalog.setDiplay(diplay);
-
-                catalog.setCatalogimageurl(imageUri.toString());
-
-
-                ///notifacaion
-                NOTIFY = catalog;
-                TYPE = MainActivity.CATA;
-                String idi = databaseNot.push().getKey();
-                Date currentTime = Calendar.getInstance().getTime();
-                DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-
-
-                Time now = new Time();
-                now.setToNow();
-                NotificationPojo notificationPojo = new NotificationPojo();
-                notificationPojo.setMessage(catalog.assetTitle);
-                notificationPojo.setId(idi);
-                notificationPojo.setImageUrl(catalog.getCatalogimageurl());
-                notificationPojo.setTitle(catalog.getAssetTitle());
-                notificationPojo.setMessage(catalog.getAssetTitle());
-                notificationPojo.setDate(dateFormat.format(currentTime));
-
-                databaseNot.child(idi).setValue(notificationPojo);
-
-
-                sendNotification(notificationPojo, MainActivity.CATA);
-//                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
-                databaseLaptops.child(id).setValue(lap);
-                mDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-        if (MainActivity.CATA.equals("car")) {
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
 
-/*  etProccessor.setHint("fuel");
-                etSize.setHint("seater");
-                etMemory.setHint("door");
-                etCamera.setHint("mileage");
-                etBattery.setHint("Engine");
-                etOs.setHint("Drive type");
-                etDipslay.setHint("gear");
-                etCapacity.setHint("Speed");
-
-
-                 final String diplay = etDipslay.getText().toString().trim();
-        final String size = etSize.getText().toString().trim();
-        final String camera = etCamera.getText().toString().trim();
-        final String capacity = etCapacity.getText().toString().trim();
-        final String title = etTitle.getText().toString().trim();
-
-        final String procesor = etProccessor.getText().toString().trim();
-        final String memory = etMemory.getText().toString().trim();
-        final String battery = etBattery.getText().toString().trim();
-        final String os = etOs.getText().toString().trim();*/
 
                     //CREATES A NEW UNIQUE ID IN DATABASE
                     String id = databaseLaptops.push().getKey();
                     Catalog catalog = new Catalog(id, imageUri.toString());
-                    catalog.setColor1(color1);
-                    catalog.setColor2(color2);
-                    catalog.setColor3(color3);
-                    catalog.setColor4(color4);
-                    catalog.setColor5(color5);
-                    catalog.setAssetTitle(title);
-                    CarPojo lap =new CarPojo();
-                    lap.setFuel(procesor);
-                    lap.setDoor(memory);
-                    lap.setSeater(size);
-                    lap.setMileage(camera);
-                    lap.setEngine(battery);
-                    lap.setDrivetype(os);
-                    lap.setGear(diplay);
-                    lap.setSpeed(capacity);
 
 
-                    catalog.setCamera(camera);
-                    catalog.setCapacity(capacity);
-                    catalog.setSizeAndWieght(size);
-                    catalog.setDiplay(diplay);
+                    PhonePojo lap = new PhonePojo();
+                    lap.setBattery(battery);
+                    lap.setMemory(memory);
+                    lap.setRam(ram);
+                    lap.setOs(os);
 
-                    catalog.setCatalogimageurl(imageUri.toString());
 
+                    lap.setId(id);
+                    lap.setDuration(duration);
+                    lap.setSerialNo(serialNo);
+                    lap.setTitle(title);
+                    lap.setImage(imageUri.toString());
 
                     ///notifacaion
                     NOTIFY = catalog;
@@ -636,9 +476,107 @@ public class CatalogAdminActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
+
     }
+
+//        if (MainActivity.CATA.equals("car")) {
+//            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
+//
+///*  etProccessor.setHint("fuel");
+//                etSize.setHint("seater");
+//                etMemory.setHint("door");
+//                etCamera.setHint("mileage");
+//                etBattery.setHint("Engine");
+//                etOs.setHint("Drive type");
+//                etDipslay.setHint("gear");
+//                etCapacity.setHint("Speed");
+//
+//
+//                 final String diplay = etDipslay.getText().toString().trim();
+//        final String size = etSize.getText().toString().trim();
+//        final String camera = etCamera.getText().toString().trim();
+//        final String capacity = etCapacity.getText().toString().trim();
+//        final String title = etTitle.getText().toString().trim();
+//
+//        final String procesor = etProccessor.getText().toString().trim();
+//        final String memory = etMemory.getText().toString().trim();
+//        final String battery = etBattery.getText().toString().trim();
+//        final String os = etOs.getText().toString().trim();*/
+//
+//                    //CREATES A NEW UNIQUE ID IN DATABASE
+//                    String id = databaseLaptops.push().getKey();
+//                    Catalog catalog = new Catalog(id, imageUri.toString());
+//                    catalog.setColor1(color1);
+//                    catalog.setColor2(color2);
+//                    catalog.setColor3(color3);
+//                    catalog.setColor4(color4);
+//                    catalog.setColor5(color5);
+//                    catalog.setAssetTitle(title);
+//                    CarPojo lap =new CarPojo();
+//                    lap.setFuel(procesor);
+//                    lap.setDoor(memory);
+//                    lap.setSeater(size);
+//                    lap.setMileage(camera);
+//                    lap.setEngine(battery);
+//                    lap.setDrivetype(os);
+//                    lap.setGear(diplay);
+//                    lap.setSpeed(capacity);
+//
+//
+//                    catalog.setCamera(camera);
+//                    catalog.setCapacity(capacity);
+//                    catalog.setSizeAndWieght(size);
+//                    catalog.setDiplay(diplay);
+//
+//                    catalog.setCatalogimageurl(imageUri.toString());
+//
+//
+//                    ///notifacaion
+//                    NOTIFY = catalog;
+//                    TYPE = MainActivity.CATA;
+//                    String idi = databaseNot.push().getKey();
+//                    Date currentTime = Calendar.getInstance().getTime();
+//                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+//
+//
+//                    Time now = new Time();
+//                    now.setToNow();
+//                    NotificationPojo notificationPojo = new NotificationPojo();
+//                    notificationPojo.setMessage(catalog.assetTitle);
+//                    notificationPojo.setId(idi);
+//                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+//                    notificationPojo.setTitle(catalog.getAssetTitle());
+//                    notificationPojo.setMessage(catalog.getAssetTitle());
+//                    notificationPojo.setDate(dateFormat.format(currentTime));
+//
+//                    databaseNot.child(idi).setValue(notificationPojo);
+//
+//
+//                    sendNotification(notificationPojo, MainActivity.CATA);
+////                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
+//                    databaseLaptops.child(id).setValue(lap);
+//                    mDialog.dismiss();
+//                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
+//
+//                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+//                    startActivity(intent);
+//
+//                }
+//            });
+//            filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//        }
+//    }
 
 
     private void sendNotification(NotificationPojo notificationPojo,String title) {

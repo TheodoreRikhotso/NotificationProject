@@ -1,31 +1,43 @@
 package com.example.admin.notificationproject;
 
+import java.io.Serializable;
+
 /**
  * Created by Admin on 12-Oct-17.
  */
 
-public class PhonePojo {
+public class PhonePojo implements Serializable {
 
-    private String proccessor,ram,os,graphics,display,memory,camera,Battery,id,imageUrl,totalItem,tilte;
+  private String id,title,serialNo,totalQuantity,image,duration,memory,os,battery,ram;
+
+    public String getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(String totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public PhonePojo() {
+
     }
 
-    public String getTilte() {
-        return tilte;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTilte(String tilte) {
-        this.tilte = tilte;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTotalItem() {
-        return totalItem;
-    }
-
-    public void setTotalItem(String totalItem) {
-        this.totalItem = totalItem;
-    }
 
     public String getId() {
         return id;
@@ -35,52 +47,28 @@ public class PhonePojo {
         this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getSerialNo() {
+        return serialNo;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
     }
 
-    public String getProccessor() {
-        return proccessor;
+    public String getTotalQuantit() {
+        return totalQuantity;
     }
 
-    public void setProccessor(String proccessor) {
-        this.proccessor = proccessor;
+    public void setTotalQuantit(String totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
-    public String getRam() {
-        return ram;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public String getGraphics() {
-        return graphics;
-    }
-
-    public void setGraphics(String graphics) {
-        this.graphics = graphics;
-    }
-
-    public String getDisplay() {
-        return display;
-    }
-
-    public void setDisplay(String display) {
-        this.display = display;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getMemory() {
@@ -91,19 +79,27 @@ public class PhonePojo {
         this.memory = memory;
     }
 
-    public String getCamera() {
-        return camera;
+    public String getOs() {
+        return os;
     }
 
-    public void setCamera(String camera) {
-        this.camera = camera;
+    public void setOs(String os) {
+        this.os = os;
     }
 
     public String getBattery() {
-        return Battery;
+        return battery;
     }
 
     public void setBattery(String battery) {
-        Battery = battery;
+        this.battery = battery;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
     }
 }

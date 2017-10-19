@@ -18,7 +18,7 @@
         android:id="@+id/toolbarCar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@android:color/holo_green_light"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 

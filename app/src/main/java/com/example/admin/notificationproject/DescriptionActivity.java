@@ -13,13 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyachi.stepview.VerticalStepView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
@@ -41,11 +45,13 @@ public class DescriptionActivity extends AppCompatActivity {
     private DatabaseReference databaseUserItem;
     private StorageReference mStorageReference;
     private  FirebaseUser user;
+    private  Catalog c;
 
     RingProgressBar ringProgressBar1, ringProgressBar2;
     TextView tvDay, Loading;
     ImageView ivIcon;
     Button btnOk;
+    private DatabaseReference databaseProfile;
 
     int progress = 0;
     Handler myHandler = new Handler() {
@@ -71,16 +77,17 @@ public class DescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_description);
 
         // INVOKES BACK ARROW
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         verticalStepView = (VerticalStepView)findViewById(R.id.vStV);
 
         Intent intent = getIntent();
-        Catalog c = (Catalog)intent.getSerializableExtra("select");
+        c = (Catalog)intent.getSerializableExtra("select");
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.tbDescrption) ;
         toolbar.setTitle(c.getAssetTitle());
         setSupportActionBar(toolbar);
+
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +95,7 @@ public class DescriptionActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.DKGRAY);
 
 
         tvSize = (TextView) findViewById(R.id.tvSize);
@@ -100,7 +107,7 @@ public class DescriptionActivity extends AppCompatActivity {
         text1 = (TextView) findViewById(R.id.text1);
         text2 = (TextView) findViewById(R.id.text2);
         text3 = (TextView) findViewById(R.id.text3);
-        text4 = (TextView) findViewById(R.id.text4);
+        text4 = (TextView) findViewById(R.id.text7);
 
 
         imageView = (ImageView)findViewById(R.id.imageView);
@@ -109,9 +116,11 @@ public class DescriptionActivity extends AppCompatActivity {
         //usser item requested
 
         databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         id = user.getUid();
+
+        databaseProfile = FirebaseDatabase.getInstance().getReference("Profiles");
 
 
         databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
@@ -127,7 +136,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
 
                 Date currentTime = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
                 //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
                 Date currentLocalTime = cal.getTime();
@@ -144,20 +153,55 @@ public class DescriptionActivity extends AppCompatActivity {
                 String userId = databaseUserItem.push().getKey();
 
                 databaseUserItem.child(userId).setValue(userItemPojo);
-              ///DIALOG BOX INITIALIZATION
+                ///DIALOG BOX INITIALIZATION
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(DescriptionActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
 
                 btnOk = mView.findViewById(R.id.btnOk);
                 tvDay = mView.findViewById(R.id.tvDay);
                 ivIcon = mView.findViewById(R.id.ivIcon);
+
+                //Date, department
+                TextView tvDate=mView.findViewById(R.id.tvDates);
+                final TextView tvDepartment=mView.findViewById(R.id.tvDert);
+                final TextView tvType=mView.findViewById(R.id.tvType);
+                tvDate.setText(dateFormat.format(currentTime));
+
                 ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
                 Loading = mView.findViewById(R.id.Loading);
+
+                //
+                DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
+
+                DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
+
+                buisnessAccRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if(dataSnapshot!= null) {
+                            ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
+                            if(person!= null) {
+                                tvDepartment.setText(person.getDepartmentName());
+                                tvType.setText(LandingScreen.ACYIVITY);
+
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(DescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intents = new Intent(DescriptionActivity.this,LandingScreen.class);
-                       startActivity(intents);
+                        startActivity(intents);
                     }
                 });
 
@@ -223,6 +267,15 @@ public class DescriptionActivity extends AppCompatActivity {
 
                 btn_black.setScaleX(1);
                 btn_black.setScaleY(1);
+                image =c.catalogimageurl;
+                if(c.color2!=null) {
+                    Glide.with(getApplicationContext())
+                            .load(c.color2)
+                            .into(imageView);
+                }else {
+                    Toast.makeText(DescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -247,6 +300,14 @@ public class DescriptionActivity extends AppCompatActivity {
 
                 btn_red.setScaleX(1);
                 btn_red.setScaleY(1);
+
+                if(c.catalogimageurl!=null) {
+                Glide.with(getApplicationContext())
+                        .load(c.catalogimageurl)
+                        .into(imageView);
+                }else {
+                    Toast.makeText(DescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -269,6 +330,9 @@ public class DescriptionActivity extends AppCompatActivity {
 
                 btn_black.setScaleX(1);
                 btn_black.setScaleY(1);
+                image =c.catalogimageurl;
+
+                Toast.makeText(DescriptionActivity.this, "No Available", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -291,6 +355,13 @@ public class DescriptionActivity extends AppCompatActivity {
 
                 btn_black.setScaleX(1);
                 btn_black.setScaleY(1);
+                if(c.catalogimageurl!=null) {
+                Glide.with(getApplicationContext())
+                        .load(c.color1)
+                        .into(imageView);
+            }else {
+                Toast.makeText(DescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 
@@ -313,6 +384,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
                 btn_black.setScaleX(1);
                 btn_black.setScaleY(1);
+                Toast.makeText(DescriptionActivity.this, "5", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -379,7 +451,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
     }
 
-//    public boolean onCreateOptionsMenu(Menu menu) {
+    //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getMenuInflater();
 //        inflater.inflate(R.menu.notification, menu);
 //        return true;
@@ -402,6 +474,4 @@ public class DescriptionActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    }
-
-
+}

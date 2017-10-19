@@ -15,7 +15,7 @@
         android:id="@+id/toolbarAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@android:color/holo_green_light"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -54,11 +54,11 @@
 \nmLab Southern Africa is a registered Nonprofit organisation that is powered through the support of The Ministry of Foreign Affairs of Finland, The Department of Science; Technology, The Innovation Hub, The A Waterfront and the World Bank infoDEV.
 \n"
 
-                android:textColor="@android:color/black" />
+                android:textColor="@color/cardview_dark_background" />
 
             <TextView
                 android:id="@+id/editText2"
-                android:textColor="#1B5E20"
+                android:textColor="@color/cardview_dark_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
@@ -126,13 +126,10 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/imgView"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignRight="@+id/imgView"
-                    android:layout_below="@+id/imgView"
                     android:text="mLab Provincial Manager | Gauteng"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light"
+                    android:layout_below="@+id/imgView"
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -144,7 +141,7 @@
                     android:layout_alignLeft="@+id/imgView1"
                     android:layout_alignStart="@+id/imgView1"
                     android:text="mLab Provincial Manager | Western Cape "
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -162,13 +159,13 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/textView5"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/textView5"
                     android:text="Rulani Nevhufumba"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="15dp" />
 
 
             </RelativeLayout>
@@ -222,7 +219,7 @@
                     android:layout_toStartOf="@+id/textView13"
                     android:text="CodeTribe Facilitator Tshwane | Android Developer"
                     android:textAlignment="center"
-                    android:textColor="#9DC700"
+                    android:textColor="@android:color/holo_green_light"
                     android:layout_toLeftOf="@+id/textView13" />
 
                 <TextView
@@ -248,7 +245,7 @@
                     android:layout_marginTop="11dp"
                     android:text="mLab Developer in Residence"
                     android:textAlignment="center"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light" />
 
                 <TextView
                     android:id="@+id/textView24"
@@ -312,7 +309,7 @@
                     android:layout_toStartOf="@+id/imgView6"
                     android:text="Facilitator CodeTribe Soweto | DEMOLA Johannesburg"
                     android:textAlignment="center"
-                    android:textColor="#9DC700"
+                    android:textColor="@android:color/holo_green_light"
                     android:layout_alignRight="@+id/imgView5"
                     android:layout_alignEnd="@+id/imgView5" />
 
@@ -340,7 +337,7 @@
                     android:layout_marginBottom="11dp"
                     android:text="mLab /CodeTribe Coordinator"
                     android:textAlignment="center"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light" />
 
                 <TextView
                     android:id="@+id/textView118"
@@ -401,7 +398,7 @@
                     android:layout_height="wrap_content"
                     android:text="Operations and M/E Consultant"
                     android:textAlignment="center"
-                    android:textColor="#9DC700"
+                    android:textColor="@android:color/holo_green_light"
                     android:layout_below="@+id/imgView8"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -430,7 +427,7 @@
                     android:layout_alignStart="@+id/imgView8"
                     android:text="Partnerships / Ecosystem Consultant"
                     android:textAlignment="center"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light" />
 
                 <TextView
                     android:id="@+id/textView45"
@@ -510,7 +507,7 @@
                     android:layout_marginBottom="12dp"
                     android:text="Facilitator CodeTribe Alexandra"
                     android:textAlignment="center"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light"/>
 
                 <TextView
                     android:id="@+id/textView49"
@@ -537,7 +534,7 @@
                     android:layout_alignParentRight="true"
                     android:text="Facilitator CodeTribe Tembisa"
                     android:textAlignment="center"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light"/>
 
 
                 <TextView
@@ -602,7 +599,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="Facilitation and Coding Assistant Soweto"
                     android:textAlignment="center"
-                    android:textColor="#9DC700"
+                    android:textColor="@android:color/holo_green_light"
                     android:layout_toLeftOf="@+id/textView36"
                     android:layout_toStartOf="@+id/textView36" />
 
@@ -618,7 +615,7 @@
                     android:layout_marginStart="13dp"
                     android:text="Chief Executive Officer"
                     android:textAlignment="center"
-                    android:textColor="#9DC700" />
+                    android:textColor="@android:color/holo_green_light"/>
 
                 <TextView
                     android:id="@+id/textView37"

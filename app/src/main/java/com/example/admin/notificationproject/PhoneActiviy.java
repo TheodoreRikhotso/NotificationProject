@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.support.v7.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,20 +30,20 @@ public class PhoneActiviy extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_activiy);
-
+        LandingScreen.ACYIVITY ="Phone";
         //toobar
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarPhone) ;
-        toolbar.setTitle("Phones");
-        LandingScreen.ACYIVITY ="PHONE";
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarPhone) ;
+//        toolbar.setTitle("Phones");
+//        LandingScreen.ACYIVITY ="PHONE";
 
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        setSupportActionBar(toolbar);
+//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
 
         DatabaseReference databaseCataloo = FirebaseDatabase.getInstance().getReference("Phones");
         ListViewPhones = (RecyclerView) findViewById(R.id.lvPhones);

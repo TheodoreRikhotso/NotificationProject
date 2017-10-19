@@ -5,11 +5,9 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.support.v7.widget.SearchView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,11 +20,11 @@ import java.util.List;
 
 public class FurnitureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private RecyclerView ListViewFurniture;
-    private List<Catalog> catalogListFurniture;
+    private List<FurniturePojo> catalogListFurniture;
     LinearLayoutManager layoutManager;
     //search
 //    private SearchView mSearchView;
-    private CatalogAdapter adapters;
+    private FurnitureAdapter adapters;
 
 
     @Override
@@ -34,17 +32,17 @@ public class FurnitureActivity extends AppCompatActivity implements SearchView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_furniture);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarFurniture) ;
-        toolbar.setTitle("Furnitures");
-        LandingScreen.ACYIVITY ="FURN";
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarFurniture) ;
+//        toolbar.setTitle("Furnitures");
+//        LandingScreen.ACYIVITY ="FURN";
+//        setSupportActionBar(toolbar);
+//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
 
         DatabaseReference databaseCatalogg = FirebaseDatabase.getInstance().getReference("Furniture");
         ListViewFurniture = (RecyclerView) findViewById(R.id.lvFurniture);
@@ -59,12 +57,12 @@ public class FurnitureActivity extends AppCompatActivity implements SearchView.O
             public void onDataChange(DataSnapshot dataSnapshot) {
                 catalogListFurniture.clear();
                 for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
+                    FurniturePojo catalog = catalogSnapshot.getValue(FurniturePojo.class);
                     ListViewFurniture = (RecyclerView) findViewById(R.id.lvFurniture);
 
                     catalogListFurniture.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                     adapters = new CatalogAdapter(FurnitureActivity.this, catalogListFurniture);
+                     adapters = new FurnitureAdapter(FurnitureActivity.this, catalogListFurniture);
 
 //                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewFurniture.setLayoutManager(layoutManager);

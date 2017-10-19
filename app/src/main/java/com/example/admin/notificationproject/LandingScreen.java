@@ -1,20 +1,14 @@
 package com.example.admin.notificationproject;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LandingScreen extends AppCompatActivity {
     private FirebaseAuth auth;
-    private ImageButton imCar,ibPhone,ibFurniture,ibLaptop,notification_panel, ibFAQs,ibProfile;
+    private LinearLayout imCar,ibPhone,ibFurniture,ibLaptop,notification_panel, ibFAQs,ibProfile, btnMyProfile;
 private CircleImageView profile;
     public static String ACYIVITY=" non";
     @Override
@@ -46,17 +40,18 @@ private CircleImageView profile;
         setContentView(R.layout.activity_landing_screen);
 
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tbLanding);
-        toolbar.setTitle("");
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.tbLanding);
+//        toolbar.setTitle("");
 
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
-       imCar =(ImageButton)findViewById(R.id.imCar);
-        ibPhone =(ImageButton)findViewById(R.id.ibPhone);
-        ibLaptop =(ImageButton)findViewById(R.id.ibLaptop);
-        ibFurniture =(ImageButton)findViewById(R.id.ibFurniture);
-        profile =(CircleImageView)findViewById(R.id.profile);
-        notification_panel =(ImageButton)findViewById(R.id.notification_panel);
+//       imCar =(ImageButton)findViewById(R.id.imCar);
+        ibPhone =(LinearLayout)findViewById(R.id.llPhone);
+        ibLaptop =(LinearLayout)findViewById(R.id.llLaptop);
+        ibFurniture =(LinearLayout)findViewById(R.id.llDevice);
+        btnMyProfile=(LinearLayout)findViewById(R.id.llProfile);
+//        profile =(CircleImageView)findViewById(R.id.profile);
+//        notification_panel =(ImageButton)findViewById(R.id.notification_panel);
 //        ibFAQs =(ImageButton)findViewById(R.id.ibFAQs);
 //        ibProfile =(ImageButton)findViewById(R.id.ibProfile);
         //logout
@@ -76,16 +71,16 @@ private CircleImageView profile;
 
 
 
-                        Glide.with(LandingScreen.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(profile) {
-                            @Override
-                            protected void setResource(Bitmap resource) {
-                                RoundedBitmapDrawable circularBitmapDrawable =
-                                        RoundedBitmapDrawableFactory.create(LandingScreen.this.getResources(), resource);
-                                circularBitmapDrawable.setCircular(true);
-                                profile.setImageDrawable(circularBitmapDrawable);
-                            }
-                        });
-                    }
+//                        Glide.with(LandingScreen.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(profile) {
+//                            @Override
+//                            protected void setResource(Bitmap resource) {
+//                                RoundedBitmapDrawable circularBitmapDrawable =
+//                                        RoundedBitmapDrawableFactory.create(LandingScreen.this.getResources(), resource);
+//                                circularBitmapDrawable.setCircular(true);
+//                                profile.setImageDrawable(circularBitmapDrawable);
+//                            }
+//                        });
+                   }
 
                 }
 
@@ -98,10 +93,10 @@ private CircleImageView profile;
             }
         });
 
-        imCar.setOnClickListener(new View.OnClickListener() {
+        btnMyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LandingScreen.this,CarActivity.class);
+                Intent intent = new Intent(LandingScreen.this,ProfileActivityIcon.class);
                 startActivity(intent);
             }
         });
@@ -130,21 +125,21 @@ private CircleImageView profile;
         });
 
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LandingScreen.this,ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        notification_panel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LandingScreen.this,NotificationActivity.class);
-                startActivity(intent);
-            }
-        });
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(LandingScreen.this,ProfileActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        notification_panel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(LandingScreen.this,NotificationActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 //        ibFAQs.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

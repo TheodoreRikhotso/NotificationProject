@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -87,9 +86,7 @@ public class CarActivity extends AppCompatActivity implements SearchView.OnQuery
                     Catalog catalog = catalogSnapshot.getValue(Catalog.class);
                     ListViewCar = (RecyclerView) findViewById(R.id.lvCar);
                     catalogListCars.add(catalog);
-                    int numberOfColumns = 4;
-                    ListViewCar.setLayoutManager(new GridLayoutManager(CarActivity.this, numberOfColumns));
-//                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                     adapters = new CatalogAdapter(CarActivity.this, catalogListCars);
 
                     ListViewCar.setHasFixedSize(true);

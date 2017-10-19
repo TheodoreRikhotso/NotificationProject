@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,39 +17,27 @@
 
 
             <TextView
-                android:text="Catalog Admin Entries"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textSize="24sp"
+                android:text="Catalog Admin Entries"
                 android:textColor="@android:color/black"
+                android:textSize="24sp"
                 android:textStyle="normal|bold" />
-
 
 
             <ImageButton
                 android:id="@+id/IBAdmin"
                 android:layout_width="250dp"
                 android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:scaleType="center"
-                android:background="@android:color/black"
                 android:layout_below="@+id/editTextTitle"
-                android:layout_toRightOf="@+id/tVTitle"
+                android:layout_gravity="center"
+                android:layout_marginTop="26dp"
                 android:layout_toEndOf="@+id/tVTitle"
-                android:layout_marginTop="26dp" />
+                android:layout_toRightOf="@+id/tVTitle"
+                android:background="@android:color/black"
+                android:scaleType="center" />
 
-
-            <TextView
-                android:text="Description Admin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView4"
-                android:textSize="24sp"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black"
-                android:textAlignment="center"
-             />
 
             <!--<ImageButton-->
             <!--android:layout_width="250dp"-->
@@ -62,7 +51,7 @@
             <!--android:layout_alignParentStart="true" />-->
 
             <EditText
-                android:id="@+id/edTitle"
+                android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -73,198 +62,117 @@
                 android:textColor="@android:color/black"
                 android:textStyle="normal|bold" />
 
-            <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:orientation="horizontal">
-    <Spinner
-        android:id="@+id/spColor1"
 
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:background="@drawable/custom_spinner"
-        android:dropDownWidth="wrap_content"
-        android:spinnerMode="dropdown"/>
-    <Spinner
-        android:id="@+id/spColor2"
-
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:background="@drawable/custom_spinner"
-        android:dropDownWidth="wrap_content"
-        android:spinnerMode="dropdown"/><Spinner
-    android:id="@+id/spColor3"
-
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:background="@drawable/custom_spinner"
-    android:dropDownWidth="wrap_content"
-    android:spinnerMode="dropdown"/>
-
-
-
-
-
-</LinearLayout><LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/spColor4"
-
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_spinner"
-                android:dropDownWidth="wrap_content"
-                android:spinnerMode="dropdown"/>
-            <Spinner
-                android:id="@+id/spColor5"
-
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_spinner"
-                android:dropDownWidth="wrap_content"
-                android:spinnerMode="dropdown"/>
-
-
-
-
-        </LinearLayout>
             <TextView
-                android:text="Product Specification"
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                android:textStyle="normal|bold"
-                android:textSize="14sp"
-                android:textColor="@android:color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/tvAssetDescription"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <EditText
-                android:hint="Capacity"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-
-                android:id="@+id/etCapacity"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
-
-
-            <EditText
-                android:hint="Size and Weight"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvContents2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/etSize"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
-
-            <EditText
-                android:hint="Display"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvContents3"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/etDisplay"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
-
-            <EditText
-                android:hint="Camera"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvContents4"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/etCamera"
-                android:textStyle="normal|bold"
+                android:text="Product Specification"
                 android:textColor="@android:color/black"
-                android:fontFamily="sans-serif" />
+                android:textSize="14sp"
+                android:textStyle="normal|bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etSerialNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+
+                    android:hint="Serial No"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
+
+
+                <EditText
+                    android:id="@+id/etToatalQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tvContents2"
+                    android:hint="Total Quantity"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/etDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tvContents3"
+                    android:hint="Duration"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/etRam"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tvContents4"
+                    android:fontFamily="sans-serif"
+                    android:hint="Ram"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
 
 
             </LinearLayout>
 
 
             <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:hint="Capacity"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                android:id="@+id/etProccessor"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
+                <EditText
+                    android:id="@+id/etOs"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
 
-
-            <EditText
-                android:hint="Size and Weight"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-
-                android:id="@+id/etOs"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
-
-            <EditText
-                android:hint="Display"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-
-                android:id="@+id/etBattery"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
-
-            <EditText
-                android:hint="Camera"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvContents4"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/etMemory"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black"
-                android:fontFamily="sans-serif" />
+                    android:hint="Os"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
 
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/etBattery"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+
+                    android:hint="Battery"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/etMemory"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+
+                    android:hint="Memory"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|bold" />
 
 
-            <EditText
-                android:hint="Quitinty"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+            </LinearLayout>
 
-                android:id="@+id/etQty"
-                android:textStyle="normal|bold"
-                android:textColor="@android:color/black" />
 
             <Button
-                android:text="Add Asset"
-                android:layout_gravity="center"
+                android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnAdd"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="Add Asset" />
 
             <!--<Button-->
             <!--android:text="Add Data"-->

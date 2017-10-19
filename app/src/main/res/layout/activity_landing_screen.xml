@@ -1,229 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="5"
+    android:background="@android:color/white"
     tools:context="com.example.admin.notificationproject.LandingScreen">
 
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/unsplash"
-        android:scaleType="centerCrop"/>
-    <!--<LinearLayout-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_alignParentStart="true">-->
-    <!--&lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
-    <!--&lt;!&ndash;android:id="@+id/toolbarLanding"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:title="BOOK IT"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:titleTextColor="#FFFF"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:background="#4CAF50"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:minHeight="?attr/actionBarSize"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:theme="?attr/actionBarTheme"&ndash;&gt;-->
-    <!--&lt;!&ndash;/>&ndash;&gt;-->
-    <!--</LinearLayout>-->
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tbLanding"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/main_background2"
-        app:theme="@style/MyCustomToolbarTheme"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:contentInsetEnd="90dp"
-        app:contentInsetLeft="90dp"
-        app:contentInsetRight="90dp"
-        app:contentInsetStart="90dp" >
-
-    </android.support.v7.widget.Toolbar>
-
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="2"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile"
-        android:layout_width="80dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignBottom="@+id/tbLanding"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="center"
-
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="18dp"
-        android:layout_weight="1" />
-
-    <ImageButton
-        android:id="@+id/notification_panel"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="190dp"
-        android:layout_alignEnd="@+id/relativeLayout"
-
-        android:layout_gravity="center"
-        android:layout_marginBottom="23dp"
-        android:background="@drawable/notifi01" />
-
-</LinearLayout>
-
-
-
-
     <RelativeLayout
-        android:layout_width="320dp"
-        android:layout_height="270dp"
-        android:background="@drawable/main_background"
-        android:id="@+id/relativeLayout"
-        android:layout_marginBottom="98dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout2"
-            android:layout_below="@+id/linearLayout"
-            android:layout_alignLeft="@+id/linearLayout"
-            android:layout_alignStart="@+id/linearLayout"
-           android:weightSum="4">
+            android:src="@drawable/logomlabs"
+            android:layout_centerInParent="true"
+            android:id="@+id/imageView2" />
 
-            <ImageButton
-                android:layout_width="150dp"
-                android:layout_height="130dp"
-                android:src="@drawable/motor1"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="5dp"
-                android:id="@+id/imCar"
-                android:layout_below="@+id/imageButton"
-                android:layout_weight="1"/>
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="#4CAF50"
-                android:layout_marginBottom="10dp"/>
-
-            <ImageButton
-                android:layout_width="150dp"
-                android:layout_height="130dp"
-                android:src="@drawable/ass6"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="5dp"
-                android:id="@+id/ibFurniture"
-                android:layout_below="@+id/ibFurniture"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/linearLayout2"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginLeft="20dp">-->
-        <!--<ImageButton-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="130dp"-->
-        <!--android:src="@drawable/pro1"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:id="@+id/ibProfile"-->
-        <!--android:layout_alignTop="@+id/imageButton3"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginTop="7dp"  />-->
-        <!--<ImageButton-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="130dp"-->
-        <!--android:src="@drawable/fur3"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:layout_alignBottom="@+id/imageButton5"-->
-        <!--android:layout_alignRight="@+id/imageButton2"-->
-        <!--android:layout_alignEnd="@+id/imageButton2"-->
-        <!--android:id="@+id/ibFAQs"-->
-        <!--android:layout_marginTop="7dp"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginLeft="12dp"-->
-        <!--android:layout_marginStart="12dp"  />-->
-        <!--</LinearLayout>-->
-        <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbarLanding"-->
-        <!--android:title="BOOK IT"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:minHeight="?attr/actionBarSize"-->
-        <!--android:theme="?attr/actionBarTheme"-->
-        <!--android:layout_marginLeft="3dp"/>-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="#4CAF50"
-            android:id="@+id/view2"
-            android:layout_above="@+id/linearLayout2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:weightSum="4">
-
-            <ImageButton
-                android:id="@+id/ibPhone"
-                android:layout_width="150dp"
-                android:layout_height="130dp"
-                android:layout_alignTop="@+id/imageButton2"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@drawable/phones5" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="#4CAF50"
-                android:layout_marginTop="10dp"/>
-
-            <ImageButton
-                android:id="@+id/ibLaptop"
-                android:layout_width="150dp"
-                android:layout_height="130dp"
-                android:layout_alignLeft="@+id/imageButton4"
-                android:layout_alignStart="@+id/imageButton4"
-                android:layout_below="@+id/textView"
-                android:background="@android:color/transparent"
-                android:src="@drawable/laptop5"
-                android:layout_weight="1"/>
-        </LinearLayout>
     </RelativeLayout>
 
 
+    <LinearLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:layout_weight="3"
+        android:weightSum="2"
+        android:background="@drawable/main_background"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/llPhone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+                <ImageButton
+                    android:id="@+id/ibPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageButton2"
+                    android:scaleType="fitCenter"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_phone_android_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#fff"
+                    android:text="Cellphones"
+                    />
+
+            </LinearLayout>
 
 
-</RelativeLayout>
 
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="#7cb342" />
+
+            <LinearLayout
+                android:id="@+id/llLaptop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+                <ImageButton
+                    android:id="@+id/ibLaptop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/imageButton4"
+                    android:layout_alignStart="@+id/imageButton4"
+                    android:layout_below="@+id/textView"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_laptop_mac_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#fff"
+                    android:text="Laptops"
+                    />
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#4CAF50" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignLeft="@+id/linearLayout"
+            android:layout_alignStart="@+id/linearLayout"
+            android:layout_below="@+id/linearLayout"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/llDevice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+                <ImageButton
+                    android:id="@+id/ibFurniture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ibFurniture"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_devices_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#fff"
+                    android:text="Other devices"
+                    />
+
+            </LinearLayout>
+
+
+
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#4CAF50" />
+
+            <LinearLayout
+                android:id="@+id/llProfile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+
+
+
+                <ImageButton
+                    android:id="@+id/btnMyProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ibFurniture"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_person_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#fff"
+                    android:text="My Profile"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
 

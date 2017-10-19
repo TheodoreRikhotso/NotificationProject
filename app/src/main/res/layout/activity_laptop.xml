@@ -4,26 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3aa7a6a6"
+    android:background="#ffff"
     tools:context="com.example.admin.notificationproject.LaptopActivity">
 
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarLaptop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/main_background2"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbarLaptop"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/main_background2"-->
+            <!--android:minHeight="?attr/actionBarSize"-->
+            <!--android:theme="?attr/actionBarTheme" />-->
 
         <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lvLaptop"
-
-        android:layout_centerHorizontal="true"
-            android:layout_below="@+id/toolbarLaptop" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/lvLaptop" />
 
 
 

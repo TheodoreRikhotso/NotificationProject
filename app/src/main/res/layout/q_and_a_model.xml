@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:clickable="true"
     android:layout_width="match_parent"
-    android:background="#d2000000"
+    android:background="#ffff"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     >
@@ -56,7 +56,7 @@ android:layout_marginTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="QUESTIONS"
-    android:textColor="@android:color/holo_green_dark"
+    android:textColor="@android:color/holo_green_light"
         android:layout_weight="1"
     android:textSize="15dp"
     android:textStyle="bold"
@@ -70,7 +70,7 @@ android:layout_marginTop="10dp"
 
         android:layout_weight="1"
         android:text="ANSWEARS"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="14dp" />
 
 
