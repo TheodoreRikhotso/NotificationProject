@@ -20,7 +20,7 @@ import java.util.List;
 
 public class LaptopActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private List<Catalog> catalogList;
+    private List<Laptop> catalogList;
     private LinearLayoutManager layoutManager;
     private RecyclerView ListViewCatalog;
       private DatabaseReference databaseLaptops;
@@ -50,7 +50,7 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
 //            }
 //        });
 
-        catalogList = new ArrayList<Catalog>();
+        catalogList = new ArrayList<Laptop>();
         /**
          * LAPTOPS LISTVIEW
          */
@@ -64,7 +64,7 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
                 catalogList.clear();
                 for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
                     ListViewCatalog = (RecyclerView) findViewById(R.id.lvLaptop);
-                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
+                    Laptop catalog = catalogSnapshot.getValue(Laptop.class);
                     catalogList.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                      adapters = new LaptopAdapter(LaptopActivity.this, catalogList);

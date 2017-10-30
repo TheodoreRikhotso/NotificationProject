@@ -19,7 +19,7 @@
             android:layout_height="160dp"
             android:layout_marginBottom="20dp"
             android:background="@android:color/transparent"
-            app:srcCompat="@color/si_default_indicator_bg" />
+            app:srcCompat="@drawable/loading" />
 
 </LinearLayout>
 
@@ -60,7 +60,7 @@ android:layout_height="wrap_content"
 android:layout_marginTop="13dp"
 android:text="Availabel/Unavailable"
     android:textStyle="bold"
-    android:textColor="@android:color/holo_green_dark"
+    android:textColor="#9CD65F"
     android:layout_below="@+id/textView17"
     android:layout_alignStart="@+id/textView17" />
 

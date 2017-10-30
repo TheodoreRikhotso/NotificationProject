@@ -12,7 +12,23 @@ public class Catalog implements Serializable {
     String catalogimageurl;
 
 
-    String description,capacity, sizeAndWieght, camera, diplay, color1, color2, color3, color4, color5;
+    String description,capacity, sizeAndWieght, camera, diplay, color1, color2, color3, color4, color5,title,image;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getAssetTitle() {
         return assetTitle;

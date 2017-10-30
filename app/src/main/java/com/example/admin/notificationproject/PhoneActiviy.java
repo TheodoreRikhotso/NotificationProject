@@ -1,5 +1,6 @@
 package com.example.admin.notificationproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,11 +23,12 @@ import java.util.List;
 public class PhoneActiviy extends AppCompatActivity implements SearchView.OnQueryTextListener {
     RecyclerView ListViewPhones;
     LinearLayoutManager layoutManager;
-    List<Catalog> catalogListPhones;
+    List<PhonePojo> catalogListPhones;
 
     //search
 //    private SearchView mSearchView;
     private PhoneAdapter adapters;
+    private  PhonePojo catalog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,7 @@ public class PhoneActiviy extends AppCompatActivity implements SearchView.OnQuer
             public void onDataChange(DataSnapshot dataSnapshot) {
                 catalogListPhones.clear();
                 for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
+                     catalog = catalogSnapshot.getValue(PhonePojo.class);
                     ListViewPhones = (RecyclerView) findViewById(R.id.lvPhones);
 
                     catalogListPhones.add(catalog);
@@ -70,7 +74,19 @@ public class PhoneActiviy extends AppCompatActivity implements SearchView.OnQuer
                     ListViewPhones.setLayoutManager(layoutManager);
 //                    search(mSearchView);
                     ListViewPhones.setAdapter(adapters);
+                    ListViewPhones.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(PhoneActiviy.this, "c", Toast.LENGTH_SHORT).show();
+                            PhonePojo c = catalog;
+                            Intent intent = new Intent(getApplication(), PhoneDescriptionActivity
+                                    .class);
+                            intent.putExtra("select", c);
+                            startActivity(intent);
+                        }
+                    });
                 }
+
 
             }
 

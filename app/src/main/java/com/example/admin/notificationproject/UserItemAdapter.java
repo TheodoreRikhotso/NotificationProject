@@ -40,7 +40,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserItemPojo userItemPojo = userItemPojos.get(position);
-        holder.tvItemDescr.setText(userItemPojo.getName()+"\n"+userItemPojo.getItemDate());
+        holder.tvItemDescr.setText(userItemPojo.getName()+"\n"+userItemPojo.getItemDate()+"\n"+userItemPojo.getItemTime());
         holder.tvItemDescr.setVisibility(View.GONE);
         Glide.with(context)
                 .load(userItemPojo.getImageUri())

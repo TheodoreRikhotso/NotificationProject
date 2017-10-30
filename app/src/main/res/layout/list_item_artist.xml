@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="7dp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/holo_green_light"
         android:gravity="center_vertical"
         android:text="Artist Name" />
 </FrameLayout>

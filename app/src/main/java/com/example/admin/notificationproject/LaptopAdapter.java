@@ -2,6 +2,7 @@ package com.example.admin.notificationproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -25,11 +27,11 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
 
 
     private Activity context;
-    private List<Catalog> catalogList, catalogss;
+    private List<Laptop> catalogList, catalogss;
     private Activity applicationContext;
-    private Catalog catalog;
+    private Laptop catalog;
 
-    public LaptopAdapter(Activity context, List<Catalog> catalogList) {
+    public LaptopAdapter(Activity context, List<Laptop> catalogList) {
         this.context = context;
         this.catalogList = catalogList;
 
@@ -47,21 +49,39 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final Catalog catalog = catalogList.get(position);
-        holder.item3.setText(catalog.getAssetTitle());
+        final Laptop catalog = catalogList.get(position);
+        holder.item3.setText(catalog.getTitle());
         Glide.with(context)
-                .load(catalog.getCatalogimageurl())
+                .load(catalog.getImage())
                 .into(holder.imageButton1);
+
+        final int qty = Integer.parseInt(catalog.getTotalQuantity());
+
+        if(qty >0) {
+            holder.txtStatus.setText("Available");
+
+
+        }
+        else{
+            holder.txtStatus.setText("Unavailable");
+            holder.txtStatus.setTextColor(Color.parseColor("#fa1414"));
+
+        }
 
 
         holder.imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Catalog c = catalog;
-                Intent intent = new Intent(context, DescriptionActivity
-                        .class);
-                intent.putExtra("select", c);
-                context.startActivity(intent);
+                if (qty>0) {
+                    Laptop c = catalog;
+                    Intent intent = new Intent(context, LaptopDescriptionActivity
+                            .class);
+                    intent.putExtra("select", c);
+                    context.startActivity(intent);
+                }else {
+                    Toast.makeText(context, catalog.getTitle()+" is not available please try tomorrow", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }
@@ -77,7 +97,7 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item3;
 
-        TextView item1, textView15, textView9,textView22, textView1;
+        TextView item1, txtStatus, textView9,textView22, textView1;
         ImageView imageButton1 , imb2,imb1 ;
         View view01,view02 ;
         Button btnView;
@@ -88,18 +108,10 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
             super(itemView);
             item3 = itemView.findViewById(R.id.item3);
             imageButton1 = itemView.findViewById(R.id.imageButton3);
+            txtStatus = itemView.findViewById(R.id.txtStatus1);
 
             item1 = itemView.findViewById(R.id.item1);
-            textView15 = itemView.findViewById(R.id.textView15);
-            textView9 = itemView.findViewById(R.id.textView9);
-            textView22 = itemView.findViewById(R.id.textView22);
-            textView1 = itemView.findViewById(R.id.textView1);
-            imageButton1 = itemView.findViewById(R.id.imageButton3);
-            imb2 = itemView.findViewById(R.id.imb2);
-            imb1 = itemView.findViewById(R.id.imb1);
-            view01 = itemView.findViewById(R.id.view01);
-            view02 = itemView.findViewById(R.id.view02);
-            btnView = itemView.findViewById(R.id.btnView);
+
 
             //                        //FUEL ICON COLOR CHANGE
 //            textView22.setOnClickListener(new View.OnClickListener() {
@@ -176,11 +188,11 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
                     catalogList = catalogss;
                 } else {
 
-                    ArrayList<Catalog> filteredList = new ArrayList<>();
+                    ArrayList<Laptop> filteredList = new ArrayList<>();
 
-                    for (Catalog androidVersion : catalogss) {
+                    for (Laptop androidVersion : catalogss) {
 
-                        if (androidVersion.getAssetTitle().toLowerCase().contains(charString)) {
+                        if (androidVersion.getTitle().toLowerCase().contains(charString)) {
 
                             filteredList.add(androidVersion);
                         }
@@ -196,7 +208,7 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                catalogList = (ArrayList<Catalog>) filterResults.values;
+                catalogList = (ArrayList<Laptop>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

@@ -79,7 +79,7 @@
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="#7cb342" />
+                android:background="#9CD65F" />
 
             <LinearLayout
                 android:id="@+id/llLaptop"
@@ -123,7 +123,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#4CAF50" />
+            android:background="#9CD65F" />
 
 
         <LinearLayout
@@ -172,7 +172,7 @@
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:background="#4CAF50" />
+                android:background="#9CD65F" />
 
             <LinearLayout
                 android:id="@+id/llProfile"

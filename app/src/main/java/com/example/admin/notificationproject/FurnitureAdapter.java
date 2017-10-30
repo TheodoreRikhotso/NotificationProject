@@ -2,6 +2,7 @@ package com.example.admin.notificationproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -54,14 +56,33 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
                 .into(holder.imageButton1);
 
 
+
+
+        final int qty = Integer.parseInt(catalog.getTotalQuantity());
+
+
+        if(qty >0) {
+            holder.txtStatus.setText("Available");
+
+
+        }
+        else{
+            holder.txtStatus.setText("Unavailable");
+            holder.txtStatus.setTextColor(Color.parseColor("#fa1414"));
+
+        }
         holder.imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FurniturePojo c = catalog;
-                Intent intent = new Intent(context, FurnitureDescriptionActivity
-                        .class);
-                intent.putExtra("select", c);
-                context.startActivity(intent);
+                if (qty>0) {
+                    FurniturePojo c = catalog;
+                    Intent intent = new Intent(context, FurnitureDescriptionActivity
+                            .class);
+                    intent.putExtra("select", c);
+                    context.startActivity(intent);
+                }else {
+                    Toast.makeText(context, catalog.getTitle()+" is not available please try  tomorrow", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
@@ -76,7 +97,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView item1, textView15, textView9,textView22, textView1;
+        TextView item1, txtStatus, textView9,textView22, textView1;
         ImageView imageButton1 , imb2,imb1 ;
         View view01,view02 ;
         Button btnView;
@@ -87,16 +108,11 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
             super(itemView);
             item1 = itemView.findViewById(R.id.item5);
             imageButton1 = itemView.findViewById(R.id.imageButton5);
+            txtStatus =itemView.findViewById(R.id.txtStatus);
 
-            textView15 = itemView.findViewById(R.id.textView15);
-            textView9 = itemView.findViewById(R.id.textView9);
-            textView22 = itemView.findViewById(R.id.textView22);
-            textView1 = itemView.findViewById(R.id.textView1);
-            imb2 = itemView.findViewById(R.id.imb2);
-            imb1 = itemView.findViewById(R.id.imb1);
-            view01 = itemView.findViewById(R.id.view01);
-            view02 = itemView.findViewById(R.id.view02);
-            btnView = itemView.findViewById(R.id.btnView);
+
+
+
 
 //            //                        //FUEL ICON COLOR CHANGE
 //            textView22.setOnClickListener(new View.OnClickListener() {

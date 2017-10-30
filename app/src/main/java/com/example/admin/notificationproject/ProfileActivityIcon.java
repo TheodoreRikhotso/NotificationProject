@@ -2,10 +2,12 @@ package com.example.admin.notificationproject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,11 +28,28 @@ public class ProfileActivityIcon extends AppCompatActivity {
 
     ImageButton imProfile;
     TextView tvAboutUs, tvFAQ, TVContact,tvLogOut, tvUserName,tvUserEmail ;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_icon);
+
+        //        //toolbar
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarSettings) ;
+        toolbar.setTitle("Settings");
+        toolbar.setTitleTextColor(Color.WHITE);
+
+
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         imProfile=(ImageButton)findViewById(R.id.imProfile);
         tvAboutUs=(TextView)findViewById(R.id.tvAboutUs);
@@ -43,6 +62,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
         //
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
+        auth = FirebaseAuth.getInstance();
 
         DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
 
@@ -107,6 +127,19 @@ public class ProfileActivityIcon extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivityIcon.this,ContactActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        tvLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    auth.signOut();
+                    if (auth.getCurrentUser() == null)
+                    {
+                        startActivity(new Intent(ProfileActivityIcon.this,LoginActivity.class));
+                        finish();
+                    }
             }
         });
 

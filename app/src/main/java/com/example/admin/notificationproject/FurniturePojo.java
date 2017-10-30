@@ -7,19 +7,32 @@ import java.io.Serializable;
  */
 
 public class FurniturePojo implements Serializable {
-    private String id,serialNo,image,title,totalQuantity,duration,quantity,deliverance,type;
+    private String id;
+    private String serialNo;
+    private String title;
+    private String totalQuantity;
+    private String duration;
+    private String quantity;
+    private String deliverance;
+    private String type ,image1,image2;
 
-    public FurniturePojo() {
 
+    public String getImage1() {
+        return image1;
     }
 
-    public String getTitle() {
-        return title;
+    public void setImage1(String image1) {
+        this.image1 = image1;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getImage2() {
+        return image2;
     }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
 
     public String getImage() {
         return image;
@@ -27,6 +40,16 @@ public class FurniturePojo implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    private String image;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setTotalQuantity(String totalQuantity) {
@@ -57,7 +80,9 @@ public class FurniturePojo implements Serializable {
         this.type = type;
     }
 
+    public FurniturePojo() {
 
+    }
 
     public String getId() {
         return id;

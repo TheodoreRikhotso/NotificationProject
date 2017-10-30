@@ -44,6 +44,7 @@
 
                 <ImageView
                     android:id="@+id/imageView"
+                    android:src="@drawable/loading"
                     android:layout_width="match_parent"
                     android:layout_height="234dp"/>
 
@@ -78,36 +79,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp">
-
                         <Button
-                            android:id="@+id/btnBlue"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/blue" />
-
-                        <Button
-                            android:id="@+id/btn_red"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@drawable/red" />
-
-                        <Button
-                            android:layout_marginTop="10dp"
                             android:id="@+id/btn_black"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@drawable/black_button"
-
-                            />
-
-                        <Button
-                            android:id="@+id/btnWhite"
                             android:layout_marginTop="10dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -115,14 +88,27 @@
                             android:background="@drawable/white_button"
 
                             />
-
                         <Button
                             android:layout_marginTop="10dp"
                             android:id="@+id/btnGrey"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="5dp"
-                            android:background="@drawable/grey_button" />
+                            android:background="@drawable/black_button"
+
+                            />
+
+
+                        <Button
+                            android:id="@+id/btn_red"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/blue" />
+
+
                     </LinearLayout>
 
 
@@ -241,7 +227,7 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
-                            android:id="@+id/tvDisplay"
+                            android:id="@+id/tvGraphics"
                             android:text="Item Display"
                             android:layout_marginTop="10dp"/>
 

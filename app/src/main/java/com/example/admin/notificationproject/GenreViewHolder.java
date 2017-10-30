@@ -1,6 +1,5 @@
 package com.example.admin.notificationproject;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +16,7 @@ public class GenreViewHolder extends GroupViewHolder {
     public GenreViewHolder(View itemView) {
         super(itemView);
         genreTitle = (TextView)itemView.findViewById(R.id.list_item_genre_name);
-        genreTitle.setTextColor(Color.parseColor("#A4E434"));
+
 
     }
 

@@ -51,6 +51,11 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
     ImageView ivIcon;
     Button btnOk;
     private DatabaseReference databaseProfile;
+    ///Quantity
+    private int quantity;
+    private FurniturePojo person;
+    private Boolean check = false;
+
 
     int progress = 0;
     Handler myHandler = new Handler() {
@@ -119,30 +124,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                UserItemPojo userItemPojo = new UserItemPojo();
-                userItemPojo.setName(name);
-                userItemPojo.setImageUri(image);
-                userItemPojo.setRefId(id);
 
-
-                Date currentTime = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-                Date currentLocalTime = cal.getTime();
-                DateFormat date = new SimpleDateFormat("HH:mm a");
-// you can get seconds by adding  "...:ss" to it
-                date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-                String localTime = date.format(currentLocalTime);
-//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//                LocalDateTime now = LocalDateTime.now();
-                userItemPojo.setItemDate(dateFormat.format(currentTime));
-                userItemPojo.setItemTime(localTime);
-
-                String userId = databaseUserItem.push().getKey();
-
-                databaseUserItem.child(userId).setValue(userItemPojo);
                 ///DIALOG BOX INITIALIZATION
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(FurnitureDescriptionActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
@@ -152,10 +134,13 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 ivIcon = mView.findViewById(R.id.ivIcon);
 
                 //Date, department
+
+                Date currentTimes = Calendar.getInstance().getTime();
+                DateFormat dateFormats = new SimpleDateFormat("dd MMM yyyy");
                 TextView tvDate=mView.findViewById(R.id.tvDates);
                 final TextView tvDepartment=mView.findViewById(R.id.tvDert);
                 final TextView tvType=mView.findViewById(R.id.tvType);
-                tvDate.setText(dateFormat.format(currentTime));
+                tvDate.setText(dateFormats.format(currentTimes));
 
                 ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
                 Loading = mView.findViewById(R.id.Loading);
@@ -190,6 +175,64 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        UserItemPojo userItemPojo = new UserItemPojo();
+                        userItemPojo.setName(name);
+                        userItemPojo.setImageUri(image);
+                        userItemPojo.setRefId(id);
+
+
+                        Date currentTime = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                        //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+                        Date currentLocalTime = cal.getTime();
+                        DateFormat date = new SimpleDateFormat("HH:mm a");
+// you can get seconds by adding  "...:ss" to it
+                        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+                        String localTime = date.format(currentLocalTime);
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//                LocalDateTime now = LocalDateTime.now();
+                        userItemPojo.setItemDate(dateFormat.format(currentTime));
+                        userItemPojo.setItemTime(localTime);
+
+                        String userId = databaseUserItem.push().getKey();
+
+                        databaseUserItem.child(userId).setValue(userItemPojo);
+
+
+                        //remove quantity
+                        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Furniture");
+
+                        final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
+                        buisnessAccRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot != null) {
+
+                                    person = dataSnapshot.getValue(FurniturePojo.class);
+                                    if (check == false)
+                                    {
+                                        check =true;
+                                        String qty = person.getTotalQuantity();
+                                        quantity = Integer.parseInt(qty);
+
+                                        String q = String.valueOf(quantity - 1);
+
+                                        person.setTotalQuantity(q);
+                                        databaseUser.child(person.getId()).setValue(person);
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                         Intent intents = new Intent(FurnitureDescriptionActivity.this,LandingScreen.class);
                         startActivity(intents);
                     }
@@ -241,7 +284,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
         tvQuantity.setText(c.getQuantity());
         tvDeliverance.setText(c.getDeliverance());
         tvDuration.setText(c.getDuration());
-        tvTypes.setText(c.getTotalQuantity());
+        tvTypes.setText(""+c.getTotalQuantity());
 
         name=c.getTitle();
 

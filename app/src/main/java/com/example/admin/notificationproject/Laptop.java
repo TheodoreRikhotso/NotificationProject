@@ -6,15 +6,32 @@ import java.io.Serializable;
  * Created by Admin on 12-Oct-17.
  */
 
-public class Laptop implements Serializable {
-    private String id,title,image,serialNo,totalQuantity,duration,storage,os,graphics,ram;
+public class Laptop  implements Serializable {
+    private String id;
+    private String title;
+    private String serialNo;
+    private String totalQuantity;
+    private String duration;
+    private String storage;
+    private String os;
+    private String graphics;
+    private String ram,image1,image2;
 
-    public Laptop() {
 
+    public String getImage1() {
+        return image1;
     }
 
-    public String getTotalQuantity() {
-        return totalQuantity;
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
     }
 
     public String getImage() {
@@ -23,6 +40,16 @@ public class Laptop implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    private String image;
+
+    public Laptop() {
+
+    }
+
+    public String getTotalQuantity() {
+        return totalQuantity;
     }
 
     public String getTitle() {

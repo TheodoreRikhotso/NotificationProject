@@ -129,30 +129,8 @@ public class DescriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                UserItemPojo userItemPojo = new UserItemPojo();
-                userItemPojo.setName(name);
-                userItemPojo.setImageUri(image);
-                userItemPojo.setRefId(id);
 
 
-                Date currentTime = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-                Date currentLocalTime = cal.getTime();
-                DateFormat date = new SimpleDateFormat("HH:mm a");
-// you can get seconds by adding  "...:ss" to it
-                date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-                String localTime = date.format(currentLocalTime);
-//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//                LocalDateTime now = LocalDateTime.now();
-                userItemPojo.setItemDate(dateFormat.format(currentTime));
-                userItemPojo.setItemTime(localTime);
-
-                String userId = databaseUserItem.push().getKey();
-
-                databaseUserItem.child(userId).setValue(userItemPojo);
                 ///DIALOG BOX INITIALIZATION
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(DescriptionActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
@@ -162,10 +140,14 @@ public class DescriptionActivity extends AppCompatActivity {
                 ivIcon = mView.findViewById(R.id.ivIcon);
 
                 //Date, department
+                Date currentTimed = Calendar.getInstance().getTime();
+                DateFormat dateFormatd = new SimpleDateFormat("dd MMM yyyy");
+                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
                 TextView tvDate=mView.findViewById(R.id.tvDates);
                 final TextView tvDepartment=mView.findViewById(R.id.tvDert);
                 final TextView tvType=mView.findViewById(R.id.tvType);
-                tvDate.setText(dateFormat.format(currentTime));
+                tvDate.setText(dateFormatd.format(currentTimed));
 
                 ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
                 Loading = mView.findViewById(R.id.Loading);
@@ -200,6 +182,32 @@ public class DescriptionActivity extends AppCompatActivity {
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+
+                        UserItemPojo userItemPojo = new UserItemPojo();
+                        userItemPojo.setName(name);
+                        userItemPojo.setImageUri(image);
+                        userItemPojo.setRefId(id);
+
+
+                        Date currentTime = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                        //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+                        Date currentLocalTime = cal.getTime();
+                        DateFormat date = new SimpleDateFormat("HH:mm a");
+// you can get seconds by adding  "...:ss" to it
+                        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+                        String localTime = date.format(currentLocalTime);
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//                LocalDateTime now = LocalDateTime.now();
+                        userItemPojo.setItemDate(dateFormat.format(currentTime));
+                        userItemPojo.setItemTime(localTime);
+
+                        String userId = databaseUserItem.push().getKey();
+                        databaseUserItem.child(userId).setValue(userItemPojo);
+
                         Intent intents = new Intent(DescriptionActivity.this,LandingScreen.class);
                         startActivity(intents);
                     }

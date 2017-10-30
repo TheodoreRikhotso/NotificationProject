@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,7 +78,7 @@ public class CatalogActivity extends AppCompatActivity {
          * PHONES LISTVIEW
          */
         DatabaseReference databaseCataloo = FirebaseDatabase.getInstance().getReference("Phones");
-        ListViewPhones = (RecyclerView) findViewById(R.id.ListViewPhones);
+
 
 
         catalogListPhones = new ArrayList<>();
@@ -94,7 +95,7 @@ public class CatalogActivity extends AppCompatActivity {
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                     CatalogAdapter adapterss = new CatalogAdapter(CatalogActivity.this, catalogListPhones);
 
-//                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
+                   Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewPhones.setLayoutManager(layoutManager);
 
                     ListViewPhones.setAdapter(adapterss);
@@ -112,37 +113,37 @@ public class CatalogActivity extends AppCompatActivity {
         /**
          * CARSS LISTVIEW
          */
-        DatabaseReference databaseCatalo = FirebaseDatabase.getInstance().getReference("Cars");
-        ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);
-
-
-        catalogListCars = new ArrayList<>();
-
-        databaseCatalo.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                catalogListCars.clear();
-                for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
-                    ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);
-
-                    catalogListCars.add(catalog);
-                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    CatalogAdapter adapters = new CatalogAdapter(CatalogActivity.this, catalogListCars);
-
-//                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
-                    ListViewCar.setLayoutManager(layoutManager);
-
-                    ListViewCar.setAdapter(adapters);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        DatabaseReference databaseCatalo = FirebaseDatabase.getInstance().getReference("Cars");
+//        ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);
+//
+//
+//        catalogListCars = new ArrayList<>();
+//
+//        databaseCatalo.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                catalogListCars.clear();
+//                for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
+//                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
+//                    ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);
+//
+//                    catalogListCars.add(catalog);
+//                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+//                    CatalogAdapter adapters = new CatalogAdapter(CatalogActivity.this, catalogListCars);
+//
+////                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
+//                    ListViewCar.setLayoutManager(layoutManager);
+//
+//                    ListViewCar.setAdapter(adapters);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
         /**
          * FURNITURE LISTVIEW
          */

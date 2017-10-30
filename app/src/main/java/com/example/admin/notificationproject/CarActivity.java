@@ -9,20 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -68,47 +61,47 @@ public class CarActivity extends AppCompatActivity implements SearchView.OnQuery
         LandingScreen.ACYIVITY ="CAR";
 
 
-        DatabaseReference databaseCatalo = FirebaseDatabase.getInstance().getReference("Cars");
-        ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);
-
-        catalogListCars = new ArrayList<>();
-
-//        //search
-//        mSearchView = (SearchView) findViewById(R.id.imageButton2);
-
-        databaseCatalo.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                catalogListCars.clear();
-                for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-                    String  TAG ="MANI";
-                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
-                    ListViewCar = (RecyclerView) findViewById(R.id.lvCar);
-                    catalogListCars.add(catalog);
-                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                    adapters = new CatalogAdapter(CarActivity.this, catalogListCars);
-
-                    ListViewCar.setHasFixedSize(true);
-                    Log.d(TAG,catalog.getCatalogtitle()+"");
-//                    search(mSearchView);
-
-
-
-                    ListViewCar.setLayoutManager(layoutManager);
-
-                    ListViewCar.setAdapter(adapters);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(CarActivity.this, databaseError.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
-
+//        DatabaseReference databaseCatalo = FirebaseDatabase.getInstance().getReference("Cars");
+//        ListViewCar = (RecyclerView) findViewById(R.id.ListViewCar);
+//
+//        catalogListCars = new ArrayList<>();
+//
+////        //search
+////        mSearchView = (SearchView) findViewById(R.id.imageButton2);
+//
+//        databaseCatalo.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                catalogListCars.clear();
+//                for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
+//                    String  TAG ="MANI";
+//                    Catalog catalog = catalogSnapshot.getValue(Catalog.class);
+//                    ListViewCar = (RecyclerView) findViewById(R.id.lvCar);
+//                    catalogListCars.add(catalog);
+//                    layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+//                    adapters = new CatalogAdapter(CarActivity.this, catalogListCars);
+//
+//                    ListViewCar.setHasFixedSize(true);
+//                    Log.d(TAG,catalog.getCatalogtitle()+"");
+////                    search(mSearchView);
+//
+//
+//
+//                    ListViewCar.setLayoutManager(layoutManager);
+//
+//                    ListViewCar.setAdapter(adapters);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Toast.makeText(CarActivity.this, databaseError.getMessage(),Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
     }
 
     @Override

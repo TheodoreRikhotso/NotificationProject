@@ -18,9 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +48,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 
+
+
 /**
  * Created by Admin on 9/7/2017.
  */
@@ -59,8 +64,8 @@ public class CatalogAdminActivity extends AppCompatActivity {
     Button btnAdd;
     ImageButton IBAdmin, imageView ;
     StorageReference filePath;
-
-
+    Spinner spColor1,spColor2,spColor3,spColor4,spColor5;
+    private String color1,color2, color3, color4, color5, edColor5;
     private ProgressDialog mDialog;
 
     //IMAGE
@@ -476,8 +481,8 @@ public class CatalogAdminActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        }
 
+        }
     }
 
 //        if (MainActivity.CATA.equals("car")) {

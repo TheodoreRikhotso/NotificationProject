@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".SplashScreen"
+            android:name="LandingScreen"
             android:label="Boot It">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LandingScreen"
+            android:name=".AdminLandingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CatalogAdminActivity" />
@@ -48,7 +48,7 @@
             android:label="@string/title_activity_description"
             android:theme="@style/AppTheme.NoActionBar" />
         DescriptionActivity
-        <activity android:name=".ConfirmRequestActivty" />
+        <!-- <activity android:name=".SplashScreen" /> -->
         ConfirmRequestActivty
         <activity android:name=".NotificationActivityList" />
         NotificationActivityList
@@ -78,7 +78,11 @@
         <activity android:name=".ProfileActivityIcon" />
         <activity android:name=".PhoneDescriptionActivity" />
         <activity android:name=".LaptopDescriptionActivity" />
-        <activity android:name=".FurnitureDescriptionActivity"></activity>
+        <activity android:name=".FurnitureDescriptionActivity" />
+        <activity android:name=".UsersActivity" />
+        <activity android:name=".UpadateActivity" />
+        <activity android:name=".UpdateLaptopActivity" />
+        <activity android:name=".UpdatePhoneActivity"></activity>
     </application>
 
 </manifest>
