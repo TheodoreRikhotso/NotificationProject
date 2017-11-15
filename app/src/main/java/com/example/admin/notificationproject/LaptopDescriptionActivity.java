@@ -22,7 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
@@ -135,44 +134,44 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
 
-                Query query = FirebaseDatabase.getInstance().getReference().child("UserItems").orderByChild("refId").equalTo(user.getUid()).limitToLast(1);
-
-
-
-
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-
-                        for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-                            UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
-
-
-                            date = item.getItemDate();
-
-                            String changeDate = dateFormat.format(currentTime);
-                            String dayOld = date.substring(0, 2);
-
-
-                            Integer oldDays = Integer.parseInt(dayOld);
-                            String dayCurrent = changeDate.substring(0, 2);
-                            Integer dayInt = Integer.parseInt(dayCurrent);
-
-                            dayDiff = dayInt - oldDays;
-
-                            if(3-dayDiff==1) {
-                                waitDay = "two";
-                            }
-
-                            Toast.makeText(LaptopDescriptionActivity.this, dayDiff+" ", Toast.LENGTH_SHORT).show();
-                            if(3-dayDiff==3) {
-                                waitDay = "three";
-                            }
-                            if(3-dayDiff==2) {
-                                waitDay =  "one";
-                            }
+//                Query query = FirebaseDatabase.getInstance().getReference().child("UserItems").orderByChild("refId").equalTo(user.getUid()).limitToLast(1);
+//
+//
+//
+//
+//                query.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//
+//
+//                        for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
+//                            UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
+//
+//
+//                            date = item.getItemDate();
+//
+//                            String changeDate = dateFormat.format(currentTime);
+//                            String dayOld = date.substring(0, 2);
+//
+//
+//                            Integer oldDays = Integer.parseInt(dayOld);
+//                            String dayCurrent = changeDate.substring(0, 2);
+//                            Integer dayInt = Integer.parseInt(dayCurrent);
+//
+//                            dayDiff = dayInt - oldDays;
+//
+//                            if(3-dayDiff==1) {
+//                                waitDay = "two";
+//                            }
+//
+//                            Toast.makeText(LaptopDescriptionActivity.this, dayDiff+" ", Toast.LENGTH_SHORT).show();
+//                            if(3-dayDiff==3) {
+//                                waitDay = "three";
+//                            }
+//                            if(3-dayDiff==2) {
+//                                waitDay =  "one";
+//                            }
 
                             //if(dayDiff>3 || dayDiff<0) {
                                 ///DIALOG BOX INITIALIZATION
@@ -351,13 +350,13 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
 //                                Snackbar.make(view,"Wait for "+waitDay+" day(s) until booking approved",Snackbar.LENGTH_LONG).show();
 //                            }
 
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+//                        }
+//                    }
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
 
 
 

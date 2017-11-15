@@ -98,6 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                Intent intents = new Intent(ProfileActivity.this,LandingScreen.class);
+                startActivity(intents);
             }
         });
 

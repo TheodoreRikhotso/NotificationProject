@@ -19,7 +19,7 @@
         android:fontFamily="serif-monospace"
         android:text="Booking Requested"
         android:textColor="#ec669900"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="normal|bold"
         android:visibility="invisible" />
 

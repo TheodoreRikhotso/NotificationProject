@@ -1,5 +1,6 @@
 package com.example.admin.notificationproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference databaseProfile;
     private  String[] departs ={"Department name","Finance","IT", "HR","Administrative Information Service"};
     TextView etStuffNo,signup_name;
+    private String email,password;
     Spinner spDepart;
 
     public static String department,stuffno,CONTEXT,name;
@@ -48,7 +56,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-            CONTEXT ="SignUpActivity";
+        CONTEXT ="SignUpActivity";
+
 
         DatabaseReference databaseCatalogg = FirebaseDatabase.getInstance().getReference("Furniture");
         //View
@@ -63,6 +72,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         etStuffNo = (EditText) findViewById(R.id.etStuffNo);
         signup_name = (EditText) findViewById(R.id.signup_name);
         spDepart = (Spinner) findViewById(R.id.spDepart);
+
+        //email & password
+        email =input_email.getText().toString();
+        password=input_pass.getText().toString();
+
+
 
 
 
@@ -95,21 +110,111 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         auth = FirebaseAuth.getInstance();
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.signup_btn_login){
             startActivity(new Intent(SignUpActivity.this,MainActivity.class));
             finish();
         }
-        else if (view.getId() == R.id.signup_btn_forgot_pass){
+        else if (view.getId() == R.id.signup_btn_forgot_pass) {
             startActivity(new Intent(SignUpActivity.this,ForgotPasswordAcitivity.class));
             finish();
-
-
         }
 
+
         else if (view.getId() == R.id.signup_btn_register){
-            signUpUser(input_email.getText().toString(),input_pass.getText().toString());
+
+//email & password
+            email =input_email.getText().toString();
+            password=input_pass.getText().toString();
+            //Validation
+            if(email.contains("@") || email.contains(".com"))
+            {
+                if(password.length()>=7)
+                {
+                    int upperCaseCounter=0,lowerCaseCounter=0,digitCounter=0,whiteSpaceCounter=0,specialCounter=0;
+
+                    try{
+                        byte[] bytes = password.getBytes();
+                        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                        BufferedReader br=new BufferedReader(new InputStreamReader(bais));
+
+
+                        String  pass=br.readLine();
+
+                        for(int i=0;i<pass.length();i++){
+                            char ch=pass.charAt(i);
+                            if(Character.isAlphabetic(ch)){
+                                if(Character.isUpperCase(ch)){
+                                    upperCaseCounter+=1;
+                                }
+                                else{
+                                    lowerCaseCounter+=1;
+                                }
+                            }
+                            else if(Character.isDigit(ch)){
+                                digitCounter+=1;
+                            }
+                            else{
+                                if(Character.isWhitespace(ch)){
+                                    whiteSpaceCounter+=1;
+                                }
+                                else{
+                                    specialCounter+=1;
+                                }
+                            }
+                        }
+                        if(upperCaseCounter>0)
+                        {
+                            if(lowerCaseCounter>2)
+                            {
+                                if(specialCounter>0)
+                                {
+                                    if(digitCounter>1)
+                                    {
+                                        signUpUser(email,password);
+                                    }else {
+                                        input_pass.setError("Password must contain at least 2 uppercase");
+                                    }
+
+                                }else {
+                                    input_pass.setError("Password must contain at least one special character");
+                                }
+
+                            }else {
+                                input_pass.setError("Password must contain at least 3 lowercase");
+                            }
+
+                        }else {
+                            input_pass.setError("Password must contain at least one uppercase");
+                        }
+
+
+                    }
+
+                    catch(IOException e){
+                        System.out.println("error in input.");
+                    }
+
+
+
+
+
+                }else {
+                    input_pass.setError("Password must contains more than 6 characters  ");
+                }
+
+
+            }else {
+
+                Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
+                input_email.setError("It must be an Email");
+            }
+
+
+
+
 
 
         }
@@ -131,14 +236,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             profiledb = FirebaseDatabase.getInstance().getReference("Users/"+id+"/Profile");
 
-                                    Firebase.setAndroidContext(SignUpActivity.this);
+                            Firebase.setAndroidContext(SignUpActivity.this);
 
-                                    ProfilePojo profilePojo= new ProfilePojo();
+                            ProfilePojo profilePojo= new ProfilePojo();
 
-                                    profilePojo.setDepartmentName(department);
-                                    profilePojo.setStuffNo(stuffno);
-                                     profilePojo.setName(name);
-                                    profilePojo.setLogId(auth.getCurrentUser().getUid());
+                            profilePojo.setDepartmentName(department);
+                            profilePojo.setStuffNo(stuffno);
+                            profilePojo.setName(name);
+                            profilePojo.setLogId(auth.getCurrentUser().getUid());
 
                             profiledb.setValue(profilePojo);
 
@@ -169,4 +274,3 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
 }
-

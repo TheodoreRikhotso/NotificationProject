@@ -33,6 +33,8 @@ import java.util.TimeZone;
 
 import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 
+import static com.example.admin.notificationproject.R.id.tvDert;
+
 public class FurnitureDescriptionActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
@@ -125,7 +127,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 //                if(ProfileActivity.dayDiffer>3) {
-//
+
                 ///DIALOG BOX INITIALIZATION
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(FurnitureDescriptionActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
@@ -139,14 +141,20 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 Date currentTimes = Calendar.getInstance().getTime();
                 final DateFormat dateFormats = new SimpleDateFormat("dd MMM yyyy");
                 TextView tvDate=mView.findViewById(R.id.tvDates);
-                final TextView tvDepartment=mView.findViewById(R.id.tvDert);
+                final TextView tvDepartment=mView.findViewById(tvDert);
                 final TextView tvType=mView.findViewById(R.id.tvType);
                 tvDate.setText(dateFormats.format(currentTimes));
+
+
+
 
                 ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
                 Loading = mView.findViewById(R.id.Loading);
 
-                //
+
+
+
+
                 DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
 
                 DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
@@ -160,6 +168,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                             if(person!= null) {
                                 tvDepartment.setText(person.getDepartmentName());
                                 tvType.setText(c.getTitle());
+
 
                             }
 
@@ -181,7 +190,6 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                         userItemPojo.setName(name);
                         userItemPojo.setImageUri(image);
                         userItemPojo.setDeviceId(c.getId());
-
 
 
 
@@ -274,7 +282,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                         });
 
 
-                        Intent intents = new Intent(FurnitureDescriptionActivity.this,LandingScreen.class);
+                        Intent intents = new Intent(FurnitureDescriptionActivity.this,ProfileActivity.class);
                         startActivity(intents);
 
                     }
@@ -312,15 +320,14 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();
-                //DIALOG END
-//                }else {
-//                    Snackbar.make(view,"Wait until picked up date for the recently booked assert",Snackbar.LENGTH_LONG).show();
-//                }
+                // DIALOG END
+
+             /*   }else {
+                    Snackbar.make(view,"Wait until picked up date for the recently booked assert",Snackbar.LENGTH_LONG).show();*/
+               // }
             }
 
         });
-
-
 
 
 

@@ -52,14 +52,17 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
             }
         });
 
-        catalogList = new ArrayList<Laptop>();
+        databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");
+        ListViewCatalog = (RecyclerView) findViewById(R.id.lvLaptop);
+
+        catalogList = new ArrayList<>();
         /**
          * LAPTOPS LISTVIEW
          */
 
 //        mSearchView = (SearchView) findViewById(R.id.svLaptop);
 
-        databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");;
+
         databaseLaptops.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
