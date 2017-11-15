@@ -35,19 +35,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     //profile
     private DatabaseReference databaseProfile;
     private  String[] departs ={"Department name","Finance","IT", "HR","Administrative Information Service"};
-    TextView etStuffNo;
+    TextView etStuffNo,signup_name;
     Spinner spDepart;
-    public static String department,stuffno,CONTEXT;
+
+    public static String department,stuffno,CONTEXT,name;
 
     int idTotal =0;
     Firebase ref;
-
+    private DatabaseReference db,profiledb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-CONTEXT ="SignUpActivity";
+            CONTEXT ="SignUpActivity";
 
         DatabaseReference databaseCatalogg = FirebaseDatabase.getInstance().getReference("Furniture");
         //View
@@ -60,9 +61,12 @@ CONTEXT ="SignUpActivity";
 
         //profile
         etStuffNo = (EditText) findViewById(R.id.etStuffNo);
+        signup_name = (EditText) findViewById(R.id.signup_name);
         spDepart = (Spinner) findViewById(R.id.spDepart);
 
-        stuffno=etStuffNo.getText().toString();
+
+
+        db = FirebaseDatabase.getInstance().getReference("Users");
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,departs);
         spDepart.setAdapter(adapter);
@@ -77,7 +81,7 @@ CONTEXT ="SignUpActivity";
 
             }
         });
-        databaseProfile = FirebaseDatabase.getInstance().getReference("Profile");
+
 
 
         ///end profile
@@ -100,7 +104,10 @@ CONTEXT ="SignUpActivity";
         else if (view.getId() == R.id.signup_btn_forgot_pass){
             startActivity(new Intent(SignUpActivity.this,ForgotPasswordAcitivity.class));
             finish();
+
+
         }
+
         else if (view.getId() == R.id.signup_btn_register){
             signUpUser(input_email.getText().toString(),input_pass.getText().toString());
 
@@ -118,10 +125,11 @@ CONTEXT ="SignUpActivity";
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             String id  = auth.getCurrentUser().getUid();
+                            stuffno=etStuffNo.getText().toString();
+                            name=signup_name.getText().toString();
 
 
-                            snackbar = Snackbar.make(activity_sign_up, "Error: "+task.getException(),Snackbar.LENGTH_SHORT);
-                            snackbar.show();
+                            profiledb = FirebaseDatabase.getInstance().getReference("Users/"+id+"/Profile");
 
                                     Firebase.setAndroidContext(SignUpActivity.this);
 
@@ -129,22 +137,24 @@ CONTEXT ="SignUpActivity";
 
                                     profilePojo.setDepartmentName(department);
                                     profilePojo.setStuffNo(stuffno);
+                                     profilePojo.setName(name);
                                     profilePojo.setLogId(auth.getCurrentUser().getUid());
-                                    Intent intent  = new Intent(SignUpActivity.this,LandingScreen.class);
-                                    intent.putExtra("user",profilePojo);
 
-                                    startActivity(intent);
+                            profiledb.setValue(profilePojo);
 
+                            Intent intent = new Intent(SignUpActivity.this,LandingScreen.class);
+                            startActivity(intent);
 
-
+                            snackbar = Snackbar.make(activity_sign_up, "Register success : ",Snackbar.LENGTH_SHORT);
+                            snackbar.show();
 
 
 
                         }
                         else {
-                            snackbar = Snackbar.make(activity_sign_up, "Register success : ",Snackbar.LENGTH_SHORT);
-                            snackbar.show();
 
+                            snackbar = Snackbar.make(activity_sign_up, "Error: "+task.getException(),Snackbar.LENGTH_SHORT);
+                            snackbar.show();
 
 
 

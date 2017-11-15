@@ -25,18 +25,49 @@
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/IBAdmin"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_below="@+id/editTextTitle"
-                android:layout_gravity="center"
-                android:layout_marginTop="26dp"
-                android:layout_toEndOf="@+id/tVTitle"
-                android:layout_toRightOf="@+id/tVTitle"
-                android:background="@android:color/black"
-                android:scaleType="center" />
+                <ImageButton
+                    android:id="@+id/IBAdmin"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/editTextTitle"
+                    android:layout_marginTop="26dp"
+                    android:layout_toEndOf="@+id/tVTitle"
+                    android:layout_toRightOf="@+id/tVTitle"
+                    android:background="@android:color/black"
+                    android:scaleType="center" />
+
+                <ImageButton
+                    android:id="@+id/IBAdmin1"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/editTextTitle"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_toEndOf="@+id/IBAdmin"
+                    android:layout_toRightOf="@+id/IBAdmin"
+                    android:background="@android:color/black"
+                    android:scaleType="center" />
+
+
+                <ImageButton
+                    android:id="@+id/IBAdmin2"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/editTextTitle"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_toEndOf="@+id/IBAdmin1"
+                    android:layout_toRightOf="@+id/IBAdmin1"
+                    android:background="@android:color/black"
+                    android:scaleType="center" />
+
+
+            </LinearLayout>
 
 
             <!--<ImageButton-->

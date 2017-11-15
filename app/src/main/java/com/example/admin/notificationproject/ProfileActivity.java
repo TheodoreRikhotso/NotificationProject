@@ -53,8 +53,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.admin.notificationproject.SignUpActivity.department;
-
 public class ProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private CircleImageView image;
@@ -71,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Dialog builder;
     private String mainName,mainStuffNo,mainDepart,mainImage;
      String isImage ="1";
+    public static int dayDiffer;
 
 
     ///
@@ -128,8 +127,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         //user item
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("UserItems");
-        DatabaseReference databaseItem = databaseItems.child(user.getUid());
+//        DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("UserItems");
+//
+//        DatabaseReference databaseItem = databaseItems.child(user.getUid());
 
         rvUserItems = (RecyclerView) findViewById(R.id.rvUserItems);
         userItemPojos = new ArrayList<>();
@@ -137,11 +137,15 @@ public class ProfileActivity extends AppCompatActivity {
        final  String ids =user.getUid();
         empty.setVisibility(View.VISIBLE);
 
+        DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("Users/"+ids+"/History");
+
+        databaseProfile = FirebaseDatabase.getInstance().getReference("Users/"+ids+"/Profile");
+
         Query query = FirebaseDatabase.getInstance().getReference().child("UserItems").orderByChild("refId").equalTo(user.getUid()).limitToLast(5);
 
 
 
-            query.addValueEventListener(new ValueEventListener() {
+        databaseItems.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     userItemPojos.clear();
@@ -177,7 +181,7 @@ public class ProfileActivity extends AppCompatActivity {
                     List<String> source = new ArrayList<>();
                     source.add("Booked");
 
-                    source.add("Waiting for approved");
+                    source.add("Waiting for approval");
                     source.add("Approved");
                     source.add("Pick Up");
                     DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
@@ -185,7 +189,7 @@ public class ProfileActivity extends AppCompatActivity {
                     String changeDate = dateFormat.format(currentTime);
 
                     if (date == changeDate) {
-                        System.out.println("Where pdclkj" + changeDate + " " + date);
+//                        System.out.println("Where pdclkj" + changeDate + " " + date);
                         verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
                                 .reverseDraw(false)
                                 .setStepViewTexts(source)
@@ -210,7 +214,7 @@ if(date !=null) {
     String dayCurrent = changeDate.substring(0, 2);
     Integer dayInt = Integer.parseInt(dayCurrent);
 
-    int dayDiffer = dayInt - oldDays;
+     dayDiffer = dayInt - oldDays;
     System.out.println("dayCurrent " + date + " od current" + changeDate);
     System.out.println("trim " + dayDiffer);
 
@@ -322,24 +326,6 @@ if(date !=null) {
             pd = new ProgressDialog(this);
             pd.setMessage("Uploading....");
 
-            databaseProfile = FirebaseDatabase.getInstance().getReference("Profiles");
-            if (SignUpActivity.CONTEXT == "SignUpActivity") {
-
-
-                nameS.setVisibility(View.VISIBLE);
-                FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                ProfilePojo profile = new ProfilePojo();
-                profile.setDepartmentName(department);
-                mainDepart = department;
-                mainImage = SignUpActivity.stuffno;
-
-                profile.setStuffNo(SignUpActivity.stuffno);
-                profile.setName("Theo");
-                profile.setId(users.getUid());
-
-
-                databaseProfile.child(user.getUid()).setValue(profile);
-            }
 
             ivEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -347,11 +333,13 @@ if(date !=null) {
                     buildDialog(R.style.DialogAnimation_Profile);
                 }
             });
-            DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
 
-            DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
+        DatabaseReference  databaseUser = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Profile");
+           // DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
 
-            buisnessAccRef.addValueEventListener(new ValueEventListener() {
+
+
+        databaseUser.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -459,9 +447,27 @@ if(date !=null) {
         editStuffNo = builder.findViewById(R.id.editStuffNo);
         editName = builder.findViewById(R.id.editName);
         tvOk = builder.findViewById(R.id.tvOk);
-        editDepartment.setText(mainDepart);
-        editName.setText(mainName);
-        editStuffNo.setText(mainStuffNo);
+
+        if(mainDepart==null)
+        {
+            editDepartment.setText("Enter name & surname");
+        }else{
+            editDepartment.setText(mainDepart);
+        }
+
+        if(mainStuffNo==null)
+        {
+            editStuffNo.setText("Enter stuff number");
+        }else{
+            editStuffNo.setText(mainStuffNo);
+        }
+        if(mainDepart==null)
+        {
+            editName.setText("Enter Department");
+        }else{
+            editName.setText(mainName);
+        }
+
 
 
         Glide.with(ProfileActivity.this).load(mainImage).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivPhoto) {
@@ -513,7 +519,7 @@ if(isImage=="2") {
             profilePojo.setStuffNo(stuffNo);
 
             FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-            databaseProfile.child(users.getUid()).setValue(profilePojo);
+            databaseProfile.setValue(profilePojo);
 
             Toast.makeText(ProfileActivity.this, "Upload successful ", Toast.LENGTH_SHORT).show();
         }
@@ -532,7 +538,7 @@ if(isImage=="2") {
     profilePojo.setStuffNo(stuffNo);
 
     FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-    databaseProfile.child(users.getUid()).setValue(profilePojo);
+    databaseProfile.setValue(profilePojo);
 }
 
 

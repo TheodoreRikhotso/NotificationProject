@@ -3,6 +3,7 @@ package com.example.admin.notificationproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -81,7 +81,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
                     intent.putExtra("select", c);
                     context.startActivity(intent);
                 }else {
-                    Toast.makeText(context, catalog.getTitle()+" is not available please try  tomorrow", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, catalog.getTitle()+" is not available please try tomorrow",Snackbar.LENGTH_LONG).show();
                 }
 
 

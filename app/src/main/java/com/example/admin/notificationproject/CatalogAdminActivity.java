@@ -18,8 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,8 +46,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-
-
 /**
  * Created by Admin on 9/7/2017.
  */
@@ -57,24 +53,25 @@ import java.util.Date;
 public class CatalogAdminActivity extends AppCompatActivity {
 
 
-
-        //FIREBASE CONNECTION
-        String TAG ="URI";
-    EditText etSerialNo,etTotalQty,etDuration,etOs,etRam,etBattery,etMemory,etTitle;
+    //FIREBASE CONNECTION
+    String TAG = "URI";
+    EditText etSerialNo, etTotalQty, etDuration, etOs, etRam, etBattery, etMemory, etTitle;
     Button btnAdd;
-    ImageButton IBAdmin, imageView ;
-    StorageReference filePath;
-    Spinner spColor1,spColor2,spColor3,spColor4,spColor5;
-    private String color1,color2, color3, color4, color5, edColor5;
+    ImageButton IBAdmin, imageView, colorImage, colorImage2;
+    StorageReference filePath, filePath1, filePath2;
+    Spinner spColor1, spColor2, spColor3, spColor4, spColor5;
+    private String color1, color2, color3, color4, color5, edColor5;
     private ProgressDialog mDialog;
 
     //IMAGE
-    Uri uri;
+    Uri uri, uri1, uri2;
     private static final int GALLERY_INTENT = 1;
-    public static Catalog NOTIFY =null;
-    public static String TYPE =null;
+    private static final int GALLERY_INTENT01 = 2;
+    private static final int GALLERY_INTENT02 = 3;
+    public static Catalog NOTIFY = null;
+    public static String TYPE = null;
     //FIREBASE CONNECTION
-    private DatabaseReference databaseLaptops,databaseNot;
+    private DatabaseReference databaseLaptops, databaseNot;
     private StorageReference mStorageReference;
 
 
@@ -82,63 +79,63 @@ public class CatalogAdminActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
     }
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_catalog_admin);
 
-            if(MainActivity.CATA.equals("laptop")) {
-                Toast.makeText(this, "Laptopl", Toast.LENGTH_SHORT).show();
-                databaseLaptops = FirebaseDatabase.getInstance().getReference("Laptops");
-                mStorageReference = FirebaseStorage.getInstance().getReference();
-            }
-            if(MainActivity.CATA.equals("phone")) {
-                databaseLaptops = FirebaseDatabase.getInstance().getReference("Phones");
-                mStorageReference = FirebaseStorage.getInstance().getReference();
-            }
-            if(MainActivity.CATA.equals("car")) {
-                databaseLaptops = FirebaseDatabase.getInstance().getReference("Cars");
-                mStorageReference = FirebaseStorage.getInstance().getReference();
-            }
-            if(MainActivity.CATA.equals("furniture")) {
-                databaseLaptops = FirebaseDatabase.getInstance().getReference("Furniture");
-                mStorageReference = FirebaseStorage.getInstance().getReference();
-            }
-            databaseNot = FirebaseDatabase.getInstance().getReference("Notificationd");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_catalog_admin);
+
+        if (MainActivity.CATA.equals("laptop")) {
+
+            databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");
+            mStorageReference = FirebaseStorage.getInstance().getReference();
+        }
+        if (MainActivity.CATA.equals("phone")) {
+            databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Phones/details");
+            mStorageReference = FirebaseStorage.getInstance().getReference();
+        }
+        if (MainActivity.CATA.equals("car")) {
+            databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Cars/details");
+            mStorageReference = FirebaseStorage.getInstance().getReference();
+        }
+        if (MainActivity.CATA.equals("furniture")) {
+            databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Furniture/details");
+            mStorageReference = FirebaseStorage.getInstance().getReference();
+        }
+        databaseNot = FirebaseDatabase.getInstance().getReference("Notificationd");
 
 
+        //ITEM ADD INSTANCES
+        IBAdmin = (ImageButton) findViewById(R.id.IBAdmin);
+        colorImage = (ImageButton) findViewById(R.id.IBAdmin1);
+        colorImage2 = (ImageButton) findViewById(R.id.IBAdmin2);
 
-            //ITEM ADD INSTANCES
-            IBAdmin = (ImageButton) findViewById(R.id.IBAdmin);
 
-            btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
 
 //        //DESCRIPTION ADD INSTANCES
-            imageView = (ImageButton) findViewById(R.id.imageView);
+        imageView = (ImageButton) findViewById(R.id.imageView);
 
 //
-            etSerialNo = (EditText) findViewById(R.id.etSerialNo);
-            etBattery = (EditText) findViewById(R.id.etBattery);
-            etDuration = (EditText) findViewById(R.id.etDuration);
-            etTotalQty = (EditText) findViewById(R.id.etToatalQuantity);
-            etTitle = (EditText) findViewById(R.id.etTitle);
-            etMemory = (EditText) findViewById(R.id.etMemory);
-            etRam = (EditText) findViewById(R.id.etRam);
-            etOs = (EditText) findViewById(R.id.etOs);
+        etSerialNo = (EditText) findViewById(R.id.etSerialNo);
+        etBattery = (EditText) findViewById(R.id.etBattery);
+        etDuration = (EditText) findViewById(R.id.etDuration);
+        etTotalQty = (EditText) findViewById(R.id.etToatalQuantity);
+        etTitle = (EditText) findViewById(R.id.etTitle);
+        etMemory = (EditText) findViewById(R.id.etMemory);
+        etRam = (EditText) findViewById(R.id.etRam);
+        etOs = (EditText) findViewById(R.id.etOs);
 
 
+        if (MainActivity.CATA.equals("phone")) {
+
+            etMemory.setHint("Memory");
+            etBattery.setHint("Battery");
+            etRam.setHint("Ram");
+            etOs.setHint("Operating System ");
 
 
-
-            if(MainActivity.CATA.equals("phone")) {
-
-                etMemory.setHint("Memory");
-                etBattery.setHint("Battery");
-                etRam.setHint("Ram");
-                etOs.setHint("Operating System ");
-
-
-            }
+        }
 //            if(MainActivity.CATA.equals("car")) {
 //                etProccessor.setHint("fuel");
 //                etSize.setHint("seater");
@@ -151,34 +148,27 @@ public class CatalogAdminActivity extends AppCompatActivity {
 //
 //
 //            }Speed
-            if(MainActivity.CATA.equals("laptop")) {
+        if (MainActivity.CATA.equals("laptop")) {
 
-                etMemory.setHint("Graphics");
-                etBattery.setHint("Storage");
-                etRam.setHint("Ram");
-                etOs.setHint("Operating System ");
-
-
-            }
-            if(MainActivity.CATA.equals("Furniture")) {
-
-                etMemory.setHint("Quantity");
-                etBattery.setHint("Type");
-                etRam.setHint("Deliverance");
-                etOs.setVisibility(View.GONE);
+            etMemory.setHint("Graphics");
+            etBattery.setHint("Storage");
+            etRam.setHint("Ram");
+            etOs.setHint("Operating System ");
 
 
-            }
+        }
+        if (MainActivity.CATA.equals("furniture")) {
+
+            etMemory.setHint("Quantity");
+            etBattery.setHint("Type");
+            etRam.setHint("Deliverance");
+            etOs.setVisibility(View.GONE);
 
 
+        }
 
 
-
-
-
-
-
-            mDialog = new ProgressDialog(this);
+        mDialog = new ProgressDialog(this);
 
 //
 //        imageView.setOnClickListener(new View.OnClickListener() {
@@ -193,27 +183,50 @@ public class CatalogAdminActivity extends AppCompatActivity {
 //            }
 //        });
 
-            IBAdmin.setOnClickListener(new View.OnClickListener() {
+        IBAdmin.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                    //IMAGE
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, GALLERY_INTENT);
-                }
-            });
+                //IMAGE
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+        colorImage.setOnClickListener(new View.OnClickListener() {
 
-            btnAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                    AddAsset();
+                //IMAGE
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT01);
+            }
+        });
 
-                }
-            });
-        }
+        colorImage2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                //IMAGE
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT02);
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AddAsset();
+
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -222,6 +235,16 @@ public class CatalogAdminActivity extends AppCompatActivity {
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             uri = data.getData();
             IBAdmin.setImageURI(uri);
+
+        }
+        if (requestCode == GALLERY_INTENT01 && resultCode == RESULT_OK) {
+            uri1 = data.getData();
+            colorImage.setImageURI(uri1);
+
+        }
+        if (requestCode == GALLERY_INTENT02 && resultCode == RESULT_OK) {
+            uri2 = data.getData();
+            colorImage2.setImageURI(uri2);
 
         }
     }
@@ -241,7 +264,7 @@ public class CatalogAdminActivity extends AppCompatActivity {
         final String memory = etMemory.getText().toString().trim();
         final String battery = etBattery.getText().toString().trim();
         final String os = etOs.getText().toString().trim();
-        final String ram  =etRam.getText().toString().trim();
+        final String ram = etRam.getText().toString().trim();
 
 
         mDialog.setMessage("please wait ...");
@@ -254,166 +277,318 @@ public class CatalogAdminActivity extends AppCompatActivity {
         // Log.i("T",uri.toString());
         if (MainActivity.CATA.equals("laptop")) {
             Toast.makeText(this, "Laptop ", Toast.LENGTH_SHORT).show();
-            filePath = mStorageReference.child("LaptopsImages").child(uri.getLastPathSegment());
+
+                filePath = mStorageReference.child("LaptopsImages").child(uri.getLastPathSegment());
+            if(uri1!= null) {
+                filePath1 = mStorageReference.child("LaptopsImages").child(uri1.getLastPathSegment());
+            }
+            if(uri2!= null) {
+                filePath2 = mStorageReference.child("LaptopsImages").child(uri2.getLastPathSegment());
+            }
+
         }
         if (MainActivity.CATA.equals("phone")) {
             filePath = mStorageReference.child("PhonesImages").child(uri.getLastPathSegment());
+            if (uri1 != null) {
+                filePath1 = mStorageReference.child("PhonesImages").child(uri1.getLastPathSegment());
+            }
+            if (uri1 != null) {
+                filePath2 = mStorageReference.child("PhonesImages").child(uri2.getLastPathSegment());
+            }
         }
         if (MainActivity.CATA.equals("car")) {
             filePath = mStorageReference.child("CarsImages").child(uri.getLastPathSegment());
         }
         if (MainActivity.CATA.equals("furniture")) {
-            filePath = mStorageReference.child("FurnitureImages").child(uri.getLastPathSegment());
+
+
+
+                filePath = mStorageReference.child("FurnitureImages").child(uri.getLastPathSegment());
+
+
         }
-
+        final String ids = databaseNot.push().getKey();
+        final String id = databaseLaptops.push().getKey();
         if (MainActivity.CATA.equals("furniture")) {
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
-                    etMemory.setHint("Quantity");
-                    etBattery.setHint("Type");
-                    etRam.setHint("Deliverance");
-                    etOs.setVisibility(View.GONE);
+if(filePath!=null) {
+    filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
+        @Override
+        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            @SuppressWarnings("VisibleForTests") final Uri imageUri1 = taskSnapshot.getDownloadUrl();
 
-                    //CREATES A NEW UNIQUE ID IN DATABASE
-                    String id = databaseLaptops.push().getKey();
-                    Catalog catalog = new Catalog(id, imageUri.toString());
-
-                    catalog.setAssetTitle(title);
-                    FurniturePojo lap =new FurniturePojo();
-                    //lap.set;
-
-                    lap.setDeliverance(ram);
-                    lap.setType(battery);
+            System.out.println("FURNITURE IMAGE URI: " + imageUri1);
 
 
-                    lap.setTotalQuantity(total);
-                    lap.setQuantity(memory);
-
-                    lap.setId(id);
-                    lap.setDuration(duration);
-                    lap.setSerialNo(serialNo);
-                    lap.setTitle(title);
-                    lap.setImage(imageUri.toString());
-
-                    catalog.setCatalogimageurl(imageUri.toString());
+            etMemory.setHint("Quantity");
+            etBattery.setHint("Type");
+            etRam.setHint("Deliverance");
+            etOs.setVisibility(View.GONE);
 
 
-                    ///notifacaion
-                    NOTIFY = catalog;
-                    TYPE = MainActivity.CATA;
-                    String idi = databaseNot.push().getKey();
-                    Date currentTime = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+            //CREATES A NEW UNIQUE ID IN DATABASE
+
+            Catalog catalog = new Catalog(id, imageUri1.toString());
+
+            catalog.setAssetTitle(title);
+            FurniturePojo lap = new FurniturePojo();
+            //lap.set;
+
+            lap.setDeliverance(ram);
+            lap.setType(battery);
 
 
-                    Time now = new Time();
-                    now.setToNow();
-                    NotificationPojo notificationPojo = new NotificationPojo();
-                    notificationPojo.setMessage(catalog.assetTitle);
-                    notificationPojo.setId(idi);
-                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
-                    notificationPojo.setTitle(catalog.getAssetTitle());
-                    notificationPojo.setMessage(catalog.getAssetTitle());
-                    notificationPojo.setDate(dateFormat.format(currentTime));
+            lap.setTotalQuantity(total);
+            lap.setQuantity(memory);
 
-                    databaseNot.child(idi).setValue(notificationPojo);
+            lap.setId(id);
+            lap.setDuration(duration);
+            lap.setSerialNo(serialNo);
+            lap.setTitle(title);
 
 
-                    sendNotification(notificationPojo, MainActivity.CATA);
+            lap.setImage(imageUri1.toString());
+
+            catalog.setCatalogimageurl(imageUri1.toString());
+
+
+            ///notifacaion
+            NOTIFY = catalog;
+            TYPE = MainActivity.CATA;
+
+            Date currentTime = Calendar.getInstance().getTime();
+            DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+
+            Time now = new Time();
+            now.setToNow();
+            NotificationPojo notificationPojo = new NotificationPojo();
+            notificationPojo.setMessage(catalog.assetTitle);
+            notificationPojo.setId(id);
+            notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+            notificationPojo.setTitle(catalog.getAssetTitle());
+            notificationPojo.setMessage(catalog.getAssetTitle());
+            notificationPojo.setDate(dateFormat.format(currentTime));
+
+            databaseNot.child(ids).setValue(notificationPojo);
+
+
+            sendNotification(notificationPojo, MainActivity.CATA);
 //                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
-                    databaseLaptops.child(id).setValue(lap);
-                    mDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
+            databaseLaptops.child(id).setValue(lap);
+            mDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-                    startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+            startActivity(intent);
 
-                }
-            });
-            filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+
+        }
+    });
+    filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    });
+}else {
+    Toast.makeText(this, filePath.toString(), Toast.LENGTH_SHORT).show();
+}
+
+//
 
         }
 
         if (MainActivity.CATA.equals("laptop")) {
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
+System.out.println(" file path "+filePath+" 1 "+filePath1+" 2 "+filePath2);
+if(uri !=null) {
+    filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
+        @Override
+        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            @SuppressWarnings("VisibleForTests") final Uri imageUri1 = taskSnapshot.getDownloadUrl();
 
+            System.out.println("LAPTOP IMAGE URI: " + imageUri1);
 
-                    //CREATES A NEW UNIQUE ID IN DATABASE
-                    String id = databaseLaptops.push().getKey();
-                    Catalog catalog = new Catalog(id, imageUri.toString());
+            if (filePath1 != null) {
+                filePath1.putFile(uri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        @SuppressWarnings("VisibleForTests") final Uri imageUri2 = taskSnapshot.getDownloadUrl();
 
-                    catalog.setAssetTitle(title);
-                    Laptop lap =new Laptop();
-                    //lap.set;
+                        System.out.println("LAPTOP IMAGE URI: " + imageUri2);
+                        if (filePath1 != null) {
+                            filePath2.putFile(uri2).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    @SuppressWarnings("VisibleForTests") Uri imageUri3 = taskSnapshot.getDownloadUrl();
 
-                    lap.setRam(ram);
-                    lap.setStorage(battery);
-
-                    lap.setOs(os);
-                    lap.setTotalQuantity(total);
-                    lap.setGraphics(memory);
-
-                    lap.setId(id);
-                    lap.setDuration(duration);
-                    lap.setSerialNo(serialNo);
-                    lap.setTitle(title);
-                    lap.setImage(imageUri.toString());
-
-                    catalog.setCatalogimageurl(imageUri.toString());
+                                    System.out.println("LAPTOP IMAGE URI: " + imageUri3);
 
 
-                    ///notifacaion
-                    NOTIFY = catalog;
-                    TYPE = MainActivity.CATA;
-                    String idi = databaseNot.push().getKey();
-                    Date currentTime = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                                    //CREATES A NEW UNIQUE ID IN DATABASE
+
+                                    Catalog catalog = new Catalog(id, imageUri3.toString());
+
+                                    catalog.setAssetTitle(title);
+                                    Laptop lap = new Laptop();
+                                    //lap.set;
+
+                                    lap.setRam(ram);
+                                    lap.setStorage(battery);
+
+                                    lap.setOs(os);
+                                    lap.setTotalQuantity(total);
+                                    lap.setGraphics(memory);
+
+                                    lap.setId(id);
+                                    lap.setDuration(duration);
+                                    lap.setSerialNo(serialNo);
+                                    lap.setTitle(title);
+                                    lap.setImage(imageUri1.toString());
+                                    lap.setImage1(imageUri2.toString());
+                                    lap.setImage2(imageUri3.toString());
+
+                                    catalog.setCatalogimageurl(imageUri3.toString());
 
 
-                    Time now = new Time();
-                    now.setToNow();
-                    NotificationPojo notificationPojo = new NotificationPojo();
-                    notificationPojo.setMessage(catalog.assetTitle);
-                    notificationPojo.setId(idi);
-                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
-                    notificationPojo.setTitle(catalog.getAssetTitle());
-                    notificationPojo.setMessage(catalog.getAssetTitle());
-                    notificationPojo.setDate(dateFormat.format(currentTime));
-
-                    databaseNot.child(idi).setValue(notificationPojo);
+                                    ///notifacaion
+                                    NOTIFY = catalog;
+                                    TYPE = MainActivity.CATA;
+                                    String idi = databaseNot.push().getKey();
+                                    Date currentTime = Calendar.getInstance().getTime();
+                                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
 
-                    sendNotification(notificationPojo, MainActivity.CATA);
+                                    Time now = new Time();
+                                    now.setToNow();
+                                    NotificationPojo notificationPojo = new NotificationPojo();
+                                    notificationPojo.setMessage(catalog.assetTitle);
+                                    notificationPojo.setId(idi);
+                                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+                                    notificationPojo.setTitle(catalog.getAssetTitle());
+                                    notificationPojo.setMessage(catalog.getAssetTitle());
+                                    notificationPojo.setDate(dateFormat.format(currentTime));
+
+                                    databaseNot.child(idi).setValue(notificationPojo);
+
+
+                                    sendNotification(notificationPojo, MainActivity.CATA);
 //                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
-                    databaseLaptops.child(id).setValue(lap);
-                    mDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
+                                    databaseLaptops.child(id).setValue(lap);
+                                    mDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-                    startActivity(intent);
+                                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+                                    startActivity(intent);
 
-                }
-            });
-            filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                                }
+                            });
+                        }
+                        Catalog catalog = new Catalog(id, imageUri1.toString());
+
+                        catalog.setAssetTitle(title);
+                        Laptop lap = new Laptop();
+                        //lap.set;
+
+                        lap.setRam(ram);
+                        lap.setStorage(battery);
+
+                        lap.setOs(os);
+                        lap.setTotalQuantity(total);
+                        lap.setGraphics(memory);
+
+                        lap.setId(id);
+                        lap.setDuration(duration);
+                        lap.setSerialNo(serialNo);
+                        lap.setTitle(title);
+                        lap.setImage(imageUri1.toString());
+                        lap.setImage1(imageUri2.toString());
+
+
+                        catalog.setCatalogimageurl(imageUri1.toString());
+
+
+                        ///notifacaion
+                        NOTIFY = catalog;
+                        TYPE = MainActivity.CATA;
+                        String idi = databaseNot.push().getKey();
+                        Date currentTime = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+
+                        Time now = new Time();
+                        now.setToNow();
+                        NotificationPojo notificationPojo = new NotificationPojo();
+                        notificationPojo.setMessage(catalog.assetTitle);
+                        notificationPojo.setId(idi);
+                        notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+                        notificationPojo.setTitle(catalog.getAssetTitle());
+                        notificationPojo.setMessage(catalog.getAssetTitle());
+                        notificationPojo.setDate(dateFormat.format(currentTime));
+
+                        databaseNot.child(idi).setValue(notificationPojo);
+
+                    }
+                });
+            }
+            Catalog catalog = new Catalog(id, imageUri1.toString());
+
+            catalog.setAssetTitle(title);
+            Laptop lap = new Laptop();
+            //lap.set;
+
+            lap.setRam(ram);
+            lap.setStorage(battery);
+
+            lap.setOs(os);
+            lap.setTotalQuantity(total);
+            lap.setGraphics(memory);
+
+            lap.setId(id);
+            lap.setDuration(duration);
+            lap.setSerialNo(serialNo);
+            lap.setTitle(title);
+            lap.setImage(imageUri1.toString());
+
+
+            catalog.setCatalogimageurl(imageUri1.toString());
+
+
+            ///notifacaion
+            NOTIFY = catalog;
+            TYPE = MainActivity.CATA;
+            String idi = databaseNot.push().getKey();
+            Date currentTime = Calendar.getInstance().getTime();
+            DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+
+            Time now = new Time();
+            now.setToNow();
+            NotificationPojo notificationPojo = new NotificationPojo();
+            notificationPojo.setMessage(catalog.assetTitle);
+            notificationPojo.setId(idi);
+            notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+            notificationPojo.setTitle(catalog.getAssetTitle());
+            notificationPojo.setMessage(catalog.getAssetTitle());
+            notificationPojo.setDate(dateFormat.format(currentTime));
+
+            databaseNot.child(idi).setValue(notificationPojo);
+
+
+        }
+    });
+
+    filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+
 
         }
 
@@ -422,196 +597,117 @@ public class CatalogAdminActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
+                    @SuppressWarnings("VisibleForTests") final Uri imageUri1 = taskSnapshot.getDownloadUrl();
+
+                    System.out.println("Phone IMAGE URI: " + imageUri1);
+
+                    filePath1.putFile(uri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") final Uri imageUri2 = taskSnapshot.getDownloadUrl();
+
+                            System.out.println("Phone IMAGE URI: " + imageUri2);
+
+                            filePath2.putFile(uri2).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    @SuppressWarnings("VisibleForTests") Uri imageUri3 = taskSnapshot.getDownloadUrl();
+
+                                    System.out.println("Phone IMAGE URI: " + imageUri3);
 
 
-                    //CREATES A NEW UNIQUE ID IN DATABASE
-                    String id = databaseLaptops.push().getKey();
-                    Catalog catalog = new Catalog(id, imageUri.toString());
+                                    //CREATES A NEW UNIQUE ID IN DATABASE
+
+                                    Catalog catalog = new Catalog(id, imageUri3.toString());
 
 
-                    PhonePojo lap = new PhonePojo();
-                    lap.setBattery(battery);
-                    lap.setMemory(memory);
-                    lap.setRam(ram);
-                    lap.setOs(os);
+                                    PhonePojo lap = new PhonePojo();
+
+                                    lap.setBattery(battery);
+                                    lap.setMemory(memory);
+                                    lap.setRam(ram);
+                                    lap.setOs(os);
 
 
-                    lap.setId(id);
-                    lap.setDuration(duration);
-                    lap.setSerialNo(serialNo);
-                    lap.setTitle(title);
-                    lap.setImage(imageUri.toString());
+                                    lap.setTotalQuantity(total);
+                                    lap.setId(id);
+                                    lap.setDuration(duration);
+                                    lap.setSerialNo(serialNo);
+                                    lap.setTitle(title);
+                                    lap.setImage(imageUri1.toString());
+                                    lap.setImage1(imageUri2.toString());
+                                    lap.setImage2(imageUri3.toString());
 
-                    ///notifacaion
-                    NOTIFY = catalog;
-                    TYPE = MainActivity.CATA;
-                    String idi = databaseNot.push().getKey();
-                    Date currentTime = Calendar.getInstance().getTime();
-                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-
-
-                    Time now = new Time();
-                    now.setToNow();
-                    NotificationPojo notificationPojo = new NotificationPojo();
-                    notificationPojo.setMessage(catalog.assetTitle);
-                    notificationPojo.setId(idi);
-                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
-                    notificationPojo.setTitle(catalog.getAssetTitle());
-                    notificationPojo.setMessage(catalog.getAssetTitle());
-                    notificationPojo.setDate(dateFormat.format(currentTime));
-
-                    databaseNot.child(idi).setValue(notificationPojo);
+                                    ///notifacaion
+                                    NOTIFY = catalog;
+                                    TYPE = MainActivity.CATA;
+                                    String idi = databaseNot.push().getKey();
+                                    Date currentTime = Calendar.getInstance().getTime();
+                                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
 
-                    sendNotification(notificationPojo, MainActivity.CATA);
+                                    Time now = new Time();
+                                    now.setToNow();
+                                    NotificationPojo notificationPojo = new NotificationPojo();
+                                    notificationPojo.setMessage(catalog.assetTitle);
+                                    notificationPojo.setId(idi);
+                                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
+                                    notificationPojo.setTitle(catalog.getAssetTitle());
+                                    notificationPojo.setMessage(catalog.getAssetTitle());
+                                    notificationPojo.setDate(dateFormat.format(currentTime));
+
+                                    databaseNot.child(idi).setValue(notificationPojo);
+
+
+                                    sendNotification(notificationPojo, MainActivity.CATA);
 //                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
-                    databaseLaptops.child(id).setValue(lap);
-                    mDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
+                                    databaseLaptops.child(id).setValue(lap);
+                                    mDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-                    startActivity(intent);
+                                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                        }
+                    });
+
 
                 }
             });
-            filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
         }
+
     }
 
-//        if (MainActivity.CATA.equals("car")) {
-//            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    @SuppressWarnings("VisibleForTests") Uri imageUri = taskSnapshot.getDownloadUrl();
-//
-///*  etProccessor.setHint("fuel");
-//                etSize.setHint("seater");
-//                etMemory.setHint("door");
-//                etCamera.setHint("mileage");
-//                etBattery.setHint("Engine");
-//                etOs.setHint("Drive type");
-//                etDipslay.setHint("gear");
-//                etCapacity.setHint("Speed");
-//
-//
-//                 final String diplay = etDipslay.getText().toString().trim();
-//        final String size = etSize.getText().toString().trim();
-//        final String camera = etCamera.getText().toString().trim();
-//        final String capacity = etCapacity.getText().toString().trim();
-//        final String title = etTitle.getText().toString().trim();
-//
-//        final String procesor = etProccessor.getText().toString().trim();
-//        final String memory = etMemory.getText().toString().trim();
-//        final String battery = etBattery.getText().toString().trim();
-//        final String os = etOs.getText().toString().trim();*/
-//
-//                    //CREATES A NEW UNIQUE ID IN DATABASE
-//                    String id = databaseLaptops.push().getKey();
-//                    Catalog catalog = new Catalog(id, imageUri.toString());
-//                    catalog.setColor1(color1);
-//                    catalog.setColor2(color2);
-//                    catalog.setColor3(color3);
-//                    catalog.setColor4(color4);
-//                    catalog.setColor5(color5);
-//                    catalog.setAssetTitle(title);
-//                    CarPojo lap =new CarPojo();
-//                    lap.setFuel(procesor);
-//                    lap.setDoor(memory);
-//                    lap.setSeater(size);
-//                    lap.setMileage(camera);
-//                    lap.setEngine(battery);
-//                    lap.setDrivetype(os);
-//                    lap.setGear(diplay);
-//                    lap.setSpeed(capacity);
-//
-//
-//                    catalog.setCamera(camera);
-//                    catalog.setCapacity(capacity);
-//                    catalog.setSizeAndWieght(size);
-//                    catalog.setDiplay(diplay);
-//
-//                    catalog.setCatalogimageurl(imageUri.toString());
-//
-//
-//                    ///notifacaion
-//                    NOTIFY = catalog;
-//                    TYPE = MainActivity.CATA;
-//                    String idi = databaseNot.push().getKey();
-//                    Date currentTime = Calendar.getInstance().getTime();
-//                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-//
-//
-//                    Time now = new Time();
-//                    now.setToNow();
-//                    NotificationPojo notificationPojo = new NotificationPojo();
-//                    notificationPojo.setMessage(catalog.assetTitle);
-//                    notificationPojo.setId(idi);
-//                    notificationPojo.setImageUrl(catalog.getCatalogimageurl());
-//                    notificationPojo.setTitle(catalog.getAssetTitle());
-//                    notificationPojo.setMessage(catalog.getAssetTitle());
-//                    notificationPojo.setDate(dateFormat.format(currentTime));
-//
-//                    databaseNot.child(idi).setValue(notificationPojo);
-//
-//
-//                    sendNotification(notificationPojo, MainActivity.CATA);
-////                    description, content1, content2, content3, content4, content5, content6, color1, color2, color3, color4, color5,
-//                    databaseLaptops.child(id).setValue(lap);
-//                    mDialog.dismiss();
-//                    Toast.makeText(getApplicationContext(), "Done Uploading ...", Toast.LENGTH_SHORT).show();
-//
-//                    Intent intent = new Intent(getApplicationContext(), CatalogActivity.class);
-//                    startActivity(intent);
-//
-//                }
-//            });
-//            filePath.putFile(uri).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//        }
-//    }
 
-
-    private void sendNotification(NotificationPojo notificationPojo,String title) {
+    private void sendNotification(NotificationPojo notificationPojo, String title) {
 
         InputStream stream = null;
-        Intent intent = new Intent(this,NotificationActivity.class);
-        Intent intentPP = new Intent(this,CatalogActivity.class);
+        Intent intent = new Intent(this, NotificationActivity.class);
+        Intent intentPP = new Intent(this, CatalogActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Uri noti = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        PendingIntent pendingIntent =PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
-        PendingIntent pendingIntentS =PendingIntent.getActivity(this,0,intentPP,PendingIntent.FLAG_ONE_SHOT);
-        final NotificationCompat.Builder notificationBuilder =new NotificationCompat.Builder(this);
-        notificationBuilder.setContentTitle("New "+title+" just added");
-        notificationBuilder.setContentText(notificationPojo.getMessage()+" Just add");
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntentS = PendingIntent.getActivity(this, 0, intentPP, PendingIntent.FLAG_ONE_SHOT);
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
+        notificationBuilder.setContentTitle("New " + title + " just added");
+        notificationBuilder.setContentText(notificationPojo.getMessage() + " Just add");
         notificationBuilder.setSound(noti);
-        notificationBuilder.setLights(Color.YELLOW, 500 , 500);
-        notificationBuilder.setVibrate(new long[] { 100, 250, 100, 250, 100, 250 });
-        notificationBuilder .setPriority(0x00000001);
+        notificationBuilder.setLights(Color.YELLOW, 500, 500);
+        notificationBuilder.setVibrate(new long[]{100, 250, 100, 250, 100, 250});
+        notificationBuilder.setPriority(0x00000001);
 
         notificationBuilder.setContentIntent(pendingIntent);
         notificationBuilder.setAutoCancel(true);
 
-        Bitmap theBitmap =null;
+        Bitmap theBitmap = null;
 
-        notificationBuilder.addAction(R.drawable.ic_remove_red_eye_black_24dp,"View",pendingIntent);
-        notificationBuilder.addAction(R.drawable.ic_visibility_off_black_24dp,"Ignore",pendingIntentS);
+        notificationBuilder.addAction(R.drawable.ic_remove_red_eye_black_24dp, "View", pendingIntent);
+        notificationBuilder.addAction(R.drawable.ic_visibility_off_black_24dp, "Ignore", pendingIntentS);
 
         String picture = notificationPojo.getImageUrl();
-
-
 
 
 //        Toast.makeText(this, bitmap.toString(), Toast.LENGTH_SHORT).show();
@@ -641,12 +737,12 @@ public class CatalogAdminActivity extends AppCompatActivity {
 ////        Bitmap bmp = Picasso.with(getApplicationContext()).load(picture).get();
 //
 //        notificationBuilder.setLargeIcon(getBmapFromURL(notificationPojo.getImageUrl()));
-        notificationBuilder.setLargeIcon( BitmapFactory.decodeResource(this.getResources(),
+        notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
                 R.drawable.mlab));
-        Log.d(TAG,notificationPojo.getImageUrl());
+        Log.d(TAG, notificationPojo.getImageUrl());
         notificationBuilder.setColor(getResources().getColor(R.color.colorPrimary));
-        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0,notificationBuilder.build()) ;
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
 
 
     }
@@ -662,8 +758,8 @@ public class CatalogAdminActivity extends AppCompatActivity {
             return myBitmap;
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, e.getMessage()+"*", Toast.LENGTH_SHORT).show();
-           // Log.d(TAG,e.getMessage());
+            Toast.makeText(this, e.getMessage() + "*", Toast.LENGTH_SHORT).show();
+            // Log.d(TAG,e.getMessage());
             return null;
         }
     }
@@ -686,44 +782,33 @@ public class CatalogAdminActivity extends AppCompatActivity {
         Bitmap bm = null;
         InputStream is = null;
         BufferedInputStream bis = null;
-        try
-        {
+        try {
             URLConnection conn = new URL(strURL).openConnection();
             conn.connect();
             is = conn.getInputStream();
             bis = new BufferedInputStream(is, 8192);
             bm = BitmapFactory.decodeStream(bis);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
-            if (bis != null)
-            {
-                try
-                {
+        } finally {
+            if (bis != null) {
+                try {
                     bis.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if (is != null)
-            {
-                try
-                {
+            if (is != null) {
+                try {
                     is.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
         return bm;
     }
+
     public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;

@@ -164,8 +164,7 @@ public class DescriptionActivity extends AppCompatActivity {
                         if(dataSnapshot!= null) {
                             ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
                             if(person!= null) {
-                                tvDepartment.setText(person.getDepartmentName());
-                                tvType.setText(LandingScreen.ACYIVITY);
+
 
                             }
 
@@ -187,7 +186,7 @@ public class DescriptionActivity extends AppCompatActivity {
                         UserItemPojo userItemPojo = new UserItemPojo();
                         userItemPojo.setName(name);
                         userItemPojo.setImageUri(image);
-                        userItemPojo.setRefId(id);
+                        userItemPojo.setDeviceId(id);
 
 
                         Date currentTime = Calendar.getInstance().getTime();

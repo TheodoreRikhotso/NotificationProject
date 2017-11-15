@@ -41,7 +41,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
     Button btnRequest;
     Button btn_red,btn_blue,btn_gray,btn_white,btn_black,btnEnter;
     private String image,name,id;
-    private DatabaseReference databaseUserItem;
+    private DatabaseReference databaseUserItem,dbRequest;
     private StorageReference mStorageReference;
     private FirebaseUser user;
     private  FurniturePojo c;
@@ -55,6 +55,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
     private int quantity;
     private FurniturePojo person;
     private Boolean check = false;
+
 
 
     int progress = 0;
@@ -108,23 +109,23 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView);
         btnRequest = (Button)findViewById(R.id.btnRequest);
 
-        //usser item requested
 
-        databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
+
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         id = user.getUid();
 
-        databaseProfile = FirebaseDatabase.getInstance().getReference("Profiles");
 
 
-        databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/"+id+"/History");
+        dbRequest = FirebaseDatabase.getInstance().getReference("Users/"+id+"/Requested");
+
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-
+//                if(ProfileActivity.dayDiffer>3) {
+//
                 ///DIALOG BOX INITIALIZATION
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(FurnitureDescriptionActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
@@ -136,7 +137,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 //Date, department
 
                 Date currentTimes = Calendar.getInstance().getTime();
-                DateFormat dateFormats = new SimpleDateFormat("dd MMM yyyy");
+                final DateFormat dateFormats = new SimpleDateFormat("dd MMM yyyy");
                 TextView tvDate=mView.findViewById(R.id.tvDates);
                 final TextView tvDepartment=mView.findViewById(R.id.tvDert);
                 final TextView tvType=mView.findViewById(R.id.tvType);
@@ -158,7 +159,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                             ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
                             if(person!= null) {
                                 tvDepartment.setText(person.getDepartmentName());
-                                tvType.setText(LandingScreen.ACYIVITY);
+                                tvType.setText(c.getTitle());
 
                             }
 
@@ -179,7 +180,9 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                         UserItemPojo userItemPojo = new UserItemPojo();
                         userItemPojo.setName(name);
                         userItemPojo.setImageUri(image);
-                        userItemPojo.setRefId(id);
+                        userItemPojo.setDeviceId(c.getId());
+
+
 
 
                         Date currentTime = Calendar.getInstance().getTime();
@@ -188,7 +191,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
                         Date currentLocalTime = cal.getTime();
                         DateFormat date = new SimpleDateFormat("HH:mm a");
-// you can get seconds by adding  "...:ss" to it
+                                                    // you can get seconds by adding  "...:ss" to it
                         date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
 
                         String localTime = date.format(currentLocalTime);
@@ -197,13 +200,50 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                         userItemPojo.setItemDate(dateFormat.format(currentTime));
                         userItemPojo.setItemTime(localTime);
 
-                        String userId = databaseUserItem.push().getKey();
+                        //returned date
+                        Date dt = new Date();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(dt);
+                        calendar.add(Calendar.DATE, 30);
+                        dt = calendar.getTime();
 
-                        databaseUserItem.child(userId).setValue(userItemPojo);
+
+
+                        String requested_Id =dbRequest.push().getKey();
+
+                        String history_Id =databaseUserItem.push().getKey();
+
+
+                        userItemPojo.setReturnDate(dateFormat.format(dt));
+
+                        databaseUserItem.child(history_Id).setValue(userItemPojo);
+                        Requested requested =new Requested();
+                        requested.setDevice_id(c.getId());
+                        System.out.println("History " +history_Id);
+
+
+                        dbRequest.child(requested_Id).setValue(requested);
+                        final DatabaseReference dbBookings = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booked_By");
+
+
+                        dbBookings.child("user_id").setValue(id);
+
+                        final DatabaseReference dbBooking_queue = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booking_Queue");
+
+                        String book_queue_id =dbBooking_queue.push().getKey();
+
+                        dbBooking_queue.child(book_queue_id).child("history_Id").setValue(history_Id);
+
+
+
+
+
 
 
                         //remove quantity
-                        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Furniture");
+                        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Devices/Furniture/details");
+
+
 
                         final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
                         buisnessAccRef.addValueEventListener(new ValueEventListener() {
@@ -233,8 +273,10 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                             }
                         });
 
+
                         Intent intents = new Intent(FurnitureDescriptionActivity.this,LandingScreen.class);
                         startActivity(intents);
+
                     }
                 });
 
@@ -271,8 +313,13 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();
                 //DIALOG END
+//                }else {
+//                    Snackbar.make(view,"Wait until picked up date for the recently booked assert",Snackbar.LENGTH_LONG).show();
+//                }
             }
+
         });
+
 
 
 
@@ -283,8 +330,8 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
 //        Toast.makeText(this, c.getContent1(), Toast.LENGTH_SHORT).show();
         tvQuantity.setText(c.getQuantity());
         tvDeliverance.setText(c.getDeliverance());
-        tvDuration.setText(c.getDuration());
-        tvTypes.setText(""+c.getTotalQuantity());
+        tvDuration.setText(c.getDuration()+" hours");
+        tvTypes.setText(""+c.getType());
 
         name=c.getTitle();
 

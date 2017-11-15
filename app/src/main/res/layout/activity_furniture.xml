@@ -7,21 +7,21 @@
     android:background="#ffff"
     tools:context="com.example.admin.notificationproject.FurnitureActivity">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbarFurniture"-->
-        <!--android:title="Furniture"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/main_background2"-->
-        <!--android:minHeight="?attr/actionBarSize"-->
-        <!--android:theme="?attr/actionBarTheme" />-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarFurniture"
+        android:title="Furniture"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9CD65F"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/lvFurniture"
-        android:layout_below="@+id/textView3" />
+        android:layout_below="@+id/toolbarFurniture" />
 
 </RelativeLayout>
 

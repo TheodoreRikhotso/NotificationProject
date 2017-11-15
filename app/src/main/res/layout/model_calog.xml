@@ -33,6 +33,7 @@
                 android:textSize="18sp"
                 android:textStyle="normal|bold" />
             <RelativeLayout
+                android:id="@+id/rlFurniture"
                 android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">

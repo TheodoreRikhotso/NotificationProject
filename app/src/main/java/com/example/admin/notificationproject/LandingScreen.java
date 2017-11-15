@@ -55,6 +55,9 @@ private CircleImageView profile;
 //        ibFAQs =(ImageButton)findViewById(R.id.ibFAQs);
 //        ibProfile =(ImageButton)findViewById(R.id.ibProfile);
         //logout
+
+
+
         auth = FirebaseAuth.getInstance();
         FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");

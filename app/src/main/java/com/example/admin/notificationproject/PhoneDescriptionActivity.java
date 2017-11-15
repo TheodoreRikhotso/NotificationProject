@@ -39,7 +39,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
     ImageView imageView;
     TextView tvRamPh, tvBattery, tvOsPhone, tvMemory;
     Button btnRequest;
-    Button btn_red,btn_blue,btn_gray,btn_white,btn_black,btnEnter;
+    Button btnBlackPhone,btnGreyPhone,btnGoldPhone;
     private String image,name,id;
     private DatabaseReference databaseUserItem;
     private StorageReference mStorageReference;
@@ -48,6 +48,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
     private int quantity;
     private PhonePojo person;
     private Boolean check = false;
+    private DatabaseReference dbRequest;
 
     RingProgressBar ringProgressBar1, ringProgressBar2;
     TextView tvDay, Loading;
@@ -114,8 +115,12 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 
         id = user.getUid();
 
+
+        dbRequest = FirebaseDatabase.getInstance().getReference("Users/"+id+"/Requested");
+
         databaseProfile = FirebaseDatabase.getInstance().getReference("Profiles");
 
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/"+id+"/History");
 
         databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
         btnRequest.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +128,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-
+               // if(ProfileActivity.dayDiffer>3) {
                 ///DIALOG BOX INITIALIZATION
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(PhoneDescriptionActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
@@ -179,19 +184,68 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         UserItemPojo userItemPojo = new UserItemPojo();
                         userItemPojo.setName(name);
                         userItemPojo.setImageUri(image);
-                        userItemPojo.setRefId(id);
+                        userItemPojo.setDeviceId(id);
+
+                        //returned date
+                        Date dt = new Date();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(dt);
+                        calendar.add(Calendar.DATE, 30);
+                        dt = calendar.getTime();
+
+
+
+
+
 
 
                         Date currentTime = Calendar.getInstance().getTime();
                         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
                         //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
                         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+
+
                         Date currentLocalTime = cal.getTime();
                         DateFormat date = new SimpleDateFormat("HH:mm a");
 // you can get seconds by adding  "...:ss" to it
                         date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-                       // from
-                        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Phones");
+
+
+                        String requested_Id =dbRequest.push().getKey();
+
+                        String history_Id =databaseUserItem.push().getKey();
+
+
+                        userItemPojo.setReturnDate(dateFormat.format(dt));
+
+                        databaseUserItem.child(history_Id).setValue(userItemPojo);
+                        Requested requested =new Requested();
+                        requested.setDevice_id(c.getId());
+                        System.out.println("History " +history_Id);
+
+
+                        dbRequest.child(requested_Id).setValue(requested);
+                        final DatabaseReference dbBookings = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booked_By");
+
+
+                        dbBookings.child("user_id").setValue(id);
+
+                        final DatabaseReference dbBooking_queue = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booking_Queue");
+
+                        String book_queue_id =dbBooking_queue.push().getKey();
+
+                        dbBooking_queue.child(book_queue_id).child("history_Id").setValue(history_Id);
+
+
+
+
+
+
+
+                        //remove quantity
+                        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Devices/Phones/details");
+
+
 
                         final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
                         buisnessAccRef.addValueEventListener(new ValueEventListener() {
@@ -229,6 +283,8 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 //                LocalDateTime now = LocalDateTime.now();
                         userItemPojo.setItemDate(dateFormat.format(currentTime));
                         userItemPojo.setItemTime(localTime);
+                        userItemPojo.setReturnDate(dt.toString()+" uu");
+
 
                         String userId = databaseUserItem.push().getKey();
 
@@ -272,155 +328,102 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();
                 //DIALOG END
+
+//            }else {
+//                Snackbar.make(view,"Wait until picked up date for the recently booked assert",Snackbar.LENGTH_LONG).show();
+//            }
             }
         });
 
-        btn_red = (Button)findViewById(R.id.btn_red);
-        btn_black = (Button)findViewById(R.id.btn_black);
-        btn_gray = (Button)findViewById(R.id.btnGrey);
-        btn_white = (Button)findViewById(R.id.btnWhite);
-        btn_blue = (Button)findViewById(R.id.btnBlue);
+        btnBlackPhone = (Button)findViewById(R.id.btnBlackPhone);
+        btnGoldPhone = (Button)findViewById(R.id.btnGoldPhone);
+        btnGreyPhone = (Button)findViewById(R.id.btnGreyPhone);
 
 
-        btn_red.setOnClickListener(new View.OnClickListener() {
+
+        btnBlackPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_red.setBackground(getDrawable(R.drawable.red_selected_botton));
-                btn_red.setScaleX((float) 1.3);
-                btn_red.setScaleY((float) 1.3);
+                btnBlackPhone.setBackground(getDrawable(R.drawable.white_selected_button));
+                btnBlackPhone.setScaleX((float) 1.3);
+                btnBlackPhone.setScaleY((float) 1.3);
 
-                btn_white.setScaleX( 1);
-                btn_white.setScaleY( 1);
+                btnGoldPhone.setScaleX( 1);
+                btnGoldPhone.setScaleY( 1);
 
-                btn_blue.setScaleX(1);
-                btn_blue.setScaleY(1);
+                btnGreyPhone.setScaleX(1);
+                btnGreyPhone.setScaleY(1);
 
-                btn_gray.setScaleX(1);
-                btn_gray.setScaleY(1);
 
-                btn_black.setScaleX(1);
-                btn_black.setScaleY(1);
 
                 if(c.getImage2()!=null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage2())
-                            .into(imageView);
-                }else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-
-
-        btn_black.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_black.setBackground(getDrawable(R.drawable.black_selected_button));
-                btn_black.setScaleX((float) 1.3);
-                btn_black.setScaleY((float) 1.3);
-
-                btn_white.setScaleX( 1);
-                btn_white.setScaleY( 1);
-
-                btn_blue.setScaleX(1);
-                btn_blue.setScaleY(1);
-
-                btn_gray.setScaleX(1);
-                btn_gray.setScaleY(1);
-
-                btn_red.setScaleX(1);
-                btn_red.setScaleY(1);
-
-                if(c.getImage1()!=null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage1())
-                            .into(imageView);
-                }else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btn_gray.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_gray.setBackground(getDrawable(R.drawable.grey_selected_button));
-                btn_gray.setScaleX((float) 1.3);
-                btn_gray.setScaleY((float) 1.3);
-
-                btn_white.setScaleX( 1);
-                btn_white.setScaleY( 1);
-
-                btn_blue.setScaleX(1);
-                btn_blue.setScaleY(1);
-
-                btn_red.setScaleX(1);
-                btn_red.setScaleY(1);
-
-                btn_black.setScaleX(1);
-                btn_black.setScaleY(1);
-
-
-                Toast.makeText(PhoneDescriptionActivity.this, "No Available", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btn_white.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_white.setBackground(getDrawable(R.drawable.white_selected_button));
-                btn_white.setScaleX((float) 1.3);
-                btn_white.setScaleY((float) 1.3);
-
-                btn_red.setScaleX( 1);
-                btn_red.setScaleY( 1);
-
-                btn_blue.setScaleX(1);
-                btn_blue.setScaleY(1);
-
-                btn_gray.setScaleX(1);
-                btn_gray.setScaleY(1);
-
-                btn_black.setScaleX(1);
-                btn_black.setScaleY(1);
-                if(c.getImage()!=null) {
                     Glide.with(getApplicationContext())
                             .load(c.getImage())
                             .into(imageView);
                 }else {
                     Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
-        btn_blue.setOnClickListener(new View.OnClickListener() {
+
+
+        btnGoldPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_blue.setBackground(getDrawable(R.drawable.blue_selected_button));
-                btn_blue.setScaleX((float) 1.3);
-                btn_blue.setScaleY((float) 1.3);
+                btnGoldPhone.setBackground(getDrawable(R.drawable.red_selected_botton));
+                btnGoldPhone.setScaleX((float) 1.3);
+                btnGoldPhone.setScaleY((float) 1.3);
 
-                btn_white.setScaleX( 1);
-                btn_white.setScaleY( 1);
+                btnBlackPhone.setScaleX( 1);
+                btnBlackPhone.setScaleY( 1);
 
-                btn_red.setScaleX(1);
-                btn_red.setScaleY(1);
+                btnGreyPhone.setScaleX(1);
+                btnGreyPhone.setScaleY(1);
 
-                btn_gray.setScaleX(1);
-                btn_gray.setScaleY(1);
 
-                btn_black.setScaleX(1);
-                btn_black.setScaleY(1);
-                Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+
+                if(c.getImage1()!=null) {
+                    Glide.with(getApplicationContext())
+                            .load(c.getImage2())
+                            .into(imageView);
+                }else {
+                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        btnGreyPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+
+                btnGreyPhone.setBackground(getDrawable(R.drawable.black_selected_button));
+                btnGreyPhone.setScaleX((float) 1.3);
+                btnGreyPhone.setScaleY((float) 1.3);
+
+                btnBlackPhone.setScaleX( 1);
+                btnBlackPhone.setScaleY( 1);
+
+                btnGoldPhone.setScaleX(1);
+                btnGoldPhone.setScaleY(1);
+
+                if(c.getImage()!=null) {
+                    Glide.with(getApplicationContext())
+                            .load(c.getImage1())
+                            .into(imageView);
+                }else {
+                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
 
 
 

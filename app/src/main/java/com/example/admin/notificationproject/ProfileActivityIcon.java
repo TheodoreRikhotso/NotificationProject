@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
     ImageButton imProfile;
     TextView tvAboutUs, tvFAQ, TVContact,tvLogOut, tvUserName,tvUserEmail ;
     private FirebaseAuth auth;
+    private LinearLayout llAbout,llContact,llLogout,llfaq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
         //        //toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarSettings) ;
         toolbar.setTitle("Settings");
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.BLACK);
 
 
 
@@ -59,14 +61,23 @@ public class ProfileActivityIcon extends AppCompatActivity {
         tvUserName=(TextView)findViewById(R.id.tvUserName);
         tvUserEmail=(TextView)findViewById(R.id.tvUserEmail);
 
+
+        llAbout= (LinearLayout)findViewById(R.id.llAbout);
+        llContact= (LinearLayout)findViewById(R.id.llContact);
+        llLogout= (LinearLayout)findViewById(R.id.lllogout);
+        llfaq= (LinearLayout)findViewById(R.id.llFaq);
+
+
+
         //
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Profile");
+
         auth = FirebaseAuth.getInstance();
 
         DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
 
-        buisnessAccRef.addValueEventListener(new ValueEventListener() {
+        databaseUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -108,21 +119,21 @@ public class ProfileActivityIcon extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        tvAboutUs.setOnClickListener(new View.OnClickListener() {
+        llAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivityIcon.this,AboutImageActivity.class);
                 startActivity(intent);
             }
         });
-        tvFAQ.setOnClickListener(new View.OnClickListener() {
+        llfaq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivityIcon.this,FAQ.class);
                 startActivity(intent);
             }
         });
-        TVContact.setOnClickListener(new View.OnClickListener() {
+        llContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivityIcon.this,ContactActivity.class);
@@ -130,7 +141,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
             }
         });
 
-        tvLogOut.setOnClickListener(new View.OnClickListener() {
+        llLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

@@ -37,6 +37,7 @@ public class FAQ extends AppCompatActivity {
         setContentView(R.layout.activity_faq);
         Toolbar toolbar = (Toolbar)findViewById(R.id.tbFQA) ;
         toolbar.setTitle("Frequently Asked Questions");
+        toolbar.setTitleTextColor(Color.BLACK);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
@@ -46,7 +47,7 @@ public class FAQ extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.BLACK);
 
         userdetailses = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -31,12 +31,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private SignInButton mGoogleBtn;
     private static final int RC_SIGN_IN = 1;
-
+    public  static String  userId= "";
+    public  static String  currentUserId= "";
     Button btnLogin;
     EditText input_email,input_password;
     TextView btnSignup,btnForgotPass;
 
     RelativeLayout activity_main;
+
 
     private FirebaseAuth auth;
     private GoogleApiClient mGoogleApiClient;
@@ -132,6 +134,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+
                         if (!task.isSuccessful()){
                             if (password.length() <6){
                                 Snackbar snackBar =Snackbar.make(activity_main, "Password length must be over 6", Snackbar.LENGTH_SHORT);

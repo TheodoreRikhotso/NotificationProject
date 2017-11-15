@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,19 +38,19 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
 
         LandingScreen.ACYIVITY ="Laptop";
         //toobar
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLaptop) ;
-//        toolbar.setTitle("Laptops");
-//
-//        LandingScreen.ACYIVITY ="LAP";
-//
-//        setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLaptop) ;
+        toolbar.setTitle("Laptops");
+
+        LandingScreen.ACYIVITY ="LAP";
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         catalogList = new ArrayList<Laptop>();
         /**
@@ -57,7 +59,7 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
 
 //        mSearchView = (SearchView) findViewById(R.id.svLaptop);
 
-        databaseLaptops = FirebaseDatabase.getInstance().getReference("Laptops");
+        databaseLaptops = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");;
         databaseLaptops.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

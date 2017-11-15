@@ -38,7 +38,7 @@ public class ContactActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.tbContact) ;
         toolbar.setTitle("Contact Us");
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.BLACK);
 
 
         setSupportActionBar(toolbar);

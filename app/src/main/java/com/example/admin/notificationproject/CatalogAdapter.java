@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by Admin on 9/7/2017.
  */
 
-public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHolder>   implements Filterable{
+public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHolder> implements Filterable{
 
 
         private Activity context;
@@ -82,12 +83,13 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
                 View view01,view02 ;
                 Button btnView;
                 boolean isPressed;
+                RelativeLayout relativeLayout;
 
                 public MyViewHolder(View itemView) {
                         super(itemView);
                         item1 = itemView.findViewById(R.id.item1);
-
                         imageButton1 = itemView.findViewById(R.id.imageColog);
+                        relativeLayout = itemView.findViewById(R.id.relativeLayout);
 
 
 //                        //FUEL ICON COLOR CHANGE

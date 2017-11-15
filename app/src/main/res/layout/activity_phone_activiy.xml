@@ -4,22 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/lists"
     android:orientation="vertical"
     tools:context="com.example.admin.notificationproject.PhoneActiviy">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:background="@drawable/main_background2"-->
-        <!--android:id="@+id/toolbarPhone"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:minHeight="?attr/actionBarSize"-->
-        <!--android:theme="?attr/actionBarTheme" />-->
+    <android.support.v7.widget.Toolbar
+        android:background="#9CD65F"
+        android:id="@+id/toolbarPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
     <android.support.v7.widget.RecyclerView
 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/lvPhones"/>
+        android:id="@+id/lvPhones"
+        android:layout_marginTop="10dp"/>
 
 
 </LinearLayout>

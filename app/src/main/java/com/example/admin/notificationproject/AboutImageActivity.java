@@ -35,6 +35,7 @@ public class AboutImageActivity extends AppCompatActivity {
         //        //toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarAbout) ;
         toolbar.setTitle("About Mlab");
+        toolbar.setTitleTextColor(Color.BLACK);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
@@ -44,7 +45,7 @@ public class AboutImageActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        toolbar.setTitleTextColor(Color.WHITE);
+//        toolbar.setTitleTextColor(Color.BLACK);
 
         imgList = new ArrayList<>();
         tvAbout=(TextView) findViewById(R.id.tvAbout);

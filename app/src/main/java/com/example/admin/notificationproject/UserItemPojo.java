@@ -6,7 +6,24 @@ package com.example.admin.notificationproject;
 
 public class UserItemPojo {
 
-    private String imageUri,name,refId,itemDate,itemTime;
+    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color;
+
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
 
     public String getItemTime() {
         return itemTime;
@@ -43,12 +60,12 @@ public class UserItemPojo {
         this.name = name;
     }
 
-    public String getRefId() {
-        return refId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setRefId(String refId) {
-        this.refId = refId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 }
 

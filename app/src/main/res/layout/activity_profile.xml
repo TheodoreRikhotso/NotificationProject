@@ -23,34 +23,36 @@
         android:theme="?attr/actionBarTheme" />
 
     <ImageView
+android:layout_alignParentRight="true"
         android:id="@+id/ivEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
         diagonal:srcCompat="@drawable/ic_edit_black_24dp"
         android:layout_marginLeft="310dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="12dp"/>
 
-    <com.github.florent37.diagonallayout.DiagonalLayout
-        android:id="@+id/diagonalLayout"
-        android:layout_width="match_parent"
-        android:background="#ffff"
-        android:layout_height="266dp"
-        diagonal:diagonal_angle="10"
-        android:elevation="0dp"
-        android:paddingBottom="16dp"
-        diagonal:diagonal_direction="left"
-        diagonal:diagonal_position="bottom"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbarCar">
+        <com.github.florent37.diagonallayout.DiagonalLayout
+            android:id="@+id/diagonalLayout"
+            android:layout_width="match_parent"
 
-        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:layout_height="266dp"
+            diagonal:diagonal_angle="10"
+            android:elevation="0dp"
+            android:paddingBottom="16dp"
+            diagonal:diagonal_direction="left"
+            diagonal:diagonal_position="bottom"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbarCar">
+
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/background">
+            android:background="#ec669900"
+        />
 
-            </com.flaviofaria.kenburnsview.KenBurnsView>
+
 
 
 
@@ -73,7 +75,7 @@
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Name and Surna"
+        android:text="@string/name_surname"
         android:textColor="@android:color/black"
         android:layout_gravity="top|left"
         android:fontFamily="sans-serif-light"
@@ -97,7 +99,7 @@ android:layout_below="@id/avatar"
             android:id="@+id/tvDepartment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ACTOR"
+            android:text="Department"
             android:textColor="@android:color/black"
             android:layout_gravity="top|left"
             android:textStyle="bold"
@@ -109,7 +111,7 @@ android:layout_below="@id/avatar"
             android:id="@+id/tvStuffNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PRODUCER"
+            android:text="stuff no"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:layout_gravity="top|left"
@@ -123,11 +125,16 @@ android:layout_below="@id/avatar"
         android:layout_below="@id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+
+
     <ListView
         android:layout_below="@id/vStV"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
         <TextView
             android:textColor="#006400"
             android:textStyle="bold|italic"
@@ -138,6 +145,11 @@ android:layout_below="@id/avatar"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="60dp" />
+
+
+
+
+
 <FrameLayout
     android:layout_below="@id/teext"
     android:layout_width="match_parent"
@@ -161,6 +173,8 @@ android:layout_below="@id/avatar"
         android:textSize="30dp"
         android:text="No Item booked yet" />
 </FrameLayout>
+
+
 
 
     <android.support.v7.widget.Toolbar
