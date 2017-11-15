@@ -53,6 +53,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
         holder.item1.setText(catalog.getTitle());
         Glide.with(context)
                 .load(catalog.getImage())
+
                 .into(holder.imageButton1);
 
 

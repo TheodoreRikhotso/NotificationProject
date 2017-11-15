@@ -42,7 +42,7 @@
                     android:layout_width="310dp"
                     android:layout_height="100dp"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@color/si_default_indicator_bg" />
+                    app:srcCompat="@drawable/loading" />
 
             </RelativeLayout>
 

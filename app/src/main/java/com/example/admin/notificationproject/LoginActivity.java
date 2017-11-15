@@ -124,7 +124,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
         }
         else  if (view.getId() == R.id.login_btn_login) {
-            loginUser(input_email.getText().toString(),input_password.getText().toString());
+            String email =input_email.getText().toString();
+            String password =input_password.getText().toString();
+
+            if(email.isEmpty())
+            {
+                if(email.isEmpty())
+                {
+                    input_email.setError("Email is empty");
+                }else {
+                    input_password.setError("Email is empty");
+
+                }
+
+            }else
+            {
+                loginUser(email,password);
+            }
+
+
         }
 
     }
@@ -136,15 +154,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-                        if (!task.isSuccessful()){
-                            if (password.length() <6){
-                                Snackbar snackBar =Snackbar.make(activity_main, "Password length must be over 6", Snackbar.LENGTH_SHORT);
-                                snackBar.show();
-                            }
+                        if (task.isSuccessful()){
+
+                            startActivity(new Intent(LoginActivity.this, LandingScreen.class));
 
                         }
                         else {
-                            startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+                            if (password.length() <6){
+                                Snackbar snackBar =Snackbar.make(activity_main, "Password length must be over 6", Snackbar.LENGTH_SHORT);
+                                snackBar.show();
+
+                            }
+                            String emails = task.getException().getMessage();
+                            if(emails.contains("email"))
+                            {
+                                input_email.setError(task.getException().getMessage());
+                            }else{
+                                input_password.setError(task.getException().getMessage());
+                            }
+
+//                            Snackbar snackbar = Snackbar.make(activity_main, "Error: "+task.getException().getMessage(),Snackbar.LENGTH_SHORT);
+//                            snackbar.show();
                         }
 
                     }
@@ -191,5 +221,3 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 }
-
-

@@ -308,7 +308,7 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        Intent intents = new Intent(LaptopDescriptionActivity.this,LandingScreen.class);
+                                        Intent intents = new Intent(LaptopDescriptionActivity.this,ProfileActivity.class);
                                         startActivity(intents);
                                     }
                                 });

@@ -290,7 +290,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 
                         databaseUserItem.child(userId).setValue(userItemPojo);
 
-                        Intent intents = new Intent(PhoneDescriptionActivity.this,LandingScreen.class);
+                        Intent intents = new Intent(PhoneDescriptionActivity.this,ProfileActivity.class);
                         startActivity(intents);
                     }
                 });
