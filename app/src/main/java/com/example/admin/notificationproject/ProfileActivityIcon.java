@@ -31,6 +31,8 @@ public class ProfileActivityIcon extends AppCompatActivity {
     TextView tvAboutUs, tvFAQ, TVContact,tvLogOut, tvUserName,tvUserEmail ;
     private FirebaseAuth auth;
     private LinearLayout llAbout,llContact,llLogout,llfaq;
+    LinearLayout linearLayoutPro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +67,18 @@ public class ProfileActivityIcon extends AppCompatActivity {
         llAbout= (LinearLayout)findViewById(R.id.llAbout);
         llContact= (LinearLayout)findViewById(R.id.llContact);
         llLogout= (LinearLayout)findViewById(R.id.lllogout);
-        llfaq= (LinearLayout)findViewById(R.id.llFaq);
+        llfaq = (LinearLayout)findViewById(R.id.llFaq);
+        linearLayoutPro = (LinearLayout)findViewById(R.id.linearLayoutPro);
 
 
 
         //
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user.getUid()==null)
+        {
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Profile");
 
         auth = FirebaseAuth.getInstance();
@@ -90,7 +98,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
 
 
 
-                        Glide.with(ProfileActivityIcon.this).load(person.getImage()).asBitmap().centerCrop().into(new BitmapImageViewTarget(imProfile) {
+                        Glide.with(ProfileActivityIcon.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(imProfile) {
                             @Override
                             protected void setResource(Bitmap resource) {
                                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -112,7 +120,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
             }
         });
 
-        imProfile.setOnClickListener(new View.OnClickListener() {
+        linearLayoutPro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivityIcon.this,ProfileActivity.class);
@@ -148,7 +156,7 @@ public class ProfileActivityIcon extends AppCompatActivity {
                     auth.signOut();
                     if (auth.getCurrentUser() == null)
                     {
-                        startActivity(new Intent(ProfileActivityIcon.this,LoginActivity.class));
+                        startActivity(new Intent(ProfileActivityIcon.this,loginsignup.class));
                         finish();
                     }
             }

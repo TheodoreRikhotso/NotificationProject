@@ -1,15 +1,25 @@
 package com.example.admin.notificationproject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -40,36 +50,131 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserItemPojo userItemPojo = userItemPojos.get(position);
-        holder.tvItemDescr.setText(userItemPojo.getName()+"\n"+userItemPojo.getItemDate()+"\n"+userItemPojo.getItemTime());
-        holder.tvItemDescr.setVisibility(View.GONE);
-        Glide.with(context)
-                .load(userItemPojo.getImageUri())
-                .into(holder.ibItem);
-        holder.tvItemDescr.startAnimation(AnimationUtils.loadAnimation(context, R.anim.text));
+        holder.tvItemDate.setText(userItemPojo.getItemDate()+"  "+userItemPojo.getItemTime());
+        //holder.tvItemDescr.setText(userItemPojo.getName());
+        holder.tvItemDescr.setText(userItemPojo.getName());
 
-
-        holder.ibItem.setOnClickListener(new View.OnClickListener() {
+        holder.llUserItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
-//                UserItemPojo c = userItemPojo;
-//                Intent intent = new Intent(context,DescriptionActivity
-//                        .class);
-//                intent.putExtra("select", c);
-//                context.startActivity(intent);
-                //holder.tvItemDescr.setLines(3);
-                if(check==false) {
-                    holder.tvItemDescr.setVisibility(View.VISIBLE);
-                    check=true;
-                }else {
-                    holder.tvItemDescr.setVisibility(View.GONE);
-                    check=false;
+            public boolean onLongClick(View view) {
+                DatabaseReference databaseReference;
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String ids =user.getUid();
+                if(userItemPojo.getBookingStatus() !=("Pick Up")) {
+
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+                    // Setting Dialog Title
+                    alertDialog.setTitle("Confirm Delete...");
+
+                    // Setting Dialog Message
+                    alertDialog.setMessage("Are you sure you want delete this " + userItemPojo.getTypeDevice() + " ?");
+
+                    // Setting Icon to Dialog
+                    alertDialog.setIcon(R.drawable.ic_delete_forever_black_24dp);
+
+                    // Setting Positive "Yes" Button
+                    alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            // Write your code here to invoke YES event
+                            Toast.makeText(context, "You clicked on YES", Toast.LENGTH_SHORT).show();
+
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            String ids = user.getUid();
+
+                            DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("Users/" + ids + "/History/" + userItemPojo.getHistoryId());
+
+                            databaseItems.removeValue();
+                        }
+                    });
+
+                    // Setting Negative "NO" Button
+                    alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Write your code here to invoke NO event
+
+                            dialog.cancel();
+                        }
+                    });
+
+                    alertDialog.show();
+
+
+                }
+                return false;
                 }
 
+        });
+        holder.llUserItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final BottomSheetDialog dialog = new BottomSheetDialog (context);
+                dialog.setContentView(R.layout.custom_dialog);
+                dialog.setTitle("Title");
 
 
+
+                TextView title = (TextView) dialog.findViewById(R.id.tvPopTitle);
+                TextView date = (TextView) dialog.findViewById(R.id.ivPopDate);
+                TextView returnDate = (TextView) dialog.findViewById(R.id.ivPopReturnDate);
+                TextView color = (TextView) dialog.findViewById(R.id.ivPopColor);
+                ImageView image = (ImageView) dialog.findViewById(R.id.ivPopImage);
+
+                title.setText(userItemPojo.getName());
+                date.setText("Booked Date "+userItemPojo.getItemDate());
+                returnDate.setText("Returned "+userItemPojo.getReturnDate());
+                color.setText("Selected Color "+userItemPojo.getColor());
+                Glide.with(context)
+                        .load(userItemPojo.getImageUri())
+                        .into(image);
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.btnOkay);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
 
             }
         });
+
+        holder.ivStatusColor.setImageResource(R.drawable.color_profile2);
+
+        if (userItemPojo.getBookingStatus()==null)
+        {
+            holder.ivStatusColor.setImageResource(R.drawable.color_profile);
+            holder.tvProcessStatus.setText("Booked");
+        }
+
+        if(userItemPojo.getBookingStatus().equalsIgnoreCase("Booked"))
+        {
+            holder.ivStatusColor.setImageResource(R.drawable.color_profile);
+            holder.tvProcessStatus.setText("Booked");
+        }
+        if(userItemPojo.getBookingStatus().equalsIgnoreCase("Waiting for approval"))
+        {
+            holder.ivStatusColor.setImageResource(R.drawable.color_profile1);
+            holder.tvProcessStatus.setText("Waiting for approval");
+        }
+        if(userItemPojo.getBookingStatus().equalsIgnoreCase("Approved"))
+        {
+            holder.ivStatusColor.setImageResource(R.drawable.color_profile2);
+            holder.tvProcessStatus.setText("Approved");
+        }
+        if(userItemPojo.getBookingStatus().equalsIgnoreCase("Pick Up"))
+        {
+            holder.ivStatusColor.setImageResource(R.drawable.color_profile3);
+            holder.tvProcessStatus.setText("Pick Up");
+        }
+
+
 
     }
 
@@ -79,15 +184,21 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvItemDescr;
-        ImageButton ibItem;
+        TextView tvItemDescr,tvProcessStatus,tvItemDate;
+        LinearLayout llUserItem;
+        ImageView ivStatusColor;
 
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            tvItemDescr = itemView.findViewById(R.id.tvItemDescr);
-            ibItem = itemView.findViewById(R.id.ibItem);
+            llUserItem= itemView.findViewById(R.id.llUserItem);
+            tvItemDescr = itemView.findViewById(R.id.tvItemTitle);
+            tvProcessStatus = itemView.findViewById(R.id.tvProcess);
+            ivStatusColor = itemView.findViewById(R.id.ivStatusColor);
+            tvItemDate = itemView.findViewById(R.id.tvItemDate);
+
+
 
         }
     }

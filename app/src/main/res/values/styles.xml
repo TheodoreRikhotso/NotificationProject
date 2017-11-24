@@ -6,6 +6,10 @@
         <item name="colorPrimary">#4CAF50 </item>
         <item name="colorPrimaryDark">#ec669900</item>
         <item name="colorAccent">#ec669900</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -23,14 +27,25 @@
 
 
     </style>
+
         <style name="MyCustomToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
             <item name="android:textColorSecondary">#fff</item>
             <item name="android:textColorPrimary">#000</item>
 
     </style>
 
+    <style name="MyStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:topDark">@drawable/dialog_title</item>
+        <item name="android:bottomDark">@drawable/dialog_footer</item>
+    </style>
+    <style name="Theme_Dialog" parent="android:Theme.Holo.Dialog">
+        ...
+        <item name="android:windowMinWidthMajor">40%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
 
     <style name="DialogAnimation_Profile">
+
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>

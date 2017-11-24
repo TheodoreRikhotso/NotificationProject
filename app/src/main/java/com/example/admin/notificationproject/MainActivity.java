@@ -14,7 +14,7 @@ private static final  String TAG="MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mains);
 
 
 //        btnShow.setOnClickListener(new View.OnClickListener() {
@@ -43,20 +43,32 @@ private static final  String TAG="MainActivity";
 
 
 
-            LaptopAdmin = (Button)findViewById(R.id.LaptopAdmin);
+            LaptopAdmin = (Button)findViewById(R.id.Laptop_Admin);
             PhonesAdmin = (Button)findViewById(R.id.PhonesAdmin);
             CarsAdmin = (Button)findViewById(R.id.CarsAdmin);
             FurnitureAdmin = (Button)findViewById(R.id.FurnitureAdmin);
 
-            LaptopAdmin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    CATA="laptop";
-                    Intent intent = new Intent(getApplicationContext(), CatalogAdminActivity.class);
-                    startActivity(intent);
-                }
-            });
+//        LaptopAdmin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CATA="laptop";
+//                    Intent intent = new Intent(getApplicationContext(), CatalogAdminActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+
+
+
+//            LaptopAdmin.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    CATA="laptop";
+//                    Intent intent = new Intent(getApplicationContext(), CatalogAdminActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
             PhonesAdmin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

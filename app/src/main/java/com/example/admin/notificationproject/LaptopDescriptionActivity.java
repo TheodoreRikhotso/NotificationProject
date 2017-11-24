@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
@@ -39,17 +41,17 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
     ImageView imageView;
     TextView tvRam, tvStorage, tvOs, tvGraphics;
     Button btnRequest;
-    Button btn_red,btn_blue,btn_gray,btn_white,btn_black,btnEnter;
-    private String image,name,id;
+    Button btn_red, btn_blue, btn_gray, btn_white, btn_black, btnEnter;
+    private String image, name, id;
     private DatabaseReference databaseUserItem;
     private StorageReference mStorageReference;
     private FirebaseUser user;
-    private  Laptop c;
+    private Laptop c;
     private int quantity;
     private Laptop person;
     private Boolean check = false;
     private int dayDiff;
-    private String seletedColor;
+    private String seletedColor = "black";
     private DatabaseReference dbRequest;
 
 
@@ -57,20 +59,18 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
     TextView tvDay, Loading;
     ImageView ivIcon;
     Button btnOk;
-    private  String date;
+    private String date;
     private DatabaseReference databaseProfile;
 
-    private String waitDay ="zero";
+    private String waitDay = "zero";
 
     int progress = 0;
     Handler myHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what==0)
-            {
-                if(progress<100)
-                {
+            if (msg.what == 0) {
+                if (progress < 100) {
                     progress++;
                     // ringProgressBar1.setProgress(progress);
                     ringProgressBar2.setProgress(progress);
@@ -79,17 +79,18 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laptop_description);
 
-        verticalStepView = (VerticalStepView)findViewById(R.id.vStV);
+        verticalStepView = (VerticalStepView) findViewById(R.id.vStV);
 
         Intent intent = getIntent();
-        c = (Laptop)intent.getSerializableExtra("select");
+        c = (Laptop) intent.getSerializableExtra("select");
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tbDescrption) ;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tbDescrption);
         toolbar.setTitle(c.getTitle());
         setSupportActionBar(toolbar);
 
@@ -109,10 +110,8 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         tvGraphics = (TextView) findViewById(R.id.tvGraphics);
 
 
-
-
-        imageView = (ImageView)findViewById(R.id.imageView);
-        btnRequest = (Button)findViewById(R.id.btnRequest);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        btnRequest = (Button) findViewById(R.id.btnRequest);
 
         //usser item requested
 
@@ -122,268 +121,72 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         id = user.getUid();
 
 
-
-        dbRequest = FirebaseDatabase.getInstance().getReference("Users/"+id+"/Requested");
+        dbRequest = FirebaseDatabase.getInstance().getReference("Users/" + id + "/Requested");
 
 
         final DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         final Date currentTime = Calendar.getInstance().getTime();
-        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/"+id+"/History");
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" + id + "/History");
 //        databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
-        btnRequest.setOnClickListener(new View.OnClickListener() {
+
+        Query databaseUsers = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeDevice").equalTo("Laptop").limitToLast(1);
+
+        databaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(final View view) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-//                Query query = FirebaseDatabase.getInstance().getReference().child("UserItems").orderByChild("refId").equalTo(user.getUid()).limitToLast(1);
+                final UserItemPojo item = dataSnapshot.getValue(UserItemPojo.class);
+
+
+                btnRequest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+
 //
 //
+////
+                        if (item != null) {
+
+                            if (item.getItemReturn() == true) {
+
 //
-//
-//                query.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//
-//                        for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-//                            UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
-//
-//
-//                            date = item.getItemDate();
-//
-//                            String changeDate = dateFormat.format(currentTime);
-//                            String dayOld = date.substring(0, 2);
-//
-//
-//                            Integer oldDays = Integer.parseInt(dayOld);
-//                            String dayCurrent = changeDate.substring(0, 2);
-//                            Integer dayInt = Integer.parseInt(dayCurrent);
-//
-//                            dayDiff = dayInt - oldDays;
-//
-//                            if(3-dayDiff==1) {
-//                                waitDay = "two";
-//                            }
-//
-//                            Toast.makeText(LaptopDescriptionActivity.this, dayDiff+" ", Toast.LENGTH_SHORT).show();
-//                            if(3-dayDiff==3) {
-//                                waitDay = "three";
-//                            }
-//                            if(3-dayDiff==2) {
-//                                waitDay =  "one";
-//                            }
+                                getDialogBook();
 
-                            //if(dayDiff>3 || dayDiff<0) {
-                                ///DIALOG BOX INITIALIZATION
-                                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LaptopDescriptionActivity.this);
-                                View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
-
-                                btnOk = mView.findViewById(R.id.btnOk);
-                                tvDay = mView.findViewById(R.id.tvDay);
-                                ivIcon = mView.findViewById(R.id.ivIcon);
-
-                                //Date, department
-
-                                Date currentTimes = Calendar.getInstance().getTime();
-                                DateFormat dateFormats = new SimpleDateFormat("dd MMM yyyy");
-                                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-                                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-
-                                TextView tvDate=mView.findViewById(R.id.tvDates);
-                                final TextView tvDepartment=mView.findViewById(R.id.tvDert);
-                                final TextView tvType=mView.findViewById(R.id.tvType);
-                                tvDate.setText(dateFormats.format(currentTimes));
-
-                                ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
-                                Loading = mView.findViewById(R.id.Loading);
-
-                                //
-                                DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
-
-                                DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
-
-                                buisnessAccRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                        if(dataSnapshot!= null) {
-                                            ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
-                                            if(person!= null) {
-                                                tvDepartment.setText(person.getDepartmentName());
-                                                tvType.setText(LandingScreen.ACYIVITY);
-
-                                            }
-
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                        Toast.makeText(LaptopDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                    }
-                                });
-                                btnOk.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                        UserItemPojo userItemPojo = new UserItemPojo();
-                                        userItemPojo.setName(name);
-                                        userItemPojo.setImageUri(image);
-                                        userItemPojo.setDeviceId(id);
-                                        userItemPojo.setColor(seletedColor);
-
-
-
-                                        Date currentTime = Calendar.getInstance().getTime();
-                                        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                                        //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-                                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-                                        Date currentLocalTime = cal.getTime();
-                                        DateFormat date = new SimpleDateFormat("HH:mm a");
-// you can get seconds by adding  "...:ss" to it
-                                        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-
-
-                                        String localTime = date.format(currentLocalTime);
-//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//                LocalDateTime now = LocalDateTime.now();
-                                        userItemPojo.setItemDate(dateFormat.format(currentTime));
-                                        userItemPojo.setItemTime(localTime);
-
-                                        //getting ID
-                                        String userId = databaseUserItem.push().getKey();
-
-                                        String requested_Id =dbRequest.push().getKey();
-
-                                        String history_Id =databaseUserItem.push().getKey();
-
-                                        databaseUserItem.child(userId).setValue(userItemPojo);
-
-                                        Requested requested =new Requested();
-                                        requested.setDevice_id(c.getId());
-
-                                        dbRequest.child(requested_Id).setValue(requested);
-                                        final DatabaseReference dbBookings = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booked_By");
-
-
-                                        dbBookings.child("user_id").setValue(id);
-
-                                        final DatabaseReference dbBooking_queue = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booking_Queue");
-
-                                        String book_queue_id =dbBooking_queue.push().getKey();
-
-                                        dbBooking_queue.child(book_queue_id).child("history_Id").setValue(history_Id);
-
-                                        // Quantity
-                                        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");
-
-                                        final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
-                                        buisnessAccRef.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot != null) {
-
-                                                    person = dataSnapshot.getValue(Laptop.class);
-                                                    if (check == false)
-                                                    {
-                                                        check =true;
-                                                        String qty = person.getTotalQuantity();
-                                                        quantity = Integer.parseInt(qty);
-
-                                                        String q = String.valueOf(quantity - 1);
-
-                                                        person.setTotalQuantity(q);
-                                                        databaseUser.child(person.getId()).setValue(person);
-                                                    }
-
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
-
-                                        Intent intents = new Intent(LaptopDescriptionActivity.this,ProfileActivity.class);
-                                        startActivity(intents);
-                                    }
-                                });
-
-
-
-
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        for (int i = 0; i<100; i++){
-                                            try{
-                                                Thread.sleep(50);
-                                                myHandler.sendEmptyMessage(0);
-
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                        myHandler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                tvDay.setVisibility(View.VISIBLE);
-                                                ivIcon.setVisibility(View.VISIBLE);
-                                                Loading.setVisibility(View.GONE);
-
-                                            }
-                                        });
-                                    }
-                                }).start();
-
-
-                                mBuilder.setView(mView);
-                                AlertDialog dialog = mBuilder.create();
-                                dialog.show();
-                                //DIALOG END
-//                            }else {
-//                                Snackbar.make(view,"Wait for "+waitDay+" day(s) until booking approved",Snackbar.LENGTH_LONG).show();
-//                            }
-
-//                        }
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-
-
-
-
-
+                            } else {
+                                Snackbar.make(view, "You cannot book a Laptop before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                            }
+                        } else {
+                            getDialogBook();
+                        }
 
 
 //
 
 
+//
+
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(LaptopDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
-
-
-
-
-
-//        Toast.makeText(this, c.getContent1(), Toast.LENGTH_SHORT).show();
+//
         tvRam.setText(c.getRam());
         tvGraphics.setText(c.getGraphics());
         tvOs.setText(c.getOs());
         tvStorage.setText(c.getStorage());
 
-        name=c.getTitle();
+        name = c.getTitle();
 
 //
 
@@ -393,13 +196,22 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
 //        Color4.setText(c.getColor4());
 //        Color5.setText(c.getColor5());
 
-        btn_red = (Button)findViewById(R.id.btn_red);
-        btn_black = (Button)findViewById(R.id.btn_black);
-        btn_gray = (Button)findViewById(R.id.btnGrey);
+        btn_red = (Button)
+
+                findViewById(R.id.btn_red);
+
+        btn_black = (Button)
+
+                findViewById(R.id.btn_black);
+
+        btn_gray = (Button)
+
+                findViewById(R.id.btnGrey);
 
 
+        btn_black.setOnClickListener(new View.OnClickListener()
 
-        btn_black.setOnClickListener(new View.OnClickListener() {
+        {
             @Override
             public void onClick(View view) {
                 // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
@@ -407,18 +219,18 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                 btn_black.setScaleX((float) 1.3);
                 btn_black.setScaleY((float) 1.3);
 
-                btn_red.setScaleX( 1);
-                btn_red.setScaleY( 1);
+                btn_red.setScaleX(1);
+                btn_red.setScaleY(1);
 
                 btn_gray.setScaleX(1);
                 btn_gray.setScaleY(1);
 
-               seletedColor = "black";
-                if(c.getImage()!=null) {
+                seletedColor = "black";
+                if (c.getImage() != null) {
                     Glide.with(getApplicationContext())
                             .load(c.getImage())
                             .into(imageView);
-                }else {
+                } else {
                     Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
                 }
 
@@ -426,8 +238,9 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         });
 
 
+        btn_gray.setOnClickListener(new View.OnClickListener()
 
-        btn_gray.setOnClickListener(new View.OnClickListener() {
+        {
             @Override
             public void onClick(View view) {
                 // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
@@ -435,8 +248,8 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                 btn_gray.setScaleX((float) 1.3);
                 btn_gray.setScaleY((float) 1.3);
 
-                btn_black.setScaleX( 1);
-                btn_black.setScaleY( 1);
+                btn_black.setScaleX(1);
+                btn_black.setScaleY(1);
 
 
                 seletedColor = "Grey";
@@ -444,17 +257,19 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                 btn_red.setScaleX(1);
                 btn_red.setScaleY(1);
 
-                if(c.getImage1()!=null) {
+                if (c.getImage1() != null) {
                     Glide.with(getApplicationContext())
                             .load(c.getImage1())
                             .into(imageView);
-                }else {
+                } else {
                     Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        btn_red.setOnClickListener(new View.OnClickListener() {
+        btn_red.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
                 // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
@@ -468,37 +283,218 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                 btn_gray.setScaleY(1);
 
 
-
                 btn_black.setScaleX(1);
                 btn_black.setScaleY(1);
 
 
-                if(c.getImage2()!=null) {
+                if (c.getImage2() != null) {
                     Glide.with(getApplicationContext())
                             .load(c.getImage2())
                             .into(imageView);
-                }else {
+                } else {
                     Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
+        image = c.getImage();
+        Glide.with(
+
+                getApplicationContext())
+                .
+
+                        load(c.getImage())
+                .
+
+                        into(imageView);
 
 
+    }
+    private  void getDialogBook(){
 
-        image =c.getImage();
-        Glide.with(getApplicationContext())
-                .load(c.getImage())
-                .into(imageView);
+        ///DIALOG BOX INITIALIZATION
+        String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LaptopDescriptionActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
+
+        btnOk = mView.findViewById(R.id.btnOk);
+        tvDay = mView.findViewById(R.id.tvDay);
+        ivIcon = mView.findViewById(R.id.ivIcon);
+
+        //Date, department
+
+        Date currentTimes = Calendar.getInstance().getTime();
+        DateFormat dateFormats = new SimpleDateFormat("dd MMM yyyy");
+        //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+
+        TextView tvDate = mView.findViewById(R.id.tvDates);
+        final TextView tvDepartment = mView.findViewById(R.id.tvDert);
+        final TextView tvType = mView.findViewById(R.id.tvType);
+        final TextView tvColorBooked = mView.findViewById(R.id.tvColorBooked);
+
+        tvColorBooked.setText(seletedColor);
+        tvDate.setText(dateFormats.format(currentTimes));
+
+        ringProgressBar2 = mView.findViewById(R.id.progress_bar_2);
+        Loading = mView.findViewById(R.id.Loading);
+
+        //
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/Profile");
 
 
+        databaseUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot != null) {
+                    ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
+                    if (person != null) {
+                        tvDepartment.setText(person.getDepartmentName());
+                        tvType.setText(LandingScreen.ACYIVITY);
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(LaptopDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                UserItemPojo userItemPojo = new UserItemPojo();
+                userItemPojo.setName(name);
+                userItemPojo.setImageUri(image);
+                userItemPojo.setDeviceId(id);
+                userItemPojo.setColor(seletedColor);
+                userItemPojo.setItemReturn(false);
+                userItemPojo.setBookingStatus("booked");
+                userItemPojo.setTypeDevice("Laptop");
 
 
+                Date currentTime = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+                Date currentLocalTime = cal.getTime();
+                DateFormat date = new SimpleDateFormat("HH:mm a");
+// you can get seconds by adding  "...:ss" to it
+                date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+                //returned date
+                Date dt = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dt);
+                calendar.add(Calendar.DATE, 30);
+                dt = calendar.getTime();
+
+                String localTime = date.format(currentLocalTime);
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//                LocalDateTime now = LocalDateTime.now();
+                userItemPojo.setItemDate(dateFormat.format(currentTime));
+                userItemPojo.setItemTime(localTime);
+                userItemPojo.setReturnDate(dateFormat.format(dt));
+
+                //getting ID
+                String userId = databaseUserItem.push().getKey();
+
+                String requested_Id = dbRequest.push().getKey();
+
+                String history_Id = databaseUserItem.push().getKey();
+                userItemPojo.setHistoryId(history_Id);
+                databaseUserItem.child(history_Id).setValue(userItemPojo);
+
+                Requested requested = new Requested();
+                requested.setDevice_id(c.getId());
+
+                dbRequest.child(requested_Id).setValue(requested);
+                final DatabaseReference dbBookings = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booked_By");
 
 
+                dbBookings.child("user_id").setValue(id);
+
+                final DatabaseReference dbBooking_queue = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booking_Queue");
+
+                String book_queue_id = dbBooking_queue.push().getKey();
+
+                dbBooking_queue.child(book_queue_id).child("history_Id").setValue(history_Id);
+
+                // Quantity
+                final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");
+
+                final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
+
+                buisnessAccRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+
+                            person = dataSnapshot.getValue(Laptop.class);
+                            if (check == false) {
+                                check = true;
+                                String qty = person.getTotalQuantity();
+                                quantity = Integer.parseInt(qty);
+
+                                String q = String.valueOf(quantity - 1);
+
+                                person.setTotalQuantity(q);
+                                databaseUser.child(person.getId()).setValue(person);
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                Intent intents = new Intent(LaptopDescriptionActivity.this, ProfileActivity.class);
+                startActivity(intents);
+            }
+        });
 
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                for (int i = 0; i < 100; i++) {
+                    try {
+                        Thread.sleep(50);
+                        myHandler.sendEmptyMessage(0);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                myHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvDay.setVisibility(View.VISIBLE);
+                        ivIcon.setVisibility(View.VISIBLE);
+                        Loading.setVisibility(View.GONE);
+
+                    }
+                });
+            }
+        }).start();
+
+
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        //DIALOG END
     }
 
 }

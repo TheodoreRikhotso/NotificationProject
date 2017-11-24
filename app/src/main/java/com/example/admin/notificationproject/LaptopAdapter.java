@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -69,7 +70,7 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
         }
 
 
-        holder.imageButton1.setOnClickListener(new View.OnClickListener() {
+        holder.linearL0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (qty>0) {
@@ -102,6 +103,7 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
         View view01,view02 ;
         Button btnView;
         boolean isPressed;
+        LinearLayout linearL0;
 
 
         public MyViewHolder(View itemView) {
@@ -109,8 +111,8 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
             item3 = itemView.findViewById(R.id.item3);
             imageButton1 = itemView.findViewById(R.id.imageButton3);
             txtStatus = itemView.findViewById(R.id.txtStatus1);
-
             item1 = itemView.findViewById(R.id.item1);
+            linearL0 = itemView.findViewById(R.id.linearL0);
 
 
         }

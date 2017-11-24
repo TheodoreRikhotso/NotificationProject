@@ -11,142 +11,143 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
 
-    tools:context="com.example.admin.notificationproject.SignUpActivity">
+>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@+id/icon"
-        android:id="@+id/tiStuffNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_below="@+id/icon"-->
+        <!--android:id="@+id/tiStuffNo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
 
-        <EditText
-            android:id="@+id/etStuffNo"
-            android:hint="Stuff  number"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"/>
-    </android.support.design.widget.TextInputLayout>
-
-
-    <Spinner
-        android:background="@android:color/darker_gray"
-        android:layout_below="@+id/tiStuffNo"
-        android:id="@+id/spDepart"
-        android:hint="Stuff  number"
-        android:inputType="textCapWords"
-        android:maxLines="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@+id/icon"
-        android:id="@+id/signup_input_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        >
-
-        <EditText
-            android:id="@+id/signup_name"
-            android:hint=" Name &amp; Surname"
-
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@+id/signup_input_name"
-        android:id="@+id/signup_input_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/signup_email"
-            android:hint=" Email"
-            android:textColor="@android:color/black"
-            android:inputType="textCapWords"
-
-            android:maxLines="1"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_below="@+id/signup_input_email"
-        android:id="@+id/signup_input_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/signup_password"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:layout_marginTop="67dp"
-            android:hint=" Password"
-            android:textColor="@android:color/black"
-
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:layout_below="@+id/signup_input_password"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        <!--<EditText-->
+            <!--android:id="@+id/etStuffNo"-->
+            <!--android:hint="Stuff  number"-->
+            <!--android:inputType="textCapWords"-->
+            <!--android:maxLines="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="51dp"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
 
 
+    <!--<Spinner-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:layout_below="@+id/tiStuffNo"-->
+        <!--android:id="@+id/spDepart"-->
+        <!--android:hint="Stuff  number"-->
+        <!--android:inputType="textCapWords"-->
+        <!--android:maxLines="1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_below="@+id/icon"-->
+        <!--android:id="@+id/signup_input_name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="80dp"-->
+        <!--&gt;-->
 
+        <!--<EditText-->
+            <!--android:id="@+id/signup_name"-->
+            <!--android:hint=" Name &amp; Surname"-->
 
+            <!--android:inputType="textCapWords"-->
+            <!--android:maxLines="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="51dp"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
 
-    </android.support.design.widget.TextInputLayout>
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_below="@+id/signup_input_name"-->
+        <!--android:id="@+id/signup_input_email"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
 
+        <!--<EditText-->
+            <!--android:id="@+id/signup_email"-->
+            <!--android:hint=" Email"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:inputType="textCapWords"-->
 
+            <!--android:maxLines="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="43dp"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
 
-    <Button
-        android:id="@+id/signup_btn_register"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signup_btn_forgot_pass"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="57dp"
-        android:background="@android:color/holo_green_light"
-        android:text="Submit"
-        android:textColor="@android:color/black" />
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_below="@+id/signup_input_email"-->
+        <!--android:id="@+id/signup_input_password"-->
+        <!--android:layout_width="match_parent"-->
+        <!--app:passwordToggleEnabled="true"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
 
-    <TextView
-        android:id="@+id/signup_btn_forgot_pass"
-        android:clickable="true"
-        android:text="Forgot Password ?"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signup_btn_login"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="33dp"
-        android:textColor="#6F6F6F"
-        android:textSize="12dp"  />
+        <!--<EditText-->
+            <!--android:id="@+id/signup_password"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="46dp"-->
+            <!--android:layout_marginTop="67dp"-->
+            <!--android:hint=" Password"-->
+            <!--android:textColor="@android:color/black"-->
+
+            <!--android:inputType="textPassword"-->
+            <!--android:maxLines="1"-->
+            <!--android:layout_below="@+id/signup_input_password"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true" />-->
 
 
 
 
-    <TextView
-        android:id="@+id/signup_btn_login"
-        android:clickable="true"
-        android:text="Already have an account? Login!"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textColor="#6F6F6F"
-        android:textSize="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+
+    <!--<Button-->
+        <!--android:id="@+id/signup_btn_register"-->
+        <!--style="@style/Widget.AppCompat.Button.Colored"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/signup_btn_forgot_pass"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginBottom="57dp"-->
+        <!--android:background="@android:color/holo_green_light"-->
+        <!--android:text="Submit"-->
+        <!--android:textColor="@android:color/black" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/signup_btn_forgot_pass"-->
+        <!--android:clickable="true"-->
+        <!--android:text="Forgot Password ?"-->
+        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/signup_btn_login"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginBottom="33dp"-->
+        <!--android:textColor="#6F6F6F"-->
+        <!--android:textSize="12dp"  />-->
+
+
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/signup_btn_login"-->
+        <!--android:clickable="true"-->
+        <!--android:text="Already have an account? Login!"-->
+        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+        <!--android:textColor="#6F6F6F"-->
+        <!--android:textSize="12dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
 
 
 </RelativeLayout>

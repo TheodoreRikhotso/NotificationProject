@@ -2,6 +2,7 @@ package com.example.admin.notificationproject;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,6 +25,8 @@ public class AboutImageActivity extends AppCompatActivity {
     private GridView lv;
     TextView tvAbout;
     private ImageListAdapter adapter;
+    ViewPager viewPager;
+
 
    // private ProgressDialog progressDialog;
 
@@ -31,6 +34,11 @@ public class AboutImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_image);
+
+        //SETS THE SLIDING VIEWPAGER
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        ViewPageAdpter viewPageAdpter = new ViewPageAdpter(this);
+        viewPager.setAdapter(viewPageAdpter);
 
         //        //toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarAbout) ;

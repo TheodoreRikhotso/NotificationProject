@@ -37,34 +37,15 @@
         android:layout_height="wrap_content"
         >
 
-        <EditText
-            android:id="@+id/dashboard_new_password"
-            android:hint="Enter new password"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-          />
     </android.support.design.widget.TextInputLayout>
 
 
 
-    <Button
-        android:layout_below="@+id/dashboard_input_new_password"
-        android:id="@+id/dashboard_btn_change_pass"
-        android:text="Change password"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_marginTop="20dp"
-        android:background="#ec669900"
-        android:textColor="@android:color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
     <Button
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/dashboard_btn_change_pass"
+        android:layout_below="@+id/dashboard_input_new_password"
         android:id="@+id/dashboard_btn_logout"
         android:text="Logout"
         android:background="#ec669900"

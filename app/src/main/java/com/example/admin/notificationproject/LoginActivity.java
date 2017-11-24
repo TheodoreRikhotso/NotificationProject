@@ -1,11 +1,12 @@
 package com.example.admin.notificationproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,33 +14,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SignInButton mGoogleBtn;
     private static final int RC_SIGN_IN = 1;
-    public  static String  userId= "";
-    public  static String  currentUserId= "";
+    public static String userId = "";
+    public static String currentUserId = "";
     Button btnLogin;
-    EditText input_email,input_password;
-    TextView btnSignup,btnForgotPass;
-
+    EditText input_email, input_password;
+    TextView btnSignup, btnForgotPass;
+    private ProgressDialog mDialog;
     RelativeLayout activity_main;
 
-
+public static String ACCOUNT_CHECK="login";
     private FirebaseAuth auth;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "MAIN_ACTIVITY";
@@ -48,59 +43,75 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.signin);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tbSignIn);
+        toolbar.setTitle(" ");
+        mDialog = new ProgressDialog(this);
+
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_sign));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if(firebaseAuth.getCurrentUser() !=null){
-
-                    startActivity(new Intent(LoginActivity.this, DashBoardActivity.class));
-
+                if (firebaseAuth.getCurrentUser() != null) {
+if(ACCOUNT_CHECK!="sign") {
+    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+}
                 }
-
             }
         };
         auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null){
+        if (auth.getCurrentUser() != null) {
             //profile activity here
-            finish();
-            startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
-        }
-        mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn) ;
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(getBaseContext())
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(LoginActivity.this, "You Got an Error", Toast.LENGTH_LONG).show();
-
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        mGoogleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
+            if(ACCOUNT_CHECK!="sign") {
+                finish();
+                startActivity(new Intent(getApplicationContext(), LandingScreen.class));
             }
-        });
+        }
+//        mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn) ;
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
+
+//        mGoogleApiClient = new GoogleApiClient.Builder(getBaseContext())
+//                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+//                    @Override
+//                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+//                        Toast.makeText(LoginActivity.this, "You Got an Error", Toast.LENGTH_LONG).show();
+//
+//                    }
+//                })
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
+//
+//        mGoogleBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                signIn();
+//            }
+//        });
 
         //View
         btnLogin = (Button) findViewById(R.id.login_btn_login);
         input_email = (EditText) findViewById(R.id.login_email);
         input_password = (EditText) findViewById(R.id.login_password);
-        btnSignup = (TextView) findViewById(R.id.login_btn_signup);
+        // btnSignup = (TextView) findViewById(R.id.login_btn_signup);
         btnForgotPass = (TextView) findViewById(R.id.login_btn_forgot_password);
         activity_main = (RelativeLayout) findViewById(R.id.activity_main);
 
-        btnSignup.setOnClickListener(this);
+        ///  btnSignup.setOnClickListener(this);
         btnForgotPass.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
 
@@ -108,8 +119,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         //check already session , if ok-> DashBoard
-        if (auth.getCurrentUser() != null)
-            startActivity(new Intent(LoginActivity.this,LandingScreen.class));
+        if (auth.getCurrentUser() != null ) {
+            if(ACCOUNT_CHECK!="sign") {
+                startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+            }
+
+        }
 
     }
 
@@ -119,27 +134,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(LoginActivity.this, ForgotPasswordAcitivity.class));
             finish();
         }
-        else  if (view.getId() == R.id.login_btn_signup) {
-            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-            finish();
-        }
-        else  if (view.getId() == R.id.login_btn_login) {
-            String email =input_email.getText().toString();
-            String password =input_password.getText().toString();
+//        if (view.getId() == R.id.login_btn_signup) {
+//            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+//            finish();
+//        }
+        if (view.getId() == R.id.login_btn_login) {
+            String email = input_email.getText().toString();
+            String password = input_password.getText().toString();
+            mDialog.setMessage("Signing in ...");
+            mDialog.show();
 
-            if(email.isEmpty())
-            {
-                if(email.isEmpty())
-                {
-                    input_email.setError("Email is empty");
-                }else {
-                    input_password.setError("Email is empty");
+            if (email.isEmpty()) {
+                input_email.setError("Email is empty");
+
+
+            } else {
+
+                if (password.isEmpty()) {
+                    input_password.setError("Password is empty");
+                } else {
+                    loginUser(email, password);
+
 
                 }
-
-            }else
-            {
-                loginUser(email,password);
             }
 
 
@@ -148,76 +165,121 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginUser(String email, final String password) {
-        auth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        user.sendEmailVerification();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null) {
+            boolean emailVerified = user.isEmailVerified();
+            if (emailVerified) {
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-                        if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
 
-                            startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+                                    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+                                    mDialog.dismiss();
+                                } else {
+                                    mDialog.dismiss();
+                                    String emails = task.getException().getMessage();
+                                    if (emails.contains("email")) {
+                                        input_email.setError(task.getException().getMessage());
+                                    } else {
+                                        input_password.setError(task.getException().getMessage());
+                                    }
 
-                        }
-                        else {
-                            if (password.length() <6){
-                                Snackbar snackBar =Snackbar.make(activity_main, "Password length must be over 6", Snackbar.LENGTH_SHORT);
-                                snackBar.show();
+//
+                                }
 
                             }
-                            String emails = task.getException().getMessage();
-                            if(emails.contains("email"))
-                            {
-                                input_email.setError(task.getException().getMessage());
-                            }else{
-                                input_password.setError(task.getException().getMessage());
+                        });
+            }
+            else
+            {
+                mDialog.dismiss();
+                // email is not verified, so just prompt the message to the user and restart this activity.
+                // NOTE: don't forget to log out the user.
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "Email is not verified", Toast.LENGTH_SHORT).show();
+
+                //restart this activity
+
+            }
+        }else {
+
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+
+                                if (task.isSuccessful()) {
+
+                                    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+                                    mDialog.dismiss();
+                                } else {
+                                    mDialog.dismiss();
+                                    String emails = task.getException().getMessage();
+                                    if (emails.contains("email")) {
+                                        input_email.setError(task.getException().getMessage());
+                                    } else {
+                                        input_password.setError(task.getException().getMessage());
+                                    }
+
+//
+                                }
+
                             }
+                        });
+        }
 
-//                            Snackbar snackbar = Snackbar.make(activity_main, "Error: "+task.getException().getMessage(),Snackbar.LENGTH_SHORT);
-//                            snackbar.show();
-                        }
 
-                    }
-                });
     }
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
         auth.addAuthStateListener(mAuthListener);
     }
-    private void signIn(){
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
 
-    }
+//    private void signIn() {
+//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//        startActivityForResult(signInIntent, RC_SIGN_IN);
+//
+//    }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == RC_SIGN_IN) {
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            GoogleSignInAccount account = result.getSignInAccount();
+//            firebaseAuthWithGoogle(account);
+//        } else {
+//
+//        }
+//    }
+
+
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //replaces the default 'Back' button action
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-        if (requestCode == RC_SIGN_IN){
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            GoogleSignInAccount account = result.getSignInAccount();
-            firebaseAuthWithGoogle(account);
-        }else {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+            finish();
 
         }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
-                        if (!task.isSuccessful()){
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        return true;
     }
 
 }

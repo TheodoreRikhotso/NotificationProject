@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -72,7 +73,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
             holder.txtStatus.setTextColor(Color.parseColor("#fa1414"));
 
         }
-        holder.imageButton1.setOnClickListener(new View.OnClickListener() {
+        holder.linearL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (qty>0) {
@@ -103,6 +104,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
         View view01,view02 ;
         Button btnView;
         boolean isPressed;
+        LinearLayout linearL;
 
 
         public MyViewHolder(View itemView) {
@@ -110,7 +112,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
             item1 = itemView.findViewById(R.id.item5);
             imageButton1 = itemView.findViewById(R.id.imageButton5);
             txtStatus =itemView.findViewById(R.id.txtStatus);
-
+            linearL =itemView.findViewById(R.id.linearL);
 
 
 

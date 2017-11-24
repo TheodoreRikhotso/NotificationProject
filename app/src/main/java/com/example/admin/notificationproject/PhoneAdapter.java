@@ -13,6 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +21,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.admin.notificationproject.R.layout.phone_models_activity;
+import static com.example.admin.notificationproject.R.layout.model_phones;
 
 /**
  * Created by Admin on 09-Oct-17.
@@ -44,7 +45,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(phone_models_activity, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(model_phones, null);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -70,7 +71,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
             holder.txtStatus.setTextColor(Color.parseColor("#fa1414"));
 
         }
-        holder.imageButton1.setOnClickListener(new View.OnClickListener() {
+        holder.relativeL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (qty>0 ) {
@@ -104,6 +105,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
         View view01,view02 ;
         Button btnView;
         boolean isPressed;
+        RelativeLayout relativeL;
 
 
         public MyViewHolder(View itemView) {
@@ -112,6 +114,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
             imageButton1 = itemView.findViewById(R.id.imageButton2);
             txtStatus = itemView.findViewById(R.id.textView26);
             linearLayout = itemView.findViewById(R.id.lists);
+            relativeL = itemView.findViewById(R.id.relativeL);
 
 //
 

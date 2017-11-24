@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,7 +19,7 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements View.O
 
     private EditText input_email;
     private Button btnResetPass;
-    private TextView btnBack;
+    private Button btnBack;
     private RelativeLayout activity_forgot;
 
     private FirebaseAuth auth;
@@ -29,14 +29,27 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password_acitivity);
 
+//toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.sentmail);
+        toolbar.setTitle(" ");
+
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_sign));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         //view
         input_email = (EditText) findViewById(R.id.forgot_email);
         btnResetPass = (Button) findViewById(R.id.forgot_btn_reset);
-        btnBack = (TextView) findViewById(R.id.forgot_btn_back);
-        activity_forgot = (RelativeLayout) findViewById(R.id.activity_forgot_password);
+//        btnBack = (Button) findViewById(R.id.forgot_btn_back);
+        activity_forgot = (RelativeLayout) findViewById(R.id.activity_main);
 
         btnResetPass.setOnClickListener(this);
-        btnBack.setOnClickListener(this);
+//        btnBack.setOnClickListener(this);
 
         //init Firebase
         auth = FirebaseAuth.getInstance();
@@ -46,7 +59,7 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if (view.getId() == R.id.forgot_btn_back)
         {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this,LoginActivity.class));
             finish();
         }
         else if (view.getId() == R.id.forgot_btn_reset)
@@ -55,6 +68,7 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements View.O
         }
 
     }
+
 
     private void resetPassword(final String email) {
         auth.sendPasswordResetEmail(email)

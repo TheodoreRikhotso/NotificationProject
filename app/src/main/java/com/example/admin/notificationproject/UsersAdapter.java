@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -70,6 +71,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
             }
         });
 
+
     }
 
     @Override
@@ -79,7 +81,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item3;
-
+LinearLayout llUserItem;
         TextView item1, tvStuff_No, tvName,tvDepartmentName, textView1;
         ImageView imageButton1 , imb2,imb1 ;
         View view01,view02 ;

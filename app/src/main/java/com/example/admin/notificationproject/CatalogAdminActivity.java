@@ -710,7 +710,7 @@ if(uri !=null) {
         String picture = notificationPojo.getImageUrl();
 
 
-//        Toast.makeText(this, bitmap.toString(), Toast.LENGTH_SHORT).show();
+//
 
         notificationBuilder.setSmallIcon(R.drawable.ic_add_alert_black_24dp);
 
@@ -758,8 +758,7 @@ if(uri !=null) {
             return myBitmap;
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, e.getMessage() + "*", Toast.LENGTH_SHORT).show();
-            // Log.d(TAG,e.getMessage());
+
             return null;
         }
     }

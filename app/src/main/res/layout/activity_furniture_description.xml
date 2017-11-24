@@ -17,17 +17,17 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-
-        >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
@@ -37,15 +37,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <!--<android.support.v7.widget.CardView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="230dp"-->
-                <!--&gt;-->
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="234dp"/>
+                    android:layout_height="234dp"
+                    android:layout_marginTop="20dp"/>
 
                 <!--</android.support.v7.widget.CardView>-->
 
@@ -177,7 +174,8 @@
                     android:layout_width="360dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:background="#2674cc00">
+                    android:background="#2674cc00"
+                    android:layout_marginBottom="30dp">
 
                     <TextView
                         android:layout_width="105dp"
@@ -212,43 +210,46 @@
 
 
                     </LinearLayout>
-
-
-                </LinearLayout>
-
-
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <Button
-                            android:id="@+id/btnRequest"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                      android:layout_marginTop="100dp"
-                            android:background="@drawable/requestbutton"
-                            android:text="Request"
-                            android:textColor="#9e9e9e" />
-                    </LinearLayout>
-
-
                 </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
+
+
+
+
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btnRequest"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/requestbutton"
+                android:text="Request"
+                android:textColor="#9e9e9e" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 </LinearLayout>
+
+
+
+
+
 

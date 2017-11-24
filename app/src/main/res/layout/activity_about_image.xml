@@ -39,608 +39,99 @@
                 <!--android:layout_weight="0.32"-->
                 <!--android:src="@drawable/mlab" />-->
 
-            <TextView
-                android:id="@+id/tvAbout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="\nWhen our youth are empowered with the right skills to innovate and create solutions, they unlock the opportunities for new businesses that will drive our economies forward.
-\nThis is why we support these young innovators, founders, next generation coders and digital creatives.
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="When our youth are empowered with the right skills to innovate and create solutions, they unlock the opportunities for new businesses that will drive our economies forward."
+        android:textColor="@color/cardview_dark_background" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is why we support these young innovators, founders, next generation coders and digital creatives. "
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="In September 2011 mLab Southern Africa launched as a mobile technology accelerator with the aim of supporting innovative new startups and to unlock the mobile apps economy."
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/cardview_dark_background"  />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Since then we have grown to include programmes that support skills development through our own and partner code academies, facilitated co-creation seasons with industry and public sector partners and we continue to build on our successes as a local tech startup accelerator."
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/tvAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" mLab Southern Africa is a registered Nonprofit organisation that is powered through the support of The Ministry of Foreign Affairs of Finland, The Department of Science; Technology, The Innovation Hub, The A Waterfront and the World Bank infoDEV."
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/cardview_dark_background"  />
+
+</LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin" >
+
+    <TextView
+        android:id="@+id/editText2"
+        android:textColor="@color/cardview_dark_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Meet Our Team"
+        android:textSize="19dp"
+        android:textStyle="bold" />
+</LinearLayout>
+
+
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent">
+    </android.support.v4.view.ViewPager>
+
+
+    <ImageView
+        android:baselineAlignBottom="false"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        ads:srcCompat="@drawable/ic_dots_black_24dp"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="320dp"/>
 
-\nIn September 2011 mLab Southern Africa launched as a mobile technology accelerator with the aim of supporting innovative new startups and to unlock the mobile apps economy.
-\nSince then we have grown to include programmes that support skills development through our own and partner code academies, facilitated co-creation seasons with industry and public sector partners and we continue to build on our successes as a local tech startup accelerator.
 
-\nmLab Southern Africa is a registered Nonprofit organisation that is powered through the support of The Ministry of Foreign Affairs of Finland, The Department of Science; Technology, The Innovation Hub, The A Waterfront and the World Bank infoDEV.
-\n"
 
-                android:textColor="@color/cardview_dark_background"
-                android:layout_weight="0.08" />
 
-            <TextView
-                android:id="@+id/editText2"
-                android:textColor="@color/cardview_dark_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Meet Our Team"
-                android:textSize="19dp"
-                android:textStyle="bold" />
 
-
-            <!--<GridView-->
-
-            <!--android:id="@+id/listViewImage"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:divider="@android:color/transparent"-->
-            <!--android:dividerHeight="30sp"-->
-            <!--android:horizontalSpacing="10dp"-->
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView"
-
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginStart="30dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/rulani_nevhufumba"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"/>
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView1"
-                    android:layout_width="130dp"
-
-                    android:layout_height="130dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/imgView"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/lebogang_madise"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"/>
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="mLab Provincial Manager | Gauteng"
-                    android:textColor="#9CD65F"
-                    android:layout_below="@+id/imgView"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView5"
-                    android:layout_alignBottom="@+id/textView5"
-                    android:layout_alignLeft="@+id/imgView1"
-                    android:layout_alignStart="@+id/imgView1"
-                    android:text="mLab Provincial Manager | Western Cape "
-                    android:textColor="#9CD65F" />
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imgView1"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/imgView1"
-                    android:text="Lebogang Madise"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rulani Nevhufumba"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="15dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView3"
-
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_above="@+id/textView11"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/khuthadzo_gundula"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView4"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_above="@+id/textView11"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/melvin_musehani"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView12"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/textView12"
-                    android:layout_toStartOf="@+id/textView13"
-                    android:text="CodeTribe Facilitator Tshwane | Android Developer"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"
-                    android:layout_toLeftOf="@+id/textView13" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView24"
-                    android:layout_alignLeft="@+id/imgView3"
-                    android:layout_alignStart="@+id/imgView3"
-                    android:text="Khuthadzo Gundula"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/imgView4"
-                    android:layout_marginTop="11dp"
-                    android:text="mLab Developer in Residence"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F" />
-
-                <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Melvin Musehani"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignLeft="@+id/imgView4"
-                    android:layout_alignStart="@+id/imgView4" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView5"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignTop="@+id/imgView6"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginStart="23dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/sihle_mabaleka"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView6"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/veronica"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/imgView5"
-                    android:layout_toStartOf="@+id/imgView6"
-                    android:text="Facilitator CodeTribe Soweto | DEMOLA Johannesburg"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"
-                    android:layout_alignRight="@+id/imgView5"
-                    android:layout_alignEnd="@+id/imgView5" />
-
-                <TextView
-                    android:id="@+id/textView116"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imgView5"
-                    android:layout_alignStart="@+id/imgView5"
-
-                    android:text="Sihle Mabaleka"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="11dp"
-                    android:text="mLab /CodeTribe Coordinator"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F" />
-
-                <TextView
-                    android:id="@+id/textView118"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/imgView6"
-                    android:layout_alignRight="@+id/imgView6"
-
-                    android:text="Veronica Mahlangu"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView7"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/tendai_mazhude"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"
-                    android:layout_alignTop="@+id/imgView8"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView8"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/alexandrafraser"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Operations and M/E Consultant"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"
-                    android:layout_below="@+id/imgView8"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:id="@+id/textView40"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imgView7"
-                    android:layout_alignStart="@+id/imgView7"
-
-                    android:text="Tendai Mazhude"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView31"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imgView8"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/imgView8"
-                    android:text="Partnerships / Ecosystem Consultant"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F" />
-
-                <TextView
-                    android:id="@+id/textView45"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imgView8"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/imgView8"
-                    android:layout_marginLeft="11dp"
-                    android:layout_marginStart="11dp"
-                    android:text="Alexandra Fraser"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/textView30"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/textView30"
-                    android:layout_marginEnd="13dp"
-                    android:layout_marginRight="13dp"
-                    android:layout_marginTop="402dp"
-                    android:text="TextView"
-                    android:textAlignment="center" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView9"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/zanoxolo_mngadi"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"
-                    android:layout_above="@+id/textView32"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView10"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="31dp"
-                    android:layout_marginRight="31dp"
-                    android:layout_marginTop="25dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/motebang_mokwatsi"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548" />
-
-                <TextView
-                    android:id="@+id/textView32"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/imgView9"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignRight="@+id/imgView9"
-                    android:layout_marginBottom="12dp"
-                    android:text="Facilitator CodeTribe Alexandra"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"/>
-
-                <TextView
-                    android:id="@+id/textView49"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView78"
-                    android:layout_alignBottom="@+id/textView78"
-                    android:layout_alignEnd="@+id/textView32"
-                    android:layout_alignRight="@+id/textView32"
-                    android:layout_marginEnd="13dp"
-                    android:layout_marginRight="13dp"
-                    android:text="Zanoxolo Mngadi"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView33"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView32"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="Facilitator CodeTribe Tembisa"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"/>
-
-
-                <TextView
-                    android:id="@+id/textView78"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:text="Motebang Mokwatsi"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView11"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_above="@+id/textView35"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginStart="27dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/tinga"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgView12"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginEnd="26dp"
-                    android:layout_marginRight="26dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/derrick_kotze"
-                    app:border_width="2dp"
-                    app:civ_border_color="#795548"
-                    android:layout_below="@+id/textView38"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                <TextView
-                    android:id="@+id/textView35"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:text="Facilitation and Coding Assistant Soweto"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"
-                    android:layout_toLeftOf="@+id/textView36"
-                    android:layout_toStartOf="@+id/textView36" />
-
-                <TextView
-                    android:id="@+id/textView36"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView35"
-                    android:layout_alignLeft="@+id/imgView12"
-                    android:layout_alignStart="@+id/imgView12"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginStart="13dp"
-                    android:text="Chief Executive Officer"
-                    android:textAlignment="center"
-                    android:textColor="#9CD65F"/>
-
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imgView11"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/imgView11"
-                    android:text="Zakhele Tinga"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView38"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Derrick Kotze"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignLeft="@+id/textView36"
-                    android:layout_alignStart="@+id/textView36" />
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

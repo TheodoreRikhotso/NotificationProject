@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_sign_up">
+
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                <ImageView
+                    android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo34"
+
+
+                />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            <LinearLayout
+                android:background="@drawable/signup"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <EditText
+                    android:textSize="16dp"
+                    android:id="@+id/signup_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:textColorHint="@color/signintext"
+                    android:textColor="@color/signintext"
+                    android:layout_marginLeft="60dp"
+                    android:inputType="text"
+                    android:background="#0000"
+                    android:maxLength="20"
+
+                    android:padding="16dp"
+                    android:drawableLeft="@drawable/user"
+                    android:drawablePadding="35dp"
+                    android:layout_marginRight="65dp"/>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/signintext" />
+
+                <EditText
+                    android:id="@+id/signup_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="65dp"
+
+                    android:background="#0000"
+                    android:drawableLeft="@drawable/mail"
+                    android:drawablePadding="35dp"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+
+
+                    android:padding="16dp"
+                    android:textColor="@color/signintext"
+                    android:textColorHint="@color/signintext"
+                    android:textSize="16dp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/signintext" />
+
+
+
+
+                <EditText
+                    android:textSize="16dp"
+                    android:id="@+id/signup_password"
+                    android:drawablePadding="38dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textColorHint="@color/signintext"
+                    android:textColor="@color/signintext"
+                    android:layout_marginLeft="60dp"
+                    android:inputType="textPassword"
+                    android:background="#0000"
+                    android:padding="16dp"
+                    android:drawableLeft="@drawable/password"
+                    android:layout_marginRight="65dp"/>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/signintext"
+                    android:layout_marginBottom="43dp"
+                    />
+
+
+            </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="160dp"
+                    android:background="@color/signintext"
+                    android:layout_marginLeft="110dp"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/signup_btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect"
+        android:text="Sign up"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_verify_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:padding="10dp"
+
+        android:text="Verify Email"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/signup_btn_register" />
+
+</RelativeLayout>

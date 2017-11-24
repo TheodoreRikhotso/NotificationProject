@@ -6,11 +6,45 @@ package com.example.admin.notificationproject;
 
 public class UserItemPojo {
 
-    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color;
+    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color,bookingStatus,typeDevice,historyId;
+    private boolean itemReturn;
+
+    public String getHistoryId() {
+        return historyId;
+    }
+
+    public void setHistoryId(String historyId) {
+        this.historyId = historyId;
+    }
+
 
 
     public String getReturnDate() {
         return returnDate;
+    }
+
+    public String getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(String bookingStatus) {
+        this.bookingStatus = bookingStatus;
+    }
+
+    public boolean getItemReturn() {
+        return itemReturn;
+    }
+
+    public void setItemReturn(boolean itemReturn) {
+        this.itemReturn = itemReturn;
+    }
+
+    public String getTypeDevice() {
+        return typeDevice;
+    }
+
+    public void setTypeDevice(String typeDevice) {
+        this.typeDevice = typeDevice;
     }
 
     public String getColor() {

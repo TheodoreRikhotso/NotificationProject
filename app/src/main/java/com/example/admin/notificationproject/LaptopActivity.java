@@ -41,7 +41,7 @@ public class LaptopActivity extends AppCompatActivity implements SearchView.OnQu
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLaptop) ;
         toolbar.setTitle("Laptops");
 
-        LandingScreen.ACYIVITY ="LAP";
+        LandingScreen.ACYIVITY ="Laptop";
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));

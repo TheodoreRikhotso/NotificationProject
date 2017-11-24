@@ -14,7 +14,7 @@ public class AdminLandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_landing);
 
-        btnAddData = (Button) findViewById(R.id.btnAddData);
+        btnAddData = (Button) findViewById(R.id.btnAddDataAdmin);
         btnViewData = (Button) findViewById(R.id.btnViewData);
         btnUpdateData = (Button) findViewById(R.id.btnUpdateData);
         btnDelete = (Button) findViewById(R.id.btnDelete);

@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class DashBoardActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView txtWelcome;
-    private EditText input_new_password;
+
     private Button btnChangePass, btnLogout;
     private RelativeLayout activity_dashboard;
 
@@ -31,27 +30,24 @@ public class DashBoardActivity extends AppCompatActivity implements View.OnClick
 
         //view
         txtWelcome = (TextView) findViewById(R.id.dashboard_welcome);
-        input_new_password = (EditText) findViewById(R.id.dashboard_new_password);
-        btnChangePass = (Button) findViewById(R.id.dashboard_btn_change_pass);
+
         btnLogout = (Button) findViewById(R.id.dashboard_btn_logout);
         activity_dashboard= (RelativeLayout) findViewById(R.id.activity_dash_board);
 
-        btnChangePass.setOnClickListener(this);
+        //btnChangePass.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
-
+       // input_new_password.setVisibility(View.GONE);
         //init Firebase
         auth = FirebaseAuth.getInstance();
 
         //session check
         if(auth.getCurrentUser() !=null)
-            txtWelcome.setText("Welcome , "+auth.getCurrentUser().getEmail());
+            txtWelcome.setText("");
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.dashboard_btn_change_pass)
-            changePassword(input_new_password.getText().toString());
-        else if (view.getId() == R.id.dashboard_btn_logout)
+       if (view.getId() == R.id.dashboard_btn_logout)
             logoutUser();
 
     }

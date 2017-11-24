@@ -5,4 +5,9 @@
     <dimen name="si_default_radius_min">8dp</dimen>
     <dimen name="d">0.002dp</dimen>
     <integer name="anim_duration_long">500</integer>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="popup_width">50dp</dimen>
+    <dimen name="popup_height">60dp</dimen>
+    popup_width
 </resources>

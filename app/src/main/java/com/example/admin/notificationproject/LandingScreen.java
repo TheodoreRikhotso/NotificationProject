@@ -3,6 +3,7 @@ package com.example.admin.notificationproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +38,9 @@ private CircleImageView profile;
         SignUpActivity.CONTEXT ="LandingScreen";
 
 
+
         setContentView(R.layout.activity_landing_screen);
+
 
 
 //        Toolbar toolbar = (Toolbar)findViewById(R.id.tbLanding);
@@ -206,6 +209,23 @@ private CircleImageView profile;
             startActivity(new Intent(this,LoginActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        //replaces the default 'Back' button action
+        if(keyCode==KeyEvent.KEYCODE_BACK)
+        {
+
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+            finish();
+
+        }
+        return true;
     }
 }
 
