@@ -52,6 +52,8 @@ public class ProfileActivityIcon extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                Intent intent = new Intent(ProfileActivityIcon.this, LandingScreen.class);
+                startActivity(intent);
             }
         });
 

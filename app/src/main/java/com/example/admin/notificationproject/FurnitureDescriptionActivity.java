@@ -152,11 +152,11 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
 
                                             UserItemPojo itemY = dataSnapshot.getValue(UserItemPojo.class);
                                             if (itemY == null) {
-                                                inputBox();
+
                                             }
                                             if (itemY != null) {
 
-                                                error = "You cannot book a Assert before can return the recently booked";
+                                                error = "You cannot book an Assert before you return the recently booked Assert";
 
                                             }
 

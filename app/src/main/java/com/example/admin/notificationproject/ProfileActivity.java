@@ -23,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String mainName, mainStuffNo, mainDepart, mainImage, secondImage;
     String isImage = "1";
     public static int dayDiffer;
-
+private RelativeLayout activity_main;
 
     ///
     private DatabaseReference databaseProfile;
@@ -102,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                Intent intents = new Intent(ProfileActivity.this, LandingScreen.class);
+                Intent intents = new Intent(ProfileActivity.this, ProfileActivityIcon.class);
                 startActivity(intents);
             }
         });
@@ -115,6 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 onBackPressed();
             }
         });
@@ -125,6 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
         image = (CircleImageView) findViewById(R.id.avatar);
         nameS = (TextView) findViewById(R.id.txtName);
         tvDepartment = (TextView) findViewById(R.id.tvDepartment);
+        activity_main = (RelativeLayout) findViewById(R.id.activity_main);
 
 //        ivEdit = (ImageView)findViewById(R.id.ivEdit);
         empty = (TextView) findViewById(R.id.tvEmpty);
