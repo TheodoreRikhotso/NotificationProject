@@ -6,7 +6,7 @@ package com.example.admin.notificationproject;
 
 public class UserItemPojo {
 
-    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color,bookingStatus,typeDevice,historyId;
+    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color,bookingStatus,typeDevice,historyId,reasonForBooking;
     private boolean itemReturn;
 
     public String getHistoryId() {
@@ -17,7 +17,13 @@ public class UserItemPojo {
         this.historyId = historyId;
     }
 
+    public String getReasonForBooking() {
+        return reasonForBooking;
+    }
 
+    public void setReasonForBooking(String reasonForBooking) {
+        this.reasonForBooking = reasonForBooking;
+    }
 
     public String getReturnDate() {
         return returnDate;

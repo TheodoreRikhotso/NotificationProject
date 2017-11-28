@@ -31,6 +31,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnSignup;
@@ -41,17 +46,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth auth;
     Snackbar snackbar;
-  private static final int ALERT_DIALOG = 1;
+    private static final int ALERT_DIALOG = 1;
     //profile
     private DatabaseReference databaseProfile;
     private String[] departs = {"Department name", "Finance", "IT", "HR", "Administrative Information Service"};
     TextView etStuffNo, signup_name;
     private String email, password;
     Spinner spDepart;
-    Boolean dismiss  =false;
+    Boolean dismiss = false;
 
     public static String department, stuffno, CONTEXT, name;
-private Boolean sendVeri=false;
+    private Boolean sendVeri = false;
     int idTotal = 0;
     Firebase ref;
     private DatabaseReference db, profiledb;
@@ -140,7 +145,7 @@ private Boolean sendVeri=false;
 //        }
 
 
- if (view.getId() == R.id.btn_verify_email) {
+        if (view.getId() == R.id.btn_verify_email) {
             sendEmailVerification();
         }
 
@@ -162,88 +167,86 @@ private Boolean sendVeri=false;
                     input_email.setError("Email is empty");
                 } else {
 
-//                    if (email.contains("@mlab.co.za")) {
-
+                    if (email.contains("@mlab.co.za")) {
 
 
                         if (password.isEmpty()) {
                             input_pass.setError("Password is empty");
                         } else {
-//                         if (password.length() >= 7) {
-//                             int upperCaseCounter = 0, lowerCaseCounter = 0, digitCounter = 0, whiteSpaceCounter = 0, specialCounter = 0;
-//
-//                             try {
-//                                 byte[] bytes = password.getBytes();
-//                                 ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//                                 BufferedReader br = new BufferedReader(new InputStreamReader(bais));
-//
-//
-//                                 String pass = br.readLine();
-//
-//                                 for (int i = 0; i < pass.length(); i++) {
-//                                     char ch = pass.charAt(i);
-//                                     if (Character.isAlphabetic(ch)) {
-//                                         if (Character.isUpperCase(ch)) {
-//                                             upperCaseCounter += 1;
-//                                         } else {
-//                                             lowerCaseCounter += 1;
-//                                         }
-//                                     } else if (Character.isDigit(ch)) {
-//                                         digitCounter += 1;
-//                                     } else {
-//                                         if (Character.isWhitespace(ch)) {
-//                                             whiteSpaceCounter += 1;
-//                                         } else {
-//                                             specialCounter += 1;
-//                                         }
-//                                     }
-//                                 }
-//                                 if (upperCaseCounter > 0) {
-//                                     if (lowerCaseCounter > 2) {
-//                                         if (specialCounter > 0) {
-//                                             if (digitCounter > 1) {
+                            if (password.length() >= 7) {
+                                int upperCaseCounter = 0, lowerCaseCounter = 0, digitCounter = 0, whiteSpaceCounter = 0, specialCounter = 0;
+
+                                try {
+                                    byte[] bytes = password.getBytes();
+                                    ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                                    BufferedReader br = new BufferedReader(new InputStreamReader(bais));
 
 
+                                    String pass = br.readLine();
+
+                                    for (int i = 0; i < pass.length(); i++) {
+                                        char ch = pass.charAt(i);
+                                        if (Character.isAlphabetic(ch)) {
+                                            if (Character.isUpperCase(ch)) {
+                                                upperCaseCounter += 1;
+                                            } else {
+                                                lowerCaseCounter += 1;
+                                            }
+                                        } else if (Character.isDigit(ch)) {
+                                            digitCounter += 1;
+                                        } else {
+                                            if (Character.isWhitespace(ch)) {
+                                                whiteSpaceCounter += 1;
+                                            } else {
+                                                specialCounter += 1;
+                                            }
+                                        }
+                                    }
+                                    if (upperCaseCounter > 0) {
+                                        if (lowerCaseCounter > 2) {
+                                            if (specialCounter > 0) {
+                                                if (digitCounter > 1) {
 
 
-                            signUpUser(email, password);
-//                                             } else {
-//                                                 input_pass.setError("Password must contain at least 2 uppercase");
-//                                             }
+                                                    signUpUser(email, password);
+                                                } else {
+                                                    input_pass.setError("Password must contain at least 2 uppercase");
+                                                }
+
+                                            } else {
+                                                input_pass.setError("Password must contain at least one special character");
+                                            }
+
+                                        } else {
+                                            input_pass.setError("Password must contain at least 3 lowercase");
+                                        }
+
+                                    } else {
+                                        input_pass.setError("Password must contain at least one uppercase");
+                                    }
+
+
+                                } catch (IOException e) {
+                                    System.out.println("error in input.");
+                                }
 //
-//                                         } else {
-//                                             input_pass.setError("Password must contain at least one special character");
-//                                         }
 //
-//                                     } else {
-//                                         input_pass.setError("Password must contain at least 3 lowercase");
-//                                     }
-//
-//                                 } else {
-//                                     input_pass.setError("Password must contain at least one uppercase");
-//                                 }
-//
-//
-//                             } catch (IOException e) {
-//                                 System.out.println("error in input.");
-//                             }
-//
-//
-//                         } else {
-//                             input_pass.setError("Password must contains more than 6 characters  ");
-//                         }
+                            } else {
+                                input_pass.setError("Password must contains more than 6 characters  ");
+                            }
                         }
-//                    } else {
-//                        input_email.setError("Email must contain @mlab.co.za");
-//                    }
+                    } else {
+                        input_email.setError("Email must contain @mlab.co.za");
+                    }
+
 
                 }
+
+
             }
 
 
         }
-
-
     }
 
     private void signUpUser(final String email, final String password) {
@@ -257,7 +260,7 @@ private Boolean sendVeri=false;
 
                             String id = auth.getCurrentUser().getUid();
 //                            stuffno=etStuffNo.getText().toString();
-                    LoginActivity.ACCOUNT_CHECK="sign";
+                            LoginActivity.ACCOUNT_CHECK = "sign";
 
                             profiledb = FirebaseDatabase.getInstance().getReference("Users/" + id + "/Profile");
 
@@ -296,7 +299,7 @@ private Boolean sendVeri=false;
 
                             mDialog.dismiss();
                         } else {
-                            dismiss =false;
+                            dismiss = false;
                             mDialog.dismiss();
                             String emails = task.getException().getMessage();
                             if (emails.contains("email")) {
@@ -318,20 +321,17 @@ private Boolean sendVeri=false;
     }
 
     @Override
-    protected Dialog onCreateDialog(int id ){
+    protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
-        if ( id == ALERT_DIALOG )
-        {
-            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyStyle );
-            AlertDialog.Builder builder = new AlertDialog.Builder( ctw );
-            builder.setMessage( "Verification email sent to" )
-                    .setTitle( "Verification" )
-                    .setIcon( android.R.drawable.ic_dialog_alert )
-                    .setCancelable( false )
-                    .setPositiveButton( "Close", new DialogInterface.OnClickListener()
-                            {
-                                public void onClick( DialogInterface dialog, int which )
-                                {
+        if (id == ALERT_DIALOG) {
+            ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.MyStyle);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
+            builder.setMessage("Verification email sent to")
+                    .setTitle("Verification")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setCancelable(false)
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
 //                                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
 //                                    startActivity(intent);
@@ -341,9 +341,8 @@ private Boolean sendVeri=false;
                     );
             dialog = builder.create();
         }
-        if ( dialog == null )
-        {
-            dialog = super.onCreateDialog( id );
+        if (dialog == null) {
+            dialog = super.onCreateDialog(id);
         }
         return dialog;
     }
@@ -362,6 +361,7 @@ private Boolean sendVeri=false;
         }
         return true;
     }
+
     private void sendEmailVerification() {
         // Disable Verify Email button
         findViewById(R.id.btn_verify_email).setEnabled(false);

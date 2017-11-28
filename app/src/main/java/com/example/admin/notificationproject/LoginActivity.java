@@ -141,8 +141,7 @@ if(ACCOUNT_CHECK!="sign") {
         if (view.getId() == R.id.login_btn_login) {
             String email = input_email.getText().toString();
             String password = input_password.getText().toString();
-            mDialog.setMessage("Signing in ...");
-            mDialog.show();
+
 
             if (email.isEmpty()) {
                 input_email.setError("Email is empty");
@@ -176,12 +175,14 @@ if(ACCOUNT_CHECK!="sign") {
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-
+                                mDialog.setMessage("Signing in ...");
+                                mDialog.show();
 
                                 if (task.isSuccessful()) {
-
-                                    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
-                                    mDialog.dismiss();
+                                    if(ACCOUNT_CHECK!="sign") {
+                                        startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+                                        mDialog.dismiss();
+                                    }
                                 } else {
                                     mDialog.dismiss();
                                     String emails = task.getException().getMessage();
@@ -217,9 +218,10 @@ if(ACCOUNT_CHECK!="sign") {
 
 
                                 if (task.isSuccessful()) {
-
+                                    if(ACCOUNT_CHECK!="sign") {
                                     startActivity(new Intent(LoginActivity.this, LandingScreen.class));
                                     mDialog.dismiss();
+                                    }
                                 } else {
                                     mDialog.dismiss();
                                     String emails = task.getException().getMessage();

@@ -64,7 +64,14 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements View.O
         }
         else if (view.getId() == R.id.forgot_btn_reset)
         {
-            resetPassword(input_email.getText().toString());
+            String mail =input_email.getText().toString();
+            if(mail.isEmpty()) {
+                input_email.setError("Please Enter Email");
+
+            }else
+            {
+                resetPassword(input_email.getText().toString());
+            }
         }
 
     }

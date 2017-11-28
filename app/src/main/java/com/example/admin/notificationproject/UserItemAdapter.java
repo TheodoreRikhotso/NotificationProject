@@ -2,13 +2,14 @@ package com.example.admin.notificationproject;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -109,38 +110,43 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
         holder.llUserItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!userItemPojo.getBookingStatus().equalsIgnoreCase("Approved")|| !userItemPojo.getBookingStatus().equalsIgnoreCase("Pick Up") ){
+                    final BottomSheetDialog dialog = new BottomSheetDialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                    dialog.setContentView(R.layout.custom_dialog);
+                    dialog.setTitle("Title");
 
-                final BottomSheetDialog dialog = new BottomSheetDialog (context);
-                dialog.setContentView(R.layout.custom_dialog);
-                dialog.setTitle("Title");
 
+                    TextView title = (TextView) dialog.findViewById(R.id.tvPopTitle);
+                    TextView date = (TextView) dialog.findViewById(R.id.ivPopDate);
+                    TextView returnDate = (TextView) dialog.findViewById(R.id.ivPopReturnDate);
+                    TextView color = (TextView) dialog.findViewById(R.id.ivPopColor);
+                    ImageView image = (ImageView) dialog.findViewById(R.id.ivPopImage);
 
+                    title.setText(userItemPojo.getName());
+                    title.setTextColor(Color.parseColor("#000000"));
 
-                TextView title = (TextView) dialog.findViewById(R.id.tvPopTitle);
-                TextView date = (TextView) dialog.findViewById(R.id.ivPopDate);
-                TextView returnDate = (TextView) dialog.findViewById(R.id.ivPopReturnDate);
-                TextView color = (TextView) dialog.findViewById(R.id.ivPopColor);
-                ImageView image = (ImageView) dialog.findViewById(R.id.ivPopImage);
-
-                title.setText(userItemPojo.getName());
-                date.setText("Booked Date "+userItemPojo.getItemDate());
-                returnDate.setText("Returned "+userItemPojo.getReturnDate());
-                color.setText("Selected Color "+userItemPojo.getColor());
-                Glide.with(context)
-                        .load(userItemPojo.getImageUri())
-                        .into(image);
-
-                Button dialogButton = (Button) dialog.findViewById(R.id.btnOkay);
-                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                lp.copyFrom(dialog.getWindow().getAttributes());
-
-                dialogButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
+                    date.setText("Booked Date " + userItemPojo.getItemDate());
+                    returnDate.setText("Returned " + userItemPojo.getReturnDate());
+                    if (userItemPojo.getColor() != null) {
+                        color.setText("Selected Color " + userItemPojo.getColor());
                     }
-                });
-                dialog.show();
+                    Glide.with(context)
+                            .load(userItemPojo.getImageUri())
+                            .into(image);
+
+
+                    Button dialogButton = (Button) dialog.findViewById(R.id.btnOkay);
+
+                    dialogButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }else{
+                    Snackbar.make(view,"You already approved you cannot deleted ",Snackbar.LENGTH_LONG).show();
+                }
 
             }
         });

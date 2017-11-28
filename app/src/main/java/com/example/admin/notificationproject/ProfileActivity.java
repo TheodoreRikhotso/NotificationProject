@@ -190,128 +190,10 @@ public class ProfileActivity extends AppCompatActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 String changeDate = dateFormat.format(currentTime);
 
-                if (date == changeDate) {
-//                        System.out.println("Where pdclkj" + changeDate + " " + date);
-//                        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
-//                                .reverseDraw(false)
-//                                .setStepViewTexts(source)
-//                                .setLinePaddingProportion(0.85f)
-//                                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                                .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
-//                                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check))
-//                                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
-//                                .setStepsViewIndicatorComplectingPosition(0)
-//                        ;
-                }
 
 
-                if (date != null) {
-                    String dayOld = date.substring(0, 2);
 
-                    Integer oldDays = Integer.parseInt(dayOld);
-                    String dayCurrent = changeDate.substring(0, 2);
-                    Integer dayInt = Integer.parseInt(dayCurrent);
 
-                    dayDiffer = dayInt - oldDays;
-                    System.out.println("dayCurrent " + date + " od current" + changeDate);
-                    System.out.println("trim " + dayDiffer);
-
-                    if (dayDiffer == 1) {
-//        System.out.println("Where pdclkj" + changeDate + " " + date);
-//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
-//                .reverseDraw(false)
-//                .setStepViewTexts(source)
-//                .setLinePaddingProportion(0.85f)
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
-//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check))
-//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
-//                .setStepsViewIndicatorComplectingPosition(1)
-//        ;
-
-                    }
-                    if (dayDiffer == 0) {
-//        System.out.println("Where pdclkj" + changeDate + " " + date);
-//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
-//                .reverseDraw(false)
-//                .setStepViewTexts(source)
-//                .setLinePaddingProportion(0.85f)
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
-//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.round_uncheck))
-//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check))
-//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
-//                .setStepsViewIndicatorComplectingPosition(0)
-//        ;
-
-                    }
-
-                    if (dayDiffer == 2) {
-//        System.out.println("Where pdclkj" + changeDate + " " + date);
-//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
-//                .reverseDraw(false)
-//                .setStepViewTexts(source)
-//                .setLinePaddingProportion(0.85f)
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
-//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check))
-//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
-//                .setStepsViewIndicatorComplectingPosition(2)
-//        ;
-
-                    }
-                    if (dayDiffer == 3) {
-//        System.out.println("Where pdclkj" + changeDate + " " + date);
-//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
-//                .reverseDraw(false)
-//                .setStepViewTexts(source)
-//                .setLinePaddingProportion(0.85f)
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
-//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check))
-//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
-//                .setStepsViewIndicatorComplectingPosition(3)
-//        ;
-
-                    }
-                    if (dayDiffer > 3) {
-//        System.out.println("Where pdclkj" + changeDate + " " + date);
-//        verticalStepView.setStepsViewIndicatorComplectingPosition(source.size() - 2)
-//                .reverseDraw(false)
-//                .setStepViewTexts(source)
-//                .setLinePaddingProportion(0.85f)
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#808080"))
-//                .setStepsViewIndicatorCompletedLineColor(Color.parseColor("#008000"))
-//                .setStepViewUnComplectedTextColor(Color.parseColor("#838B8B"))
-//                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.check))
-//                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.unchecked))
-//                .setStepViewComplectedTextColor(Color.parseColor("#000000"))
-//                .setStepsViewIndicatorUnCompletedLineColor(Color.parseColor("#228B22"))
-//                .setStepsViewIndicatorComplectingPosition(3)
-//        ;
-
-                    }
-                }
 
 
             }
@@ -506,7 +388,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (isImage == "2") {
                     StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());
-                    ;
+
                     //uploading the image
                     UploadTask uploadTask = childRef.putFile(filePath);
                     uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

@@ -1,5 +1,6 @@
 package com.example.admin.notificationproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,8 +10,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +56,7 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
     private int dayDiff;
     private String seletedColor = "black";
     private DatabaseReference dbRequest;
+    private  UserItemPojo userItemPojo;
 
 
     RingProgressBar ringProgressBar1, ringProgressBar2;
@@ -109,6 +113,8 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         tvOs = (TextView) findViewById(R.id.tvOs);
         tvGraphics = (TextView) findViewById(R.id.tvGraphics);
 
+        userItemPojo = new UserItemPojo();
+
 
         imageView = (ImageView) findViewById(R.id.imageView);
         btnRequest = (Button) findViewById(R.id.btnRequest);
@@ -150,13 +156,12 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                             if (item.getItemReturn() == true) {
 
 //
-                                getDialogBook();
-
+inputBox();
                             } else {
                                 Snackbar.make(view, "You cannot book a Laptop before can return the recently booked", Snackbar.LENGTH_LONG).show();
                             }
                         } else {
-                            getDialogBook();
+                            inputBox();
                         }
 
 
@@ -367,102 +372,7 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
 
             }
         });
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                UserItemPojo userItemPojo = new UserItemPojo();
-                userItemPojo.setName(name);
-                userItemPojo.setImageUri(image);
-                userItemPojo.setDeviceId(id);
-                userItemPojo.setColor(seletedColor);
-                userItemPojo.setItemReturn(false);
-                userItemPojo.setBookingStatus("booked");
-                userItemPojo.setTypeDevice("Laptop");
-
-
-                Date currentTime = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-                Date currentLocalTime = cal.getTime();
-                DateFormat date = new SimpleDateFormat("HH:mm a");
-// you can get seconds by adding  "...:ss" to it
-                date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-                //returned date
-                Date dt = new Date();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(dt);
-                calendar.add(Calendar.DATE, 30);
-                dt = calendar.getTime();
-
-                String localTime = date.format(currentLocalTime);
-//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//                LocalDateTime now = LocalDateTime.now();
-                userItemPojo.setItemDate(dateFormat.format(currentTime));
-                userItemPojo.setItemTime(localTime);
-                userItemPojo.setReturnDate(dateFormat.format(dt));
-
-                //getting ID
-                String userId = databaseUserItem.push().getKey();
-
-                String requested_Id = dbRequest.push().getKey();
-
-                String history_Id = databaseUserItem.push().getKey();
-                userItemPojo.setHistoryId(history_Id);
-                databaseUserItem.child(history_Id).setValue(userItemPojo);
-
-                Requested requested = new Requested();
-                requested.setDevice_id(c.getId());
-
-                dbRequest.child(requested_Id).setValue(requested);
-                final DatabaseReference dbBookings = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booked_By");
-
-
-                dbBookings.child("user_id").setValue(id);
-
-                final DatabaseReference dbBooking_queue = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booking_Queue");
-
-                String book_queue_id = dbBooking_queue.push().getKey();
-
-                dbBooking_queue.child(book_queue_id).child("history_Id").setValue(history_Id);
-
-                // Quantity
-                final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");
-
-                final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
-
-                buisnessAccRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot != null) {
-
-                            person = dataSnapshot.getValue(Laptop.class);
-                            if (check == false) {
-                                check = true;
-                                String qty = person.getTotalQuantity();
-                                quantity = Integer.parseInt(qty);
-
-                                String q = String.valueOf(quantity - 1);
-
-                                person.setTotalQuantity(q);
-                                databaseUser.child(person.getId()).setValue(person);
-                            }
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                Intent intents = new Intent(LaptopDescriptionActivity.this, ProfileActivity.class);
-                startActivity(intents);
-            }
-        });
 
 
         new Thread(new Runnable() {
@@ -485,6 +395,112 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
                         ivIcon.setVisibility(View.VISIBLE);
                         Loading.setVisibility(View.GONE);
 
+
+                        if (progress >= 100) {
+                            btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    btnOk.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+
+
+                                            userItemPojo.setName(name);
+                                            userItemPojo.setImageUri(image);
+                                            userItemPojo.setDeviceId(id);
+                                            userItemPojo.setColor(seletedColor);
+                                            userItemPojo.setItemReturn(false);
+                                            userItemPojo.setBookingStatus("booked");
+                                            userItemPojo.setTypeDevice("Laptop");
+
+
+                                            Date currentTime = Calendar.getInstance().getTime();
+                                            DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                                            //DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                                            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+                                            Date currentLocalTime = cal.getTime();
+                                            DateFormat date = new SimpleDateFormat("HH:mm a");
+// you can get seconds by adding  "...:ss" to it
+                                            date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+                                            //returned date
+                                            Date dt = new Date();
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(dt);
+                                            calendar.add(Calendar.DATE, 30);
+                                            dt = calendar.getTime();
+
+                                            String localTime = date.format(currentLocalTime);
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//                LocalDateTime now = LocalDateTime.now();
+                                            userItemPojo.setItemDate(dateFormat.format(currentTime));
+                                            userItemPojo.setItemTime(localTime);
+                                            userItemPojo.setReturnDate(dateFormat.format(dt));
+
+                                            //getting ID
+                                            String userId = databaseUserItem.push().getKey();
+
+                                            String requested_Id = dbRequest.push().getKey();
+
+                                            String history_Id = databaseUserItem.push().getKey();
+                                            userItemPojo.setHistoryId(history_Id);
+                                            databaseUserItem.child(history_Id).setValue(userItemPojo);
+
+                                            Requested requested = new Requested();
+                                            requested.setDevice_id(c.getId());
+
+                                            dbRequest.child(requested_Id).setValue(requested);
+                                            final DatabaseReference dbBookings = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booked_By");
+
+
+                                            dbBookings.child("user_id").setValue(id);
+
+                                            final DatabaseReference dbBooking_queue = FirebaseDatabase.getInstance().getReference("Devices/Furniture/Bookings/Booking_Queue");
+
+                                            String book_queue_id = dbBooking_queue.push().getKey();
+
+                                            dbBooking_queue.child(book_queue_id).child("history_Id").setValue(history_Id);
+
+                                            // Quantity
+                                            final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Devices/Laptops/details");
+
+                                            final DatabaseReference buisnessAccRef = databaseUser.child(c.getId());
+
+                                            buisnessAccRef.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot != null) {
+
+                                                        person = dataSnapshot.getValue(Laptop.class);
+                                                        if (check == false) {
+                                                            check = true;
+                                                            String qty = person.getTotalQuantity();
+                                                            quantity = Integer.parseInt(qty);
+
+                                                            String q = String.valueOf(quantity - 1);
+
+                                                            person.setTotalQuantity(q);
+                                                            databaseUser.child(person.getId()).setValue(person);
+                                                        }
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+                Intent intents = new Intent(LaptopDescriptionActivity.this, ProfileActivity.class);
+                startActivity(intents);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+
                     }
                 });
             }
@@ -495,6 +511,54 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         AlertDialog dialog = mBuilder.create();
         dialog.show();
         //DIALOG END
+    }
+
+    private void inputBox()
+    {
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.prompt_text, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+        final TextView tvReason = (TextView) promptsView.findViewById(R.id.tvReason);
+        tvReason.setText("State reason for booking a laptop");
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Request",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+
+                                String reason = userInput.getText().toString();
+                                if(reason.isEmpty()){
+                                    Toast.makeText(getApplicationContext(), "State the reason", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    userItemPojo.setReasonForBooking(reason);
+                                    getDialogBook();
+                                }
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
 }
