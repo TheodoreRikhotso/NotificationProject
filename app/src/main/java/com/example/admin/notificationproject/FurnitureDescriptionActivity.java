@@ -431,7 +431,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
         final EditText userInput = (EditText) promptsView
                 .findViewById(R.id.editTextDialogUserInput);
         final TextView tvReason = (TextView) promptsView.findViewById(R.id.tvReason);
-        tvReason.setText("State reason for booking a Assert");
+        tvReason.setText("State reason for booking the Assert");
 
         // set dialog message
         alertDialogBuilder
