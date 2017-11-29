@@ -130,7 +130,10 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
         databaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChildren())
+                {
                 for (DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
+
 
                     final UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
                     {
@@ -150,15 +153,15 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(final DataSnapshot dataSnapshot) {
 
-                                            UserItemPojo itemY = dataSnapshot.getValue(UserItemPojo.class);
-                                            if (itemY == null) {
+                                    UserItemPojo itemY = dataSnapshot.getValue(UserItemPojo.class);
+                                    if (itemY == null) {
 
-                                            }
-                                            if (itemY != null) {
+                                    }
+                                    if (itemY != null) {
 
-                                                error = "You cannot book an Assert before you return the recently booked Assert";
+                                        error = "You cannot book an Assert before you return the recently booked Assert";
 
-                                            }
+                                    }
 
 
                                 }
@@ -173,20 +176,25 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                             Toast.makeText(FurnitureDescriptionActivity.this, "NO", Toast.LENGTH_SHORT).show();
 //                                    Snackbar.make(view, "You cannot book a Assert before can return the recently booked", Snackbar.LENGTH_LONG).show();
                         }
-                btnRequest.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (error != null) {
-                            Toast.makeText(FurnitureDescriptionActivity.this, error, Toast.LENGTH_SHORT).show();
-                        }else {
-                            inputBox();
-                        }
+                        btnRequest.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (error != null) {
+                                    Toast.makeText(FurnitureDescriptionActivity.this, "y", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FurnitureDescriptionActivity.this, error, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(FurnitureDescriptionActivity.this, "g", Toast.LENGTH_SHORT).show();
+                                    inputBox();
+                                }
+                            }
+
+                        });
+
                     }
+                }
 
-                });
-
-                    }
-
+                }else{
+                    inputBox();
                 }
             }
 
@@ -228,6 +236,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ///DIALOG BOX INITIALIZATION
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(FurnitureDescriptionActivity.this);
+        mBuilder.setCancelable(false);
         View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
 
         btnOk = mView.findViewById(R.id.btnOk);

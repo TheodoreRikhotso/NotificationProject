@@ -45,7 +45,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
     TextView tvRamPh, tvBattery, tvOsPhone, tvMemory, tvColorBooked;
     Button btnRequest;
     Button btnBlackPhone, btnGreyPhone, btnGoldPhone;
-    private String image, name, id;
+    private String image, name, id, typeOs;
     private DatabaseReference databaseUserItem;
     private StorageReference mStorageReference;
     private FirebaseUser user;
@@ -56,9 +56,10 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
     private String seletedColor = "black";
     private Boolean check = false;
     private DatabaseReference dbRequest;
-    private  UserItemPojo userItemPojo;
-    private  boolean isDone =false;
-    private  String reason;
+    private UserItemPojo userItemPojo;
+    private boolean isDone = false;
+    private String reason;
+    private UserItemPojo item;
 
     RingProgressBar ringProgressBar1, ringProgressBar2;
     TextView tvDay, Loading;
@@ -129,57 +130,179 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         databaseProfile = FirebaseDatabase.getInstance().getReference("Profiles");
 
 
-        Query databaseUsers = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeDevice").equalTo("Phone").limitToLast(1);
-
-        databaseUsers.addValueEventListener(new ValueEventListener() {
+        final Query databaseUsers = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeOs").equalTo("ios").limitToLast(1);
+        btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                final UserItemPojo item = dataSnapshot.getValue(UserItemPojo.class);
-//
-
-                btnRequest.setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View view) {
+                databaseUsers.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onClick(final View view) {
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.hasChildren()) {
 
 
+                            for (final DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
 
 
-                            if (item != null) {
-
-                                if (item.getItemReturn() == true) {
+                                final UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
 
 
-                                    inputBox();
+                                if (item != null) {
+
+                                    if (item.getTypeOs().toLowerCase().contains("ios")) {
+                                        if (c.getOs().toLowerCase().contains("ios")) {
+                                            if (item.getItemReturn() == true) {
+
+
+                                                if (item.getItemReturn() == true) {
+
+
+                                                    inputBox();
+                                                }
+                                            } else {
+                                                Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                                            }
+                                            Toast.makeText(PhoneDescriptionActivity.this, item.getTypeOs().toLowerCase(), Toast.LENGTH_SHORT).show();
+                                        } else {
+//                                            Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                                            if (item.getTypeOs().toLowerCase().contains("android")) {
+                                                if (c.getOs().toLowerCase().contains("android")) {
+                                                    if (item.getItemReturn() == true) {
+
+                                                        Toast.makeText(PhoneDescriptionActivity.this, "contain ios " + item.getTypeOs(), Toast.LENGTH_SHORT).show();
+
+                                                        if (item.getItemReturn() == true) {
+
+
+                                                            inputBox();
+                                                        }
+                                                    }
+
+                                                } else {
+                                                    Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                                                }
+                                            }
+                                            Toast.makeText(PhoneDescriptionActivity.this, item.getTypeOs().toLowerCase(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+//                                        inputBox();
+                                    }
+
 
                                 } else {
-                                    Snackbar.make(view, "You cannot book a phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+
+
                                 }
-
-
-
-                            }else {
-
-                                inputBox();
-
-
                             }
 
-//            }else {
-//                Snackbar.make(view,"Wait until picked up date for the recently booked assert",Snackbar.LENGTH_LONG).show();
-//           }
+//
+
+                        } else {
+
+                            if (!c.getOs().toLowerCase().contains("ios")) {
+                                inputBox();
+                                Toast.makeText(PhoneDescriptionActivity.this, c.getOs(), Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(PhoneDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
 
-            }
+                Query databaseAndroid = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeOs").equalTo("andr").limitToLast(1);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(PhoneDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                databaseAndroid.addValueEventListener(new ValueEventListener() {
+                                                                  @Override
+                                                                  public void onDataChange(final DataSnapshot dataSnapshot) {
+                                                                      Toast.makeText(PhoneDescriptionActivity.this, "android", Toast.LENGTH_SHORT).show();
+                                                                              if (dataSnapshot.hasChildren()) {
+
+
+                                                                                  for (final DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
+
+
+                                                                                      final UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
+
+
+                                                                                      if (item != null) {
+
+                                                                                          if (item.getTypeOs().toLowerCase().contains("ios")) {
+                                                                                              if (c.getOs().toLowerCase().contains("ios")) {
+                                                                                                  if (item.getItemReturn() == true) {
+
+
+                                                                                                      if (item.getItemReturn() == true) {
+
+
+                                                                                                          inputBox();
+                                                                                                      }
+                                                                                                  } else {
+                                                                                                      Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                                                                                                  }
+
+                                                                                              } else {
+//                                            Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                                                                                                  if (item.getTypeOs().toLowerCase().contains("android")) {
+                                                                                                      if (c.getOs().toLowerCase().contains("android")) {
+                                                                                                          if (item.getItemReturn() == true) {
+
+                                                                                                              Toast.makeText(PhoneDescriptionActivity.this, "contain ios " + item.getTypeOs(), Toast.LENGTH_SHORT).show();
+
+                                                                                                              if (item.getItemReturn() == true) {
+
+
+                                                                                                                  inputBox();
+                                                                                                              }
+                                                                                                          }
+
+                                                                                                      } else {
+                                                                                                          Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
+                                                                                                      }
+                                                                                                  }
+                                                                                                  Toast.makeText(PhoneDescriptionActivity.this, item.getTypeOs().toLowerCase(), Toast.LENGTH_SHORT).show();
+                                                                                              }
+                                                                                          } else {
+//                                        inputBox();
+                                                                                          }
+
+
+                                                                                      } else {
+
+
+                                                                                      }
+
+                                                                                  }
+
+                                                                              } else {
+
+                                                                                  if (!c.getOs().toLowerCase().contains("android")) {
+                                                                                      inputBox();
+                                                                                      Toast.makeText(PhoneDescriptionActivity.this, c.getOs(), Toast.LENGTH_SHORT).show();
+                                                                                  }
+
+
+                                                                              }
+
+
+
+                                                                  }
+
+                                                                  @Override
+                                                                  public void onCancelled(DatabaseError databaseError) {
+                                                                      Toast.makeText(PhoneDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                  }
+                                                              });
             }
         });
+
 
         btnBlackPhone = (Button) findViewById(R.id.btnBlackPhone);
         btnGoldPhone = (Button) findViewById(R.id.btnGoldPhone);
@@ -276,7 +399,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         tvOsPhone.setText(c.getOs());
         tvRamPh.setText(c.getRam());
         name = c.getTitle();
-
+        typeOs = c.getOs();
 
 
         image = c.getImage();
@@ -287,14 +410,14 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 
     }
 
-    private void getDialogBook()
-    {
+    private void getDialogBook() {
 
-        String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" +  userId + "/History");
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/History");
         ///DIALOG BOX INITIALIZATION
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(PhoneDescriptionActivity.this);
+        mBuilder.setCancelable(false);
         View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
 
         btnOk = mView.findViewById(R.id.btnOk);
@@ -327,7 +450,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         Loading = mView.findViewById(R.id.Loading);
 
         //
-        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/" +FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/Profile");
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/Profile");
 
 
         databaseUser.addValueEventListener(new ValueEventListener() {
@@ -357,11 +480,6 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -383,9 +501,8 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         tvDay.setVisibility(View.VISIBLE);
                         ivIcon.setVisibility(View.VISIBLE);
                         Loading.setVisibility(View.GONE);
-                        if(progress==100)
-                        {
-                            isDone =true;
+                        if (progress == 100) {
+                            isDone = true;
                         }
                         if (progress >= 100) {
                             btnOk.setOnClickListener(new View.OnClickListener() {
@@ -399,6 +516,8 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                                     userItemPojo.setItemReturn(false);
                                     userItemPojo.setBookingStatus("Booked");
                                     userItemPojo.setColor(seletedColor);
+                                    userItemPojo.setTypeOs(typeOs);
+
 
                                     //returned date
                                     Date dt = new Date();
@@ -498,7 +617,6 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         }
 
 
-
                     }
                 });
             }
@@ -511,8 +629,8 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         //DIALOG END
 
     }
-    private void inputBox()
-    {
+
+    private void inputBox() {
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompt_text, null);
 
@@ -532,14 +650,14 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Request",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            public void onClick(DialogInterface dialog, int id) {
                                 // get user input and set it to result
                                 // edit text
 
-                                 reason = userInput.getText().toString();
-                               if(reason.isEmpty()){
+                                reason = userInput.getText().toString();
+                                if (reason.isEmpty()) {
                                     Toast.makeText(PhoneDescriptionActivity.this, "State the reason", Toast.LENGTH_SHORT).show();
-                                }else {
+                                } else {
 
                                     getDialogBook();
                                 }
@@ -548,7 +666,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         })
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });

@@ -118,15 +118,16 @@
         android:background="@android:color/transparent">
     </android.support.v4.view.ViewPager>
 
-
-    <ImageView
-        android:baselineAlignBottom="false"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        ads:srcCompat="@drawable/ic_dots_black_24dp"
-        android:background="@android:color/transparent"
-        android:layout_marginLeft="320dp"/>
+            <LinearLayout
+                android:id="@+id/SliderDots"
+                android:layout_below="@+id/viewPager"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+            </LinearLayout>
 
 
 

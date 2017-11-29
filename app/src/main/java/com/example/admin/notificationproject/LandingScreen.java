@@ -59,7 +59,21 @@ private CircleImageView profile;
 //        ibProfile =(ImageButton)findViewById(R.id.ibProfile);
         //logout
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null) {
+            boolean emailVerified = user.isEmailVerified();
+            if (!emailVerified) {
 
+                // email is not verified, so just prompt the message to the user and restart this activity.
+                // NOTE: don't forget to log out the user.
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+
+                //restart this activity
+
+            }
+        }
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();

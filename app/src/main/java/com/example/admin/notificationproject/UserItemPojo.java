@@ -6,8 +6,16 @@ package com.example.admin.notificationproject;
 
 public class UserItemPojo {
 
-    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color,bookingStatus,typeDevice,historyId,reasonForBooking;
+    private String imageUri,name,deviceId,itemDate,itemTime,returnDate,color,bookingStatus,typeDevice,historyId,reasonForBooking, typeOs;
     private boolean itemReturn;
+
+    public String getTypeOs() {
+        return typeOs;
+    }
+
+    public void setTypeOs(String typeOs) {
+        this.typeOs = typeOs;
+    }
 
     public String getHistoryId() {
         return historyId;

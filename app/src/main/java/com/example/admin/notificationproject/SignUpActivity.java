@@ -31,11 +31,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnSignup;
@@ -167,7 +162,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     input_email.setError("Email is empty");
                 } else {
 
-                    if (email.contains("@mlab.co.za")) {
+//                    if (email.contains("@mlab.co.za")) {
 
 
                         if (password.isEmpty()) {
@@ -176,68 +171,68 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             if (password.length() >= 7) {
                                 int upperCaseCounter = 0, lowerCaseCounter = 0, digitCounter = 0, whiteSpaceCounter = 0, specialCounter = 0;
 
-                                try {
-                                    byte[] bytes = password.getBytes();
-                                    ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                                    BufferedReader br = new BufferedReader(new InputStreamReader(bais));
-
-
-                                    String pass = br.readLine();
-
-                                    for (int i = 0; i < pass.length(); i++) {
-                                        char ch = pass.charAt(i);
-                                        if (Character.isAlphabetic(ch)) {
-                                            if (Character.isUpperCase(ch)) {
-                                                upperCaseCounter += 1;
-                                            } else {
-                                                lowerCaseCounter += 1;
-                                            }
-                                        } else if (Character.isDigit(ch)) {
-                                            digitCounter += 1;
-                                        } else {
-                                            if (Character.isWhitespace(ch)) {
-                                                whiteSpaceCounter += 1;
-                                            } else {
-                                                specialCounter += 1;
-                                            }
-                                        }
-                                    }
-                                    if (upperCaseCounter > 0) {
-                                        if (lowerCaseCounter > 2) {
-                                            if (specialCounter > 0) {
-                                                if (digitCounter > 1) {
+//                                try {
+//                                    byte[] bytes = password.getBytes();
+//                                    ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+//                                    BufferedReader br = new BufferedReader(new InputStreamReader(bais));
+//
+//
+//                                    String pass = br.readLine();
+//
+//                                    for (int i = 0; i < pass.length(); i++) {
+//                                        char ch = pass.charAt(i);
+//                                        if (Character.isAlphabetic(ch)) {
+//                                            if (Character.isUpperCase(ch)) {
+//                                                upperCaseCounter += 1;
+//                                            } else {
+//                                                lowerCaseCounter += 1;
+//                                            }
+//                                        } else if (Character.isDigit(ch)) {
+//                                            digitCounter += 1;
+//                                        } else {
+//                                            if (Character.isWhitespace(ch)) {
+//                                                whiteSpaceCounter += 1;
+//                                            } else {
+//                                                specialCounter += 1;
+//                                            }
+//                                        }
+//                                    }
+//                                    if (upperCaseCounter > 0) {
+//                                        if (lowerCaseCounter > 2) {
+//                                            if (specialCounter > 0) {
+//                                                if (digitCounter > 1) {
 
 
                                                     signUpUser(email, password);
-                                                } else {
-                                                    input_pass.setError("Password must contain at least 2 uppercase");
-                                                }
-
-                                            } else {
-                                                input_pass.setError("Password must contain at least one special character");
-                                            }
-
-                                        } else {
-                                            input_pass.setError("Password must contain at least 3 lowercase");
-                                        }
-
-                                    } else {
-                                        input_pass.setError("Password must contain at least one uppercase");
-                                    }
-
-
-                                } catch (IOException e) {
-                                    System.out.println("error in input.");
-                                }
+//                                                } else {
+//                                                    input_pass.setError("Password must contain at least 2 uppercase");
+//                                                }
 //
+//                                            } else {
+//                                                input_pass.setError("Password must contain at least one special character");
+//                                            }
+//
+//                                        } else {
+//                                            input_pass.setError("Password must contain at least 3 lowercase");
+//                                        }
+//
+//                                    } else {
+//                                        input_pass.setError("Password must contain at least one uppercase");
+//                                    }
+//
+//
+//                                } catch (IOException e) {
+//                                    System.out.println("error in input.");
+//                                }
+////
 //
                             } else {
                                 input_pass.setError("Password must contains more than 6 characters  ");
                             }
                         }
-                    } else {
-                        input_email.setError("Email must contain @mlab.co.za");
-                    }
+//                    } else {
+//                        input_email.setError("Email must contain @mlab.co.za");
+//                    }
 
 
                 }
@@ -307,7 +302,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             } else {
                                 input_email.setError(task.getException().getMessage());
                             }
-                            snackbar = Snackbar.make(activity_sign_up, "Error: " + task.getException(), Snackbar.LENGTH_SHORT);
+                            snackbar = Snackbar.make(activity_sign_up, "Error: " + task.getException().getMessage(), Snackbar.LENGTH_SHORT);
                             snackbar.show();
 
 

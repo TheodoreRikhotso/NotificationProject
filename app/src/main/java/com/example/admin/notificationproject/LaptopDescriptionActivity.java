@@ -322,6 +322,7 @@ inputBox();
         String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(LaptopDescriptionActivity.this);
+        mBuilder.setCancelable(false);
         View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
 
         btnOk = mView.findViewById(R.id.btnOk);

@@ -387,7 +387,15 @@ private RelativeLayout activity_main;
                 name = editName.getText().toString();
                 department = editDepartment.getText().toString();
 //                    stuffNo = editStuffNo.getText().toString();
+                if(name.isEmpty())
+                {
+                    editName.setError("Please enter name");
+                }
 
+                if(department.isEmpty())
+                {
+                    editDepartment.setError("Please enter position");
+                }
 
                 if (isImage == "2") {
                     StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());

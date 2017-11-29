@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-class ViewPageAdpter extends PagerAdapter {
+class ViewPageAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -26,7 +26,7 @@ class ViewPageAdpter extends PagerAdapter {
             "Facilitator CodeTribe Tembisa", "Facilitation and Coding Assistant Soweto", "Chief Executive Officer"};
 
 
-    public ViewPageAdpter(Context context){
+    public ViewPageAdapter(Context context){
         this.context = context;
     }
 
