@@ -110,6 +110,8 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
         holder.llUserItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 if(!userItemPojo.getBookingStatus().equalsIgnoreCase("Approved")|| !userItemPojo.getBookingStatus().equalsIgnoreCase("Pick Up") ){
                     final BottomSheetDialog dialog = new BottomSheetDialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
                     dialog.setContentView(R.layout.custom_dialog);
@@ -135,7 +137,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
                             .into(image);
 
 
-                    Button dialogButton = (Button) dialog.findViewById(R.id.btnOkayBooked);
+                    Button dialogButton = (Button) dialog.findViewById(R.id.btnOkay);
 
                     dialogButton.setOnClickListener(new View.OnClickListener() {
                         @Override
