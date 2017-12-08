@@ -61,7 +61,6 @@ package com.example.admin.notificationproject;
 //            public void onChildRemoved(DataSnapshot dataSnapshot) {
 //
 //            }
-//
 //            @Override
 //            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 //

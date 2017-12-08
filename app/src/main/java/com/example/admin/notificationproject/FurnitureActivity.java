@@ -35,7 +35,7 @@ public class FurnitureActivity extends AppCompatActivity implements SearchView.O
         setContentView(R.layout.activity_furniture);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarFurniture) ;
-        toolbar.setTitle("Furnitures");
+        toolbar.setTitle("Accessories");
         LandingScreen.ACYIVITY ="FURN";
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));

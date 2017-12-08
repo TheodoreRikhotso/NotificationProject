@@ -82,6 +82,13 @@
                     android:layout_weight="1"
                     android:layout_marginTop="30dp"
                     android:textColor="#ec669900" />
+                <TextView
+                    android:id="@+id/tvid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="30dp"
+                    android:textColor="#ec669900" />
 
             </LinearLayout>
 

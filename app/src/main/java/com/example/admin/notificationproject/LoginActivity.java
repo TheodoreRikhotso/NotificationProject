@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,19 +63,19 @@ public static String ACCOUNT_CHECK="login";
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null) {
-if(ACCOUNT_CHECK!="sign") {
-    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
-}
+//            if(ACCOUNT_CHECK!="sign") {
+                startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+//            }
                 }
             }
         };
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             //profile activity here
-            if(ACCOUNT_CHECK!="sign") {
+//            if(ACCOUNT_CHECK!="sign") {
                 finish();
                 startActivity(new Intent(getApplicationContext(), LandingScreen.class));
-            }
+//            }
         }
 //        mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn) ;
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -120,9 +118,9 @@ if(ACCOUNT_CHECK!="sign") {
 
         //check already session , if ok-> DashBoard
         if (auth.getCurrentUser() != null ) {
-            if(ACCOUNT_CHECK!="sign") {
+//            if(ACCOUNT_CHECK!="sign") {
                 startActivity(new Intent(LoginActivity.this, LandingScreen.class));
-            }
+//            }
 
         }
 
@@ -167,10 +165,11 @@ if(ACCOUNT_CHECK!="sign") {
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //        user.sendEmailVerification();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null) {
-            boolean emailVerified = user.isEmailVerified();
-            if (emailVerified) {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if(user!=null) {
+//            boolean emailVerified = user.isEmailVerified();
+//
+//            if (emailVerified) {
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -179,10 +178,10 @@ if(ACCOUNT_CHECK!="sign") {
                                 mDialog.show();
 
                                 if (task.isSuccessful()) {
-                                    if(ACCOUNT_CHECK!="sign") {
+//                                    if(ACCOUNT_CHECK!="sign") {
                                         startActivity(new Intent(LoginActivity.this, LandingScreen.class));
                                         mDialog.dismiss();
-                                    }
+//                                    }
                                 } else {
                                     mDialog.dismiss();
                                     String emails = task.getException().getMessage();
@@ -198,48 +197,49 @@ if(ACCOUNT_CHECK!="sign") {
                             }
                         });
             }
-            else
-            {
-                mDialog.dismiss();
-                // email is not verified, so just prompt the message to the user and restart this activity.
-                // NOTE: don't forget to log out the user.
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(this, "Email is not verified", Toast.LENGTH_SHORT).show();
-
-                //restart this activity
-
-            }
-        }else {
-
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-
-
-                                if (task.isSuccessful()) {
-                                    if(ACCOUNT_CHECK!="sign") {
-                                    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
-                                    mDialog.dismiss();
-                                    }
-                                } else {
-                                    mDialog.dismiss();
-                                    String emails = task.getException().getMessage();
-                                    if (emails.contains("email")) {
-                                        input_email.setError(task.getException().getMessage());
-                                    } else {
-                                        input_password.setError(task.getException().getMessage());
-                                    }
-
+//            else
+//            {
+//                mDialog.dismiss();
+//                // email is not verified, so just prompt the message to the user and restart this activity.
+//                // NOTE: don't forget to log out the user.
+//                FirebaseAuth.getInstance().signOut();
+//                Toast.makeText(this, "Email is not verified", Toast.LENGTH_SHORT).show();
 //
-                                }
+//                //restart this activity
+//
+//            }
+//        }else {
+//
+//                auth.signInWithEmailAndPassword(email, password)
+//                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                                mDialog.setMessage("Signing in ...");
+//                                mDialog.show();
+//                                if (task.isSuccessful()) {
+//
+//                                    startActivity(new Intent(LoginActivity.this, LandingScreen.class));
+//                                    mDialog.dismiss();
+//
+//                                } else {
+//                                    mDialog.dismiss();
+//                                    String emails = task.getException().getMessage();
+//                                    if (emails.contains("email")) {
+//                                        input_email.setError(task.getException().getMessage());
+//                                    } else {
+//                                        input_password.setError(task.getException().getMessage());
+//                                    }
+//
+////
+//                                }
+//
+//                            }
+//                        });
+//        }
 
-                            }
-                        });
-        }
 
-
-    }
+//    }
 
     @Override
     protected void onStart() {

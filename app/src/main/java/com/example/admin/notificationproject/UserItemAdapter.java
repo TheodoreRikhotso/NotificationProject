@@ -135,7 +135,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MyView
                             .into(image);
 
 
-                    Button dialogButton = (Button) dialog.findViewById(R.id.btnOkay);
+                    Button dialogButton = (Button) dialog.findViewById(R.id.btnOkayBooked);
 
                     dialogButton.setOnClickListener(new View.OnClickListener() {
                         @Override

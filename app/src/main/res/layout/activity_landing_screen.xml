@@ -193,14 +193,14 @@
                     android:layout_below="@+id/ibFurniture"
                     android:layout_marginTop="5dp"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_person_white" />
+                    app:srcCompat="@drawable/ic_settings_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:textColor="#fff"
-                    android:text="My Profile"
+                    android:text="Settings"
                     />
             </LinearLayout>
         </LinearLayout>

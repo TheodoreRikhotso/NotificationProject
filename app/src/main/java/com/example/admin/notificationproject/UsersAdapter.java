@@ -52,6 +52,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
         holder.tvStuff_No.setText(catalog.getStuffNo());
         holder.tvName.setText(catalog.getName());
         holder.tvDepartmentName.setText(catalog.getDepartmentName());
+        holder.userId.setText(catalog.getLogId());
+        holder.userId.setVisibility(View.GONE);
 
         Glide.with(context)
                 .load(catalog.getImage())
@@ -62,7 +64,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
                 ProfilePojo c = catalog;
-                Intent intent = new Intent(context, LaptopDescriptionActivity
+                Intent intent = new Intent(context, BookAssetsActivity
                         .class);
                 intent.putExtra("select", c);
                 context.startActivity(intent);
@@ -82,7 +84,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item3;
 LinearLayout llUserItem;
-        TextView item1, tvStuff_No, tvName,tvDepartmentName, textView1;
+        TextView item1, tvStuff_No, tvName,tvDepartmentName, userId;
         ImageView imageButton1 , imb2,imb1 ;
         View view01,view02 ;
         Button btnView;
@@ -95,6 +97,7 @@ LinearLayout llUserItem;
             tvName = itemView.findViewById(R.id.tvName);
             tvDepartmentName = itemView.findViewById(R.id.tvDepartmentName);
             imageButton1 = itemView.findViewById(R.id.ivUserImage);
+            userId = itemView.findViewById(R.id.tvid);
 
 
 

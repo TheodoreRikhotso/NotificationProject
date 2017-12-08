@@ -2,7 +2,6 @@ package com.example.admin.notificationproject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -93,14 +92,14 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
         toolbar.setTitle(c.getTitle());
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        toolbar.setTitleTextColor(Color.DKGRAY);
+//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
+//        toolbar.setTitleTextColor(Color.DKGRAY);
 
 
         tvQuantity = (TextView) findViewById(R.id.tvQuantity);
@@ -173,17 +172,17 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                             });
 
                         } else {
-                            Toast.makeText(FurnitureDescriptionActivity.this, "NO", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FurnitureDescriptionActivity.this, "You cannot book an Assert before you return the recently booked Assert", Toast.LENGTH_SHORT).show();
 //                                    Snackbar.make(view, "You cannot book a Assert before can return the recently booked", Snackbar.LENGTH_LONG).show();
                         }
                         btnRequest.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (error != null) {
-                                    Toast.makeText(FurnitureDescriptionActivity.this, "y", Toast.LENGTH_SHORT).show();
+
                                     Toast.makeText(FurnitureDescriptionActivity.this, error, Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(FurnitureDescriptionActivity.this, "g", Toast.LENGTH_SHORT).show();
+
                                     inputBox();
                                 }
                             }
@@ -194,7 +193,13 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
                 }
 
                 }else{
+                    btnRequest.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                     inputBox();
+                        }
+
+                    });
                 }
             }
 
@@ -209,7 +214,7 @@ public class FurnitureDescriptionActivity extends AppCompatActivity {
 //        });
 
 
-        tvQuantity.setText(c.getQuantity());
+        tvQuantity.setText(c.getTotalQuantity());
         tvDeliverance.setText(c.getDeliverance());
         tvDuration.setText(c.getDuration() + " hours");
         tvTypes.setText("" + c.getType());

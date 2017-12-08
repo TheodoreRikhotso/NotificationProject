@@ -43,5 +43,12 @@ public class AdminLandingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnAssetBooked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminLandingActivity.this,VeiwAllBookedActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

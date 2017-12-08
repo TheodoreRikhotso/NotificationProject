@@ -25,6 +25,7 @@ public class LandingScreen extends AppCompatActivity {
     private LinearLayout imCar,ibPhone,ibFurniture,ibLaptop,notification_panel, ibFAQs,ibProfile, btnMyProfile;
 private CircleImageView profile;
     public static String ACYIVITY=" non";
+    private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,21 +60,8 @@ private CircleImageView profile;
 //        ibProfile =(ImageButton)findViewById(R.id.ibProfile);
         //logout
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null) {
-            boolean emailVerified = user.isEmailVerified();
-            if (!emailVerified) {
 
-                // email is not verified, so just prompt the message to the user and restart this activity.
-                // NOTE: don't forget to log out the user.
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
 
-                //restart this activity
-
-            }
-        }
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
@@ -187,6 +175,7 @@ private CircleImageView profile;
         getMenuInflater().inflate(R.menu.menu_dots, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

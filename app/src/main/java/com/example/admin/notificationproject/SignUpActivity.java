@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,14 +19,12 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -140,9 +137,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //        }
 
 
-        if (view.getId() == R.id.btn_verify_email) {
-            sendEmailVerification();
-        }
+
 
 
         if (view.getId() == R.id.signup_btn_register) {
@@ -255,7 +250,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             String id = auth.getCurrentUser().getUid();
 //                            stuffno=etStuffNo.getText().toString();
-                            LoginActivity.ACCOUNT_CHECK = "sign";
+
 
                             profiledb = FirebaseDatabase.getInstance().getReference("Users/" + id + "/Profile");
 
@@ -269,15 +264,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             profilePojo.setName(name);
                             profilePojo.setLogId(auth.getCurrentUser().getUid());
 
+
                             profiledb.setValue(profilePojo);
 
-                            sendEmailVerification();
 
                             snackbar = Snackbar.make(activity_sign_up, " : ", Snackbar.LENGTH_SHORT);
                             snackbar.show();
 
                             Snackbar snackbar = Snackbar
-                                    .make(activity_sign_up, " Verification Sent!!", Snackbar.LENGTH_LONG)
+                                    .make(activity_sign_up, " Signing In!!", Snackbar.LENGTH_LONG)
                                     .setAction("Done", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
@@ -288,7 +283,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             snackbar.show();
 
-                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, LandingScreen.class);
                             startActivity(intent);
                             //showDialog( ALERT_DIALOG );
 
@@ -357,28 +352,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    private void sendEmailVerification() {
-        // Disable Verify Email button
-        findViewById(R.id.btn_verify_email).setEnabled(false);
 
-        final FirebaseUser user = auth.getCurrentUser();
-        user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // Re-enable Verify Email button
-                        findViewById(R.id.btn_verify_email).setEnabled(true);
-
-                        if (task.isSuccessful()) {
-
-
-                        } else {
-                            Log.e("kjf", "sendEmailVerification failed!", task.getException());
-                            Toast.makeText(getApplicationContext(), "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
 
 
 }

@@ -74,10 +74,11 @@ public class ProfileActivity extends AppCompatActivity {
     private String mainName, mainStuffNo, mainDepart, mainImage, secondImage;
     String isImage = "1";
     public static int dayDiffer;
-private RelativeLayout activity_main;
+    private RelativeLayout activity_main;
+    private FirebaseUser user;
 
     ///
-    private DatabaseReference databaseProfile;
+    private DatabaseReference databaseProfile, databaseProf;
 
     //user Items
     List<UserItemPojo> userItemPojos;
@@ -92,6 +93,7 @@ private RelativeLayout activity_main;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
 
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCar);
@@ -118,6 +120,7 @@ private RelativeLayout activity_main;
             public void onClick(View v) {
 
                 onBackPressed();
+
             }
         });
         toolbar.setTitleTextColor(Color.WHITE);
@@ -135,7 +138,8 @@ private RelativeLayout activity_main;
 
 
         //user item
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+         user = FirebaseAuth.getInstance().getCurrentUser();
 //        DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("UserItems");
 //
 //        DatabaseReference databaseItem = databaseItems.child(user.getUid());
@@ -148,6 +152,7 @@ private RelativeLayout activity_main;
 
         DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("Users/" + ids + "/History");
         databaseProfile = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/Profile");
+        databaseProf = FirebaseDatabase.getInstance().getReference("AllUsers/" + user.getUid());
 
         databaseItems.addValueEventListener(new ValueEventListener() {
             @Override
@@ -194,11 +199,6 @@ private RelativeLayout activity_main;
                 String changeDate = dateFormat.format(currentTime);
 
 
-
-
-
-
-
             }
 
 
@@ -224,7 +224,7 @@ private RelativeLayout activity_main;
         floatingEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buildDialog(R.style.DialogAnimation_Profile);
+                buildDialog();
             }
         });
 
@@ -249,17 +249,19 @@ private RelativeLayout activity_main;
                         nameS.setVisibility(View.VISIBLE);
                         tvDepartment.setText(mainDepart);
                         tvDepartment.setVisibility(View.VISIBLE);
-
-
-                        Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(image) {
-                            @Override
-                            protected void setResource(Bitmap resource) {
-                                RoundedBitmapDrawable circularBitmapDrawable =
-                                        RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
-                                circularBitmapDrawable.setCircular(true);
-                                image.setImageDrawable(circularBitmapDrawable);
-                            }
-                        });
+                        if (person.getImage() != null) {
+                            Glide.with(ProfileActivity.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(image) {
+                                @Override
+                                protected void setResource(Bitmap resource) {
+                                    RoundedBitmapDrawable circularBitmapDrawable =
+                                            RoundedBitmapDrawableFactory.create(ProfileActivity.this.getResources(), resource);
+                                    circularBitmapDrawable.setCircular(true);
+                                    image.setImageDrawable(circularBitmapDrawable);
+                                }
+                            });
+                        } else {
+                            System.out.println("Image is null");
+                        }
                     }
 
                 }
@@ -324,7 +326,7 @@ private RelativeLayout activity_main;
 
     }
 
-    private void buildDialog(int animationSource) {
+    private void buildDialog() {
         final ProfilePojo profilePojo = new ProfilePojo();
         builder = new Dialog(this);
 
@@ -387,46 +389,81 @@ private RelativeLayout activity_main;
                 name = editName.getText().toString();
                 department = editDepartment.getText().toString();
 //                    stuffNo = editStuffNo.getText().toString();
-                if(name.isEmpty())
-                {
+                if (name.isEmpty()) {
                     editName.setError("Please enter name");
                 }
 
-                if(department.isEmpty())
-                {
+                if (department.isEmpty()) {
                     editDepartment.setError("Please enter position");
                 }
 
                 if (isImage == "2") {
-                    StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());
+
 
                     //uploading the image
-                    UploadTask uploadTask = childRef.putFile(filePath);
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            pd.dismiss();
-                            @SuppressWarnings("VisibleForTests") Uri uir = taskSnapshot.getDownloadUrl();
-                            profileUri = uir.toString();
-                            ProfilePojo profilePojo = new ProfilePojo();
+                    if (filePath != null) {
+                        StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());
+                        UploadTask uploadTask = childRef.putFile(filePath);
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                pd.dismiss();
+                                @SuppressWarnings("VisibleForTests") Uri uir = taskSnapshot.getDownloadUrl();
+                                profileUri = uir.toString();
+                                ProfilePojo profilePojo = new ProfilePojo();
 
-                            profilePojo.setImage(uir.toString());
-                            profilePojo.setDepartmentName(department);
-                            profilePojo.setName(name);
+                                profilePojo.setImage(uir.toString());
+                                profilePojo.setDepartmentName(department);
+                                profilePojo.setName(name);
+                                profilePojo.setId(user.getUid());
 //            profilePojo.setStuffNo(stuffNo);
 
-                            FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                            databaseProfile.setValue(profilePojo);
+                                FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                                int i = 1;
+                                if (i == 1) {
 
-                            Toast.makeText(ProfileActivity.this, "Upload successful ", Toast.LENGTH_SHORT).show();
+                                    databaseProf.setValue(profilePojo);
+                                    i = 2;
+                                }
+
+                                if (i == 2) {
+
+                                    databaseProfile.setValue(profilePojo);
+                                }
+
+                                Toast.makeText(ProfileActivity.this, "Upload successful ", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                pd.dismiss();
+                                Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    {
+                        ProfilePojo profilePojo = new ProfilePojo();
+                        pd.dismiss();
+
+
+                        profilePojo.setDepartmentName(department);
+                        profilePojo.setName(name);
+//            profilePojo.setStuffNo(stuffNo);
+
+                        FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                        int i = 1;
+                        if (i == 1) {
+                            databaseProf.setValue(profilePojo);
+                            i = 2;
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            pd.dismiss();
-                            Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+
+                        if (i == 2) {
+
+                            databaseProfile.setValue(profilePojo);
                         }
-                    });
+
+
+                    }
 
                 } else {
                     pd.dismiss();
@@ -439,7 +476,19 @@ private RelativeLayout activity_main;
                     profilePojo.setSecondImage(secondImage);
 
                     FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                    databaseProfile.setValue(profilePojo);
+
+
+                    int i = 1;
+                    if (i == 1) {
+                        databaseProf.setValue(profilePojo);
+                        i = 2;
+                    }
+
+                    if (i == 2) {
+
+                        databaseProfile.setValue(profilePojo);
+                    }
+
                 }
 
 
@@ -450,7 +499,7 @@ private RelativeLayout activity_main;
         });
 
 
-        builder.getWindow().getAttributes().windowAnimations = animationSource;
+        builder.getWindow().getAttributes();
         builder.show();
     }
 

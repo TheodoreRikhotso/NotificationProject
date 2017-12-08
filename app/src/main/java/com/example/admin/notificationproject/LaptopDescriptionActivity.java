@@ -2,7 +2,6 @@ package com.example.admin.notificationproject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -98,14 +97,14 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         toolbar.setTitle(c.getTitle());
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        toolbar.setTitleTextColor(Color.DKGRAY);
+//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
+//        toolbar.setTitleTextColor(Color.DKGRAY);
 
 
         tvRam = (TextView) findViewById(R.id.tvRam);
