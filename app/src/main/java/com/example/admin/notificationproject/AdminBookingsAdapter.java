@@ -20,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,11 +38,17 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
         private List<UserItemPojo> userItemPojos;
         private Activity applicationContext;
         private boolean check =false;
+        private String userId;
+        private int num;
     private DatabaseReference databaseUserItem;
+    private DatabaseReference dataType;
+    private  Spinner spStatus;
+    private   String[] returned = { "Asset Returned","False","True" };
 
-        public AdminBookingsAdapter(Activity context, List<UserItemPojo> userItemPojos) {
+    public AdminBookingsAdapter(Activity context, List<UserItemPojo> userItemPojos,String userId) {
             this.context = context;
             this.userItemPojos = userItemPojos;
+            this.userId = userId;
         }
 
 
@@ -63,8 +71,7 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
                 @Override
                 public boolean onLongClick(View view) {
                     DatabaseReference databaseReference;
-                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    String ids =user.getUid();
+
                     if(userItemPojo.getBookingStatus() !=("Pick Up")) {
 
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -85,10 +92,9 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
                                 // Write your code here to invoke YES event
                                 Toast.makeText(context, "You clicked on YES", Toast.LENGTH_SHORT).show();
 
-                                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                String ids = user.getUid();
 
-                                DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("Users/" + ids + "/History/" + userItemPojo.getHistoryId());
+
+                                DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/History/" + userItemPojo.getHistoryId());
 
                                 databaseItems.removeValue();
                             }
@@ -128,9 +134,61 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
                         TextView returnDate = (TextView) dialog.findViewById(R.id.ivPopReturnDateBooked);
                         TextView color = (TextView) dialog.findViewById(R.id.ivPopColorBooked);
                         ImageView image = (ImageView) dialog.findViewById(R.id.ivPopImageBooked);
-                    databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" + profilePojo.getId() + "/History/"+userItemPojo.getHistoryId());
+                    databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/History/"+userItemPojo.getHistoryId());
 
-                    Spinner spStatus = (Spinner)  dialog.findViewById(R.id.spStatusBooked);
+                     spStatus = (Spinner)  dialog.findViewById(R.id.spStatusBooked);
+                    DatabaseReference databaseReturn = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/History/" + userItemPojo.getHistoryId());
+                    databaseReturn.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            if(dataSnapshot!=null)
+                            {
+
+
+                                try {
+                                    UserItemPojo userItemPojo1 =dataSnapshot.getValue(UserItemPojo.class);
+                                    if(userItemPojo1.getItemReturn() ==true)
+                                {
+                                    spStatus.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            spStatus.setSelection(2);
+                                        }
+                                    });
+                                }
+                                }
+                                catch(DatabaseException e){
+                                    //Log the exception and the key
+                                    dataSnapshot.getKey();
+                                }
+
+//
+
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     spStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -147,9 +205,17 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
                     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     //Setting the ArrayAdapter data on the Spinner
                     spStatus.setAdapter(aa);
+                    if(userItemPojo.getTypeDevice()=="Phone") {
+                        dataType = FirebaseDatabase.getInstance().getReference("Devices/Phones/" + userItemPojo.getDeviceId());
+                    }
+                    if(userItemPojo.getTypeDevice()=="Furniture") {
+                        dataType = FirebaseDatabase.getInstance().getReference("Devices/Furniture/" + userItemPojo.getDeviceId());
+                    }
+                    if(userItemPojo.getTypeDevice()=="Laptop") {
+                        dataType = FirebaseDatabase.getInstance().getReference("Devices/Laptop/" + userItemPojo.getDeviceId());
+                    }
 
 
-                    final String[] returned = { "Asset Returned","False","True" };
                     Spinner spReturn = (Spinner)  dialog.findViewById(R.id.spReturnedBooked);
                     spReturn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -157,6 +223,145 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
                             Boolean state = false;
                             if (returned[i]=="True") {
                                 state=true;
+                                if(userItemPojo.getTypeDevice()=="Laptop") {
+                                    Laptop phonePojo = new Laptop();
+
+                                  dataType.addChildEventListener(new ChildEventListener() {
+                                      @Override
+                                      public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                          if (dataSnapshot != null) {
+
+                                              Laptop phonePojo = dataSnapshot.getValue(Laptop.class);
+                                              if(phonePojo!=null)
+                                              {
+                                                 String qty= phonePojo.getTotalQuantity();
+                                                  num = Integer.parseInt(qty);
+
+
+                                              }
+                                          }
+                                      }
+
+                                      @Override
+                                      public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                      }
+
+                                      @Override
+                                      public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                      }
+
+                                      @Override
+                                      public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                      }
+
+                                      @Override
+                                      public void onCancelled(DatabaseError databaseError) {
+
+                                      }
+                                  });
+                                    num =num+1;
+
+                                    phonePojo.setTotalQuantity(Integer.toString(num));
+                                    dataType.setValue(phonePojo);
+                                }
+
+                                if(userItemPojo.getTypeDevice()=="Furniture") {
+
+                                    FurniturePojo phonePojo = new FurniturePojo();
+
+                                    dataType.addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                            if (dataSnapshot != null) {
+
+                                                FurniturePojo phonePojo = dataSnapshot.getValue(FurniturePojo.class);
+                                                if(phonePojo!=null)
+                                                {
+                                                    String qty= phonePojo.getTotalQuantity();
+                                                    num = Integer.parseInt(qty);
+
+
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    num =num+1;
+
+                                    phonePojo.setTotalQuantity(Integer.toString(num));
+                                    dataType.setValue(phonePojo);
+
+
+                                }
+
+                                if(userItemPojo.getTypeDevice()=="Phone") {
+
+                                    FurniturePojo phonePojo = new FurniturePojo();
+
+                                    dataType.addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                            if (dataSnapshot != null) {
+
+                                                FurniturePojo phonePojo = dataSnapshot.getValue(FurniturePojo.class);
+                                                if(phonePojo!=null)
+                                                {
+                                                    String qty= phonePojo.getTotalQuantity();
+                                                    num = Integer.parseInt(qty);
+
+
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    num =num+1;
+
+                                    phonePojo.setTotalQuantity(Integer.toString(num));
+                                    dataType.setValue(phonePojo);
+
+                                }
                             }else
                             if (returned[i]=="False") {
                                 state=false;

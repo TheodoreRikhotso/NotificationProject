@@ -23,6 +23,7 @@ public class VeiwAllBookedActivity extends AppCompatActivity {
     List<UserItemPojo> userItemPojos;
     RecyclerView rvBooked;
     DatabaseReference dbRequest;
+    private static String mainId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class VeiwAllBookedActivity extends AppCompatActivity {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Log.i("MainActivity", child.getKey());
                     DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("Users/" + child.getKey() + "/History");
+                    mainId =child.getKey();
                     databaseItems.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -46,6 +48,8 @@ public class VeiwAllBookedActivity extends AppCompatActivity {
 
                                 int numberOfColumns = 1;
 
+
+
                                 rvBooked.setLayoutManager(new GridLayoutManager(VeiwAllBookedActivity.this, numberOfColumns));
                                 userItemPojos.add(item);
                                 ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.d);
@@ -54,13 +58,9 @@ public class VeiwAllBookedActivity extends AppCompatActivity {
                                 //layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
                             }
-                            UserItemAdapter adapterss = new UserItemAdapter(VeiwAllBookedActivity.this, userItemPojos);
+                            AdminBookingsAdapter adapterss = new AdminBookingsAdapter(VeiwAllBookedActivity.this, userItemPojos,mainId);
                             Collections.reverse(userItemPojos);
-//                        Collections.sort(userItemPojos, new Comparator<UserItemPojo>() {
-//                            public int compare(UserItemPojo o1, UserItemPojo o2) {
-//                                return o2.getItemDate().compareTo(o1.getItemDate());
-//                            }
-//                        });
+//
                             adapterss.setHasStableIds(true);
                             adapterss.notifyDataSetChanged();
 
