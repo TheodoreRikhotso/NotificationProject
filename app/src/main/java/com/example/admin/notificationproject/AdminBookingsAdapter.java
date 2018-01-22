@@ -44,7 +44,8 @@ public class AdminBookingsAdapter extends RecyclerView.Adapter<AdminBookingsAdap
     private DatabaseReference dataType;
     private  Spinner spStatus;
     private   String[] returned = { "Asset Returned","False","True" };
-
+    // variables to save user selected date and time
+    public  int yearSelected,monthSelected,daySelected,hourSelected,minuteSelected;
     public AdminBookingsAdapter(Activity context, List<UserItemPojo> userItemPojos,String userId) {
             this.context = context;
             this.userItemPojos = userItemPojos;
