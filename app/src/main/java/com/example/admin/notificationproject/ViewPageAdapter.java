@@ -4,6 +4,7 @@ package com.example.admin.notificationproject;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,12 @@ class ViewPageAdpter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.rulani_nevhufumba, R.drawable.lebogang_madise, R.drawable.khuthadzo_gundula,R.drawable.melvin_musehani, R.drawable.sihle_mabaleka,R.drawable.veronica, R.drawable.tendai_mazhude,
-            R.drawable.alexandrafraser, R.drawable.zanoxolo_mngadi, R.drawable.motebang_mokwatsi, R.drawable.tinga, R.drawable.derrick_kotze };
+    private Integer [] images = {R.drawable.nonhlanhla_m, R.drawable.theo, R.drawable.rob,R.drawable.khumbudzo, R.drawable.sihle_mabaleka};
 
-    private String [] person = {"Rulani Nevhufumba", "Lebogang Madise", "Khuthadzo Gundula", "Melvin Musehani", "Sihle Mabaleka", "Veronica Mahlangu", "Tendai Mazhude", "Alexandra Fraser", "Zanoxolo Mngadi", "Motebang Mokwatsi",
-            "Zakhele Tinga","Derrick Kotze"};
+    private String [] person = {"Nonhlanhla Mkhonza", "Theodore Paseka  Rikhotso", "Lesego Mohalanyane", "Kumbudzo Ramulifho", "Nkosinathi Madlophe"};
 
-    private String [] area = {"mLab Provincial Manager | Gauteng", "mLab Provincial Manager | Western Cape & DEMOLA SA Lead", "CodeTribe Facilitator Tshwane | Android Developer", "mLab Developer in Residence",
-            "Facilitator CodeTribe Soweto | DEMOLA Johannesburg", "mLab & CodeTribe Coordinator", "Operations and M&E Consultant", "Partnerships & Ecosystem Consultant", "Facilitator CodeTribe Alexandra",
-            "Facilitator CodeTribe Tembisa", "Facilitation and Coding Assistant Soweto", "Chief Executive Officer"};
+    private String [] area = {"https://www.linkedin.com/in/nonhlanhla-su-zaan-mkonza-32226772", "https://www.linkedin.com/in/paseka-rikhotso-ba0b84113/", "https://www.linkedin.com/in/lesego-thato-846601159/", "mLab Developer in Residence",
+            "Facilitator CodeTribe Soweto | DEMOLA Johannesburg"};
 
 
     public ViewPageAdpter(Context context){

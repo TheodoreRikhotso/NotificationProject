@@ -52,28 +52,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="When our youth are empowered with the right skills to innovate and create solutions, they unlock the opportunities for new businesses that will drive our economies forward."
+        android:text="Mlab Asset Booking pro. Is an App designed for companies to manage the way in which company assets are used. "
         android:textColor="@color/cardview_dark_background" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is why we support these young innovators, founders, next generation coders and digital creatives. "
+        android:text="With this app employees are able to book assets such as cell phones, laptops and office equipment such as boardrooms. "
         android:layout_marginBottom="15dp"
         android:textColor="@color/cardview_dark_background" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="In September 2011 mLab Southern Africa launched as a mobile technology accelerator with the aim of supporting innovative new startups and to unlock the mobile apps economy."
+        android:text="Employee requests are approved according to individual contracts; you have to be an employee of the company to be eligible to use this app. Contractors and or temporary stuff is unable to use this platform."
         android:layout_marginBottom="15dp"
         android:textColor="@color/cardview_dark_background"  />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Since then we have grown to include programmes that support skills development through our own and partner code academies, facilitated co-creation seasons with industry and public sector partners and we continue to build on our successes as a local tech startup accelerator."
+        android:text="How to use the platform? Users are advised to go through our catalogs to see what they need. A reason for booking is prompted up selection. This is to let the company know as to why you need a certain device/office space. "
         android:layout_marginBottom="15dp"
         android:textColor="@color/cardview_dark_background" />
 
@@ -81,7 +81,10 @@
         android:id="@+id/tvAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" mLab Southern Africa is a registered Nonprofit organisation that is powered through the support of The Ministry of Foreign Affairs of Finland, The Department of Science; Technology, The Innovation Hub, The A Waterfront and the World Bank infoDEV."
+        android:text="All bookings on the user’s side are to reflect on the profile section immediately, bookings have a color states to show the user how far along their request is.
+        \nGreen for booked, Yellow for Waiting for Approval, Orange Approved, Red for Pick Up which means the item is ready for user to pick up from HR Department. More specs of the App will be on Google Play.
+
+"
         android:layout_marginBottom="15dp"
         android:textColor="@color/cardview_dark_background"  />
 
