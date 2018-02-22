@@ -46,7 +46,8 @@
         android:text="Position"
         android:textColor="#9CD65F"
         android:textSize="14sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:autoLink="web"/>
 
 
 </RelativeLayout>
