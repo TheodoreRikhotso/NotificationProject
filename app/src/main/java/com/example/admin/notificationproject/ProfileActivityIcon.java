@@ -122,6 +122,14 @@ public class ProfileActivityIcon extends AppCompatActivity {
             }
         });
 
+        imProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivityIcon.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         linearLayoutPro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -324,7 +324,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
         if (id == ALERT_DIALOG) {
-            ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.MyStyle);
+            @SuppressLint("RestrictedApi") ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.MyStyle);
             AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
             builder.setMessage("Verification email sent to")
                     .setTitle("Verification")

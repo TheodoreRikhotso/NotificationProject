@@ -16,6 +16,17 @@ public class Laptop  implements Serializable {
     private String os;
     private String graphics;
     private String ram,image1,image2;
+    private String quantity;
+
+
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 
 
     public String getImage1() {

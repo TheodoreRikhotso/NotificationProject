@@ -42,7 +42,7 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
     ImageView imageView;
-    TextView tvRam, tvStorage, tvOs, tvGraphics;
+    TextView tvRam, tvStorage, tvOs, tvGraphics, tvQuantity;
     Button btnRequest;
     Button btn_red, btn_blue, btn_gray, btn_white, btn_black, btnEnter;
     private String image, name, id;
@@ -107,7 +107,7 @@ public class LaptopDescriptionActivity extends AppCompatActivity {
         });
         toolbar.setTitleTextColor(Color.DKGRAY);
 
-
+        tvQuantity = (TextView) findViewById(R.id.tvQuantity);
         tvRam = (TextView) findViewById(R.id.tvRam);
         tvStorage = (TextView) findViewById(R.id.tvStorage);
         tvOs = (TextView) findViewById(R.id.tvOs);
@@ -190,8 +190,15 @@ inputBox();
         tvGraphics.setText(c.getGraphics());
         tvOs.setText(c.getOs());
         tvStorage.setText(c.getStorage());
-
         name = c.getTitle();
+
+        Glide.with(getApplicationContext())
+                            .load(c.getImage())
+                            .into(imageView);
+
+
+        tvQuantity.setText(c.getQuantity());
+
 
 //
 
@@ -201,119 +208,123 @@ inputBox();
 //        Color4.setText(c.getColor4());
 //        Color5.setText(c.getColor5());
 
-        btn_red = (Button)
 
-                findViewById(R.id.btn_red);
-
-        btn_black = (Button)
-
-                findViewById(R.id.btn_black);
-
-        btn_gray = (Button)
-
-                findViewById(R.id.btnGrey);
-
-
-        btn_black.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_black.setBackground(getDrawable(R.drawable.white_selected_button));
-                btn_black.setScaleX((float) 1.3);
-                btn_black.setScaleY((float) 1.3);
-
-                btn_red.setScaleX(1);
-                btn_red.setScaleY(1);
-
-                btn_gray.setScaleX(1);
-                btn_gray.setScaleY(1);
-
-                seletedColor = "black";
-                if (c.getImage() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-
-        btn_gray.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_gray.setBackground(getDrawable(R.drawable.black_selected_button));
-                btn_gray.setScaleX((float) 1.3);
-                btn_gray.setScaleY((float) 1.3);
-
-                btn_black.setScaleX(1);
-                btn_black.setScaleY(1);
-
-
-                seletedColor = "Grey";
-
-                btn_red.setScaleX(1);
-                btn_red.setScaleY(1);
-
-                if (c.getImage1() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage1())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btn_red.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btn_red.setBackground(getDrawable(R.drawable.blue_selected_button));
-                btn_red.setScaleX((float) 1.3);
-                btn_red.setScaleY((float) 1.3);
-
-
-                seletedColor = "Red";
-                btn_gray.setScaleX(1);
-                btn_gray.setScaleY(1);
-
-
-                btn_black.setScaleX(1);
-                btn_black.setScaleY(1);
-
-
-                if (c.getImage2() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage2())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        image = c.getImage();
-        Glide.with(
-
-                getApplicationContext())
-                .
-
-                        load(c.getImage())
-                .
-
-                        into(imageView);
-
+        /**
+         * BUTTON PICTURE CHANGE
+         */
+//        btn_red = (Button)
+//
+//                findViewById(R.id.btn_red);
+//
+//        btn_black = (Button)
+//
+//                findViewById(R.id.btn_black);
+//
+//        btn_gray = (Button)
+//
+//                findViewById(R.id.btnGrey);
+//
+//
+//        btn_black.setOnClickListener(new View.OnClickListener()
+//
+//        {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btn_black.setBackground(getDrawable(R.drawable.white_selected_button));
+//                btn_black.setScaleX((float) 1.3);
+//                btn_black.setScaleY((float) 1.3);
+//
+//                btn_red.setScaleX(1);
+//                btn_red.setScaleY(1);
+//
+//                btn_gray.setScaleX(1);
+//                btn_gray.setScaleY(1);
+//
+//                seletedColor = "black";
+//                if (c.getImage() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+//
+//
+//        btn_gray.setOnClickListener(new View.OnClickListener()
+//
+//        {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btn_gray.setBackground(getDrawable(R.drawable.black_selected_button));
+//                btn_gray.setScaleX((float) 1.3);
+//                btn_gray.setScaleY((float) 1.3);
+//
+//                btn_black.setScaleX(1);
+//                btn_black.setScaleY(1);
+//
+//
+//                seletedColor = "Grey";
+//
+//                btn_red.setScaleX(1);
+//                btn_red.setScaleY(1);
+//
+//                if (c.getImage1() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage1())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        btn_red.setOnClickListener(new View.OnClickListener()
+//
+//        {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btn_red.setBackground(getDrawable(R.drawable.blue_selected_button));
+//                btn_red.setScaleX((float) 1.3);
+//                btn_red.setScaleY((float) 1.3);
+//
+//
+//                seletedColor = "Red";
+//                btn_gray.setScaleX(1);
+//                btn_gray.setScaleY(1);
+//
+//
+//                btn_black.setScaleX(1);
+//                btn_black.setScaleY(1);
+//
+//
+//                if (c.getImage2() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage2())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(LaptopDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//
+//        image = c.getImage();
+//        Glide.with(
+//
+//                getApplicationContext())
+//                .
+//
+//                        load(c.getImage())
+//                .
+//
+//                        into(imageView);
+//
 
     }
     private  void getDialogBook(){

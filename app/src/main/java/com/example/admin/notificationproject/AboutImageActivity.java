@@ -37,8 +37,8 @@ public class AboutImageActivity extends AppCompatActivity {
 
         //SETS THE SLIDING VIEWPAGER
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        ViewPageAdpter viewPageAdpter = new ViewPageAdpter(this);
-        viewPager.setAdapter(viewPageAdpter);
+        ViewPageAdapter viewPageAdapter = new ViewPageAdapter(this);
+        viewPager.setAdapter(viewPageAdapter);
 
         //        //toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarAbout) ;

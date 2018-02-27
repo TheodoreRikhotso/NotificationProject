@@ -9,12 +9,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarCar"
@@ -36,7 +30,6 @@
         <com.github.florent37.diagonallayout.DiagonalLayout
             android:id="@+id/diagonalLayout"
             android:layout_width="match_parent"
-
             android:layout_height="266dp"
             diagonal:diagonal_angle="10"
             android:elevation="0dp"
@@ -55,14 +48,6 @@
 
             </com.flaviofaria.kenburnsview.KenBurnsView>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/ivSecondImage"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:background="#ec669900"-->
-
-        <!--/>-->
 
 
 
@@ -96,7 +81,7 @@
         android:fontFamily="sans-serif-light"
         android:layout_marginLeft="30dp"
 android:layout_below="@id/avatar"
-        android:textSize="25sp"
+        android:textSize="20sp"
         />
 
     <LinearLayout
@@ -129,12 +114,26 @@ android:layout_below="@id/avatar"
         android:layout_height="wrap_content"/>
 
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/vStV"
+        android:layout_marginTop="18dp">
 
-    <ListView
-        android:layout_below="@id/vStV"
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </RelativeLayout>
+    </ScrollView>
 
 
         <TextView
@@ -143,7 +142,6 @@ android:layout_below="@id/avatar"
             android:textSize="15dp"
             android:id="@+id/teext"
             android:text="    Requested Asset:"
-            android:layout_below="@id/list"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -191,8 +189,6 @@ android:layout_below="@id/avatar"
 
 
 
-    </RelativeLayout>
-</ScrollView>
 
  <RelativeLayout
      android:layout_width="match_parent"

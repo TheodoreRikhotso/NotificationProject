@@ -8,8 +8,16 @@ import java.io.Serializable;
 
 public class PhonePojo implements Serializable {
 
-  private String id,title,serialNo,totalQuantity,image,duration,memory,os,battery,ram,image1,image2;
+  private String id,title,serialNo,totalQuantity,image,duration,memory,os,battery,ram,image1,image2, quantity;
 
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 
     public String getImage1() {
         return image1;

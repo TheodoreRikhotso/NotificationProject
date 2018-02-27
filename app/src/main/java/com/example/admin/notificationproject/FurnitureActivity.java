@@ -65,8 +65,6 @@ public class FurnitureActivity extends AppCompatActivity implements SearchView.O
                     catalogListFurniture.add(catalog);
                     layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
                      adapters = new FurnitureAdapter(FurnitureActivity.this, catalogListFurniture);
-
-//                    Toast.makeText(CatalogActivity.this, ""+catalog.getCatalogtitle(), Toast.LENGTH_SHORT).show();
                     ListViewFurniture.setLayoutManager(layoutManager);
 //                    search(mSearchView);
                     ListViewFurniture.setAdapter(adapters);

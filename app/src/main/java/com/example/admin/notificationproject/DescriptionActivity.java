@@ -124,6 +124,8 @@ public class DescriptionActivity extends AppCompatActivity {
 
 
         databaseUserItem = FirebaseDatabase.getInstance().getReference("UserItems");
+
+
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

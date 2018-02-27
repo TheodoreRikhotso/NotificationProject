@@ -42,7 +42,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
     ImageView imageView;
-    TextView tvRamPh, tvBattery, tvOsPhone, tvMemory, tvColorBooked;
+    TextView tvRamPh, tvBattery, tvOsPhone, tvMemory, tvColorBooked, tvQuantity;
     Button btnRequest;
     Button btnBlackPhone, btnGreyPhone, btnGoldPhone;
     private String image, name, id;
@@ -111,6 +111,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         tvMemory = (TextView) findViewById(R.id.tvMemory);
         tvOsPhone = (TextView) findViewById(R.id.tvOsPhone);
         tvBattery = (TextView) findViewById(R.id.tvBattery);
+        tvQuantity = (TextView) findViewById(R.id.tvQuantity);
 
 
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -181,91 +182,91 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
             }
         });
 
-        btnBlackPhone = (Button) findViewById(R.id.btnBlackPhone);
-        btnGoldPhone = (Button) findViewById(R.id.btnGoldPhone);
-        btnGreyPhone = (Button) findViewById(R.id.btnGreyPhone);
-
-
-        btnBlackPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btnBlackPhone.setBackground(getDrawable(R.drawable.white_selected_button));
-                btnBlackPhone.setScaleX((float) 1.3);
-                btnBlackPhone.setScaleY((float) 1.3);
-
-                btnGoldPhone.setScaleX(1);
-                btnGoldPhone.setScaleY(1);
-
-                btnGreyPhone.setScaleX(1);
-                btnGreyPhone.setScaleY(1);
-                seletedColor = "black";
-
-
-                if (c.getImage2() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-
-        btnGoldPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btnGoldPhone.setBackground(getDrawable(R.drawable.red_selected_botton));
-                btnGoldPhone.setScaleX((float) 1.3);
-                btnGoldPhone.setScaleY((float) 1.3);
-
-                btnBlackPhone.setScaleX(1);
-                btnBlackPhone.setScaleY(1);
-
-                btnGreyPhone.setScaleX(1);
-                btnGreyPhone.setScaleY(1);
-                seletedColor = "Gold";
-
-
-                if (c.getImage1() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage2())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btnGreyPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-
-                btnGreyPhone.setBackground(getDrawable(R.drawable.black_selected_button));
-                btnGreyPhone.setScaleX((float) 1.3);
-                btnGreyPhone.setScaleY((float) 1.3);
-
-                btnBlackPhone.setScaleX(1);
-                btnBlackPhone.setScaleY(1);
-
-                btnGoldPhone.setScaleX(1);
-                btnGoldPhone.setScaleY(1);
-                seletedColor = "Grey";
-                if (c.getImage() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage1())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
+//        btnBlackPhone = (Button) findViewById(R.id.btnBlackPhone);
+//        btnGoldPhone = (Button) findViewById(R.id.btnGoldPhone);
+//        btnGreyPhone = (Button) findViewById(R.id.btnGreyPhone);
+//
+//
+//        btnBlackPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btnBlackPhone.setBackground(getDrawable(R.drawable.white_selected_button));
+//                btnBlackPhone.setScaleX((float) 1.3);
+//                btnBlackPhone.setScaleY((float) 1.3);
+//
+//                btnGoldPhone.setScaleX(1);
+//                btnGoldPhone.setScaleY(1);
+//
+//                btnGreyPhone.setScaleX(1);
+//                btnGreyPhone.setScaleY(1);
+//                seletedColor = "black";
+//
+//
+//                if (c.getImage2() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+//
+//
+//        btnGoldPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btnGoldPhone.setBackground(getDrawable(R.drawable.red_selected_botton));
+//                btnGoldPhone.setScaleX((float) 1.3);
+//                btnGoldPhone.setScaleY((float) 1.3);
+//
+//                btnBlackPhone.setScaleX(1);
+//                btnBlackPhone.setScaleY(1);
+//
+//                btnGreyPhone.setScaleX(1);
+//                btnGreyPhone.setScaleY(1);
+//                seletedColor = "Gold";
+//
+//
+//                if (c.getImage1() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage2())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        btnGreyPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//
+//                btnGreyPhone.setBackground(getDrawable(R.drawable.black_selected_button));
+//                btnGreyPhone.setScaleX((float) 1.3);
+//                btnGreyPhone.setScaleY((float) 1.3);
+//
+//                btnBlackPhone.setScaleX(1);
+//                btnBlackPhone.setScaleY(1);
+//
+//                btnGoldPhone.setScaleX(1);
+//                btnGoldPhone.setScaleY(1);
+//                seletedColor = "Grey";
+//                if (c.getImage() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage1())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        });
 
 
 //
@@ -276,6 +277,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         tvOsPhone.setText(c.getOs());
         tvRamPh.setText(c.getRam());
         name = c.getTitle();
+      tvQuantity.setText(c.getQuantity());
 
 
 

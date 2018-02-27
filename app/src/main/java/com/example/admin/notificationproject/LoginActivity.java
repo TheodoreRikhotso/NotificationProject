@@ -65,7 +65,7 @@ public static String ACCOUNT_CHECK="login";
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null) {
-if(ACCOUNT_CHECK!="sign") {
+                if(ACCOUNT_CHECK!="sign") {
     startActivity(new Intent(LoginActivity.this, LandingScreen.class));
 }
                 }
@@ -285,3 +285,4 @@ if(ACCOUNT_CHECK!="sign") {
     }
 
 }
+
