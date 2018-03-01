@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -144,6 +145,17 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.MyViewHolder
                         if (androidVersion.getTitle().toLowerCase().contains(charString)) {
 
                             filteredList.add(androidVersion);
+                            //System.out.println("Something found" + filteredList.size());
+
+
+                        }
+                        if (filteredList.size() == 0){
+                            System.out.println("Nothing found....");
+                            Toast.makeText(context, "Search result not Found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //System.out.println("Something found....");
+                            Toast.makeText(context, "Search result Found", Toast.LENGTH_SHORT).show();
+
                         }
                     }
 

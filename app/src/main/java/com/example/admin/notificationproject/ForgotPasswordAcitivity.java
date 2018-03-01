@@ -19,9 +19,7 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements View.O
 
     private EditText input_email;
     private Button btnResetPass;
-    private Button btnBack;
     private RelativeLayout activity_forgot;
-
     private FirebaseAuth auth;
 
     @Override

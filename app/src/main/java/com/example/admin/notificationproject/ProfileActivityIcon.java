@@ -28,18 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivityIcon extends AppCompatActivity {
 
     ImageButton imProfile;
-    TextView tvAboutUs, tvFAQ, TVContact, tvLogOut, tvUserName, tvUserEmail;
+    TextView tvAboutUs, tvFAQ, TVContact,tvLogOut, tvUserName,tvUserEmail ;
     private FirebaseAuth auth;
-    private LinearLayout llAbout, llContact, llLogout, llfaq;
+    private LinearLayout llAbout,llContact,llLogout,llfaq;
     LinearLayout linearLayoutPro;
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intents = new Intent(ProfileActivityIcon.this, LandingScreen.class);
-        startActivity(intents);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,45 +40,48 @@ public class ProfileActivityIcon extends AppCompatActivity {
         setContentView(R.layout.activity_profile_icon);
 
         //        //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarSettings);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarSettings) ;
         toolbar.setTitle("Settings");
         toolbar.setTitleTextColor(Color.BLACK);
 
 
-//        setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//                Intent intent = new Intent(ProfileActivityIcon.this, LandingScreen.class);
-//                startActivity(intent);
-//            }
-//        });
 
-        imProfile = (ImageButton) findViewById(R.id.imProfile);
-        tvAboutUs = (TextView) findViewById(R.id.tvAboutUs);
-        tvFAQ = (TextView) findViewById(R.id.tvFAQ);
-        TVContact = (TextView) findViewById(R.id.TVContact);
-        tvLogOut = (TextView) findViewById(R.id.tvLogOut);
-        tvUserName = (TextView) findViewById(R.id.tvUserName);
-        tvUserEmail = (TextView) findViewById(R.id.tvUserEmail);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                Intent intent = new Intent(ProfileActivityIcon.this, LandingScreen.class);
+                startActivity(intent);
+            }
+        });
+
+        imProfile=(ImageButton)findViewById(R.id.imProfile);
+        tvAboutUs=(TextView)findViewById(R.id.tvAboutUs);
+        tvFAQ=(TextView)findViewById(R.id.tvFAQ);
+        TVContact=(TextView)findViewById(R.id.TVContact);
+        tvLogOut=(TextView)findViewById(R.id.tvLogOut);
+        tvUserName=(TextView)findViewById(R.id.tvUserName);
+        tvUserEmail=(TextView)findViewById(R.id.tvUserEmail);
 
 
-        llAbout = (LinearLayout) findViewById(R.id.llAbout);
-        llContact = (LinearLayout) findViewById(R.id.llContact);
-        llLogout = (LinearLayout) findViewById(R.id.lllogout);
-        llfaq = (LinearLayout) findViewById(R.id.llFaq);
-        linearLayoutPro = (LinearLayout) findViewById(R.id.linearLayoutPro);
+        llAbout= (LinearLayout)findViewById(R.id.llAbout);
+        llContact= (LinearLayout)findViewById(R.id.llContact);
+        llLogout= (LinearLayout)findViewById(R.id.lllogout);
+        llfaq = (LinearLayout)findViewById(R.id.llFaq);
+        linearLayoutPro = (LinearLayout)findViewById(R.id.linearLayoutPro);
+
 
 
         //
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getUid() == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
+        if(user.getUid()==null)
+        {
+            Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/Profile");
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Profile");
 
         auth = FirebaseAuth.getInstance();
 
@@ -95,24 +91,24 @@ public class ProfileActivityIcon extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot != null) {
+                if(dataSnapshot!= null) {
                     ProfilePojo person = dataSnapshot.getValue(ProfilePojo.class);
-                    if (person != null) {
+                    if(person!= null) {
                         tvUserName.setText(person.getName());
                         tvUserEmail.setText(user.getEmail());
 
 
-                        if (person.getImage() != null) {
-                            Glide.with(ProfileActivityIcon.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(imProfile) {
-                                @Override
-                                protected void setResource(Bitmap resource) {
-                                    RoundedBitmapDrawable circularBitmapDrawable =
-                                            RoundedBitmapDrawableFactory.create(ProfileActivityIcon.this.getResources(), resource);
-                                    circularBitmapDrawable.setCircular(true);
-                                    imProfile.setImageDrawable(circularBitmapDrawable);
-                                }
-                            });
-                        }
+
+
+                        Glide.with(ProfileActivityIcon.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(imProfile) {
+                            @Override
+                            protected void setResource(Bitmap resource) {
+                                RoundedBitmapDrawable circularBitmapDrawable =
+                                        RoundedBitmapDrawableFactory.create(ProfileActivityIcon.this.getResources(), resource);
+                                circularBitmapDrawable.setCircular(true);
+                                imProfile.setImageDrawable(circularBitmapDrawable);
+                            }
+                        });
                     }
 
                 }
@@ -125,38 +121,40 @@ public class ProfileActivityIcon extends AppCompatActivity {
 
             }
         });
+
         imProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivityIcon.this, ProfileActivity.class);
+                Intent intent = new Intent(ProfileActivityIcon.this,ProfileActivity.class);
                 startActivity(intent);
             }
         });
+
         linearLayoutPro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivityIcon.this, ProfileActivity.class);
+                Intent intent = new Intent(ProfileActivityIcon.this,ProfileActivity.class);
                 startActivity(intent);
             }
         });
         llAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivityIcon.this, AboutImageActivity.class);
+                Intent intent = new Intent(ProfileActivityIcon.this,AboutImageActivity.class);
                 startActivity(intent);
             }
         });
         llfaq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivityIcon.this, FAQ.class);
+                Intent intent = new Intent(ProfileActivityIcon.this,FAQ.class);
                 startActivity(intent);
             }
         });
         llContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivityIcon.this, ContactActivity.class);
+                Intent intent = new Intent(ProfileActivityIcon.this,ContactActivity.class);
                 startActivity(intent);
             }
         });
@@ -165,11 +163,12 @@ public class ProfileActivityIcon extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                auth.signOut();
-                if (auth.getCurrentUser() == null) {
-                    startActivity(new Intent(ProfileActivityIcon.this, loginsignup.class));
-                    finish();
-                }
+                    auth.signOut();
+                    if (auth.getCurrentUser() == null)
+                    {
+                        startActivity(new Intent(ProfileActivityIcon.this,loginsignup.class));
+                        finish();
+                    }
             }
         });
 

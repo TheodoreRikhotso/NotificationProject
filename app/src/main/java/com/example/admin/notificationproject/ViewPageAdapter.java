@@ -16,12 +16,14 @@ class ViewPageAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.nonhlanhla_m, R.drawable.theo, R.drawable.rob,R.drawable.khumbudzo, R.drawable.sihle_mabaleka};
+    private Integer [] images = {R.drawable.nonhlanhla_m, R.drawable.theo, R.drawable.rob,R.drawable.khumbudzo, R.drawable.nathi0};
 
-    private String [] person = {"Nonhlanhla Mkhonza", "Theodore Paseka  Rikhotso", "Lesego Mohalanyane", "Kumbudzo Ramulifho", "Nkosinathi Madlophe"};
+    private String [] person = {"Nonhlanhla Mkhonza", "Theodore Paseka  Rikhotso", "Lesego Mohalanyane", "Khumbudzo Ramulifho", "Nkosinathi Madlophe"};
 
-    private String [] area = {"https://www.linkedin.com/in/nonhlanhla-su-zaan-mkonza-32226772", "https://www.linkedin.com/in/paseka-rikhotso-ba0b84113/", "https://www.linkedin.com/in/lesego-thato-846601159/", "mLab Developer in Residence",
-            "Facilitator CodeTribe Soweto | DEMOLA Johannesburg"};
+    private String [] area = {"https://www.linkedin.com/in/nonhlanhla-su-zaan-mkonza-32226772", "https://www.linkedin.com/in/paseka-rikhotso-ba0b84113/", "https://www.linkedin.com/in/lesego-thato-846601159/", "https://www.linkedin.com/in/khumbudzo-rmulifho-255a87159/",
+            "https://www.linkedin.com/in/de-nathi-madlophe-561589159/"};
+
+
 
 
     public ViewPageAdapter(Context context){

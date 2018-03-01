@@ -2,6 +2,7 @@ package com.example.admin.notificationproject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,10 +42,10 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 
     VerticalStepView verticalStepView;
     ImageView imageView;
-    TextView tvRamPh, tvBattery, tvOsPhone, tvMemory, tvColorBooked;
+    TextView tvRamPh, tvBattery, tvOsPhone, tvMemory, tvColorBooked, tvQuantity;
     Button btnRequest;
     Button btnBlackPhone, btnGreyPhone, btnGoldPhone;
-    private String image, name, id, typeOs;
+    private String image, name, id;
     private DatabaseReference databaseUserItem;
     private StorageReference mStorageReference;
     private FirebaseUser user;
@@ -55,10 +56,9 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
     private String seletedColor = "black";
     private Boolean check = false;
     private DatabaseReference dbRequest;
-    private UserItemPojo userItemPojo;
-    private boolean isDone = false;
-    private String reason;
-    private UserItemPojo item;
+    private  UserItemPojo userItemPojo;
+    private  boolean isDone =false;
+    private  String reason;
 
     RingProgressBar ringProgressBar1, ringProgressBar2;
     TextView tvDay, Loading;
@@ -97,20 +97,21 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         toolbar.setTitle(c.getTitle());
         setSupportActionBar(toolbar);
 
-//        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
-//        toolbar.setTitleTextColor(Color.DKGRAY);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setTitleTextColor(Color.DKGRAY);
 
 
         tvRamPh = (TextView) findViewById(R.id.tvRamPh);
         tvMemory = (TextView) findViewById(R.id.tvMemory);
         tvOsPhone = (TextView) findViewById(R.id.tvOsPhone);
         tvBattery = (TextView) findViewById(R.id.tvBattery);
+        tvQuantity = (TextView) findViewById(R.id.tvQuantity);
 
 
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -129,209 +130,143 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         databaseProfile = FirebaseDatabase.getInstance().getReference("Profiles");
 
 
-        final Query databaseIos = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeOs").equalTo("ios").limitToLast(1);
-        btnRequest.setOnClickListener(new View.OnClickListener() {
+        Query databaseUsers = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeDevice").equalTo("Phone").limitToLast(1);
+
+        databaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(final View view) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                Query databaseAndroid = FirebaseDatabase.getInstance().getReference("Users/" + user.getUid() + "/History").orderByChild("typeOs").equalTo("android").limitToLast(1);
+                final UserItemPojo item = dataSnapshot.getValue(UserItemPojo.class);
+//
 
-                databaseAndroid.addValueEventListener(new ValueEventListener() {
+                btnRequest.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.hasChildren()) {
+                    public void onClick(final View view) {
 
 
-                            for (final DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
 
 
-                                final UserItemPojo item = catalogSnapshot.getValue(UserItemPojo.class);
+                            if (item != null) {
+
+                                if (item.getItemReturn() == true) {
 
 
-                                if (item != null) {
-
-                                    if (c.getOs().contains("android") ){
-
-                                        if (item.getItemReturn() == true) {
-
-
-                                            inputBox();
-                                        } else {
-
-
-                                            Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
-                                        }
-                                    }
-
+                                    inputBox();
 
                                 } else {
-
-
+                                    Snackbar.make(view, "You cannot book a phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
                                 }
 
-                            }
 
-                        } else {
 
-                            if (c.getOs().toLowerCase().contains("android")) {
+                            }else {
+
                                 inputBox();
 
 
                             }
 
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(PhoneDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                databaseIos.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.hasChildren()) {
-
-
-                            for (final DataSnapshot catalogSnapshot : dataSnapshot.getChildren()) {
-
-
-                                final UserItemPojo itemY = catalogSnapshot.getValue(UserItemPojo.class);
-                                if (c.getOs().contains("ios") ) {
-
-                                    if (itemY.getTypeOs() != "android") {
-                                        if (itemY.getItemReturn() == true) {
-                                            Toast.makeText(PhoneDescriptionActivity.this, "NOT ", Toast.LENGTH_SHORT).show();
-
-                                            inputBox();
-                                        } else {
-                                            Toast.makeText(PhoneDescriptionActivity.this, "NOT2 ", Toast.LENGTH_SHORT).show();
-                                            Snackbar.make(view, "You cannot book a android phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
-                                        }
-                                    }
-                                }else {
-                                    Snackbar.make(view, "You cannot book a ios phone before can return the recently booked", Snackbar.LENGTH_LONG).show();
-                                }
-
-
-                            }
-
-                        } else {
-
-                            if (c.getOs().toLowerCase().contains("ios")) {
-                                inputBox();
-
-                            }
-
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(PhoneDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//            }else {
+//                Snackbar.make(view,"Wait until picked up date for the recently booked assert",Snackbar.LENGTH_LONG).show();
+//           }
                     }
                 });
 
 
             }
-        });
 
-
-        btnBlackPhone = (Button) findViewById(R.id.btnBlackPhone);
-        btnGoldPhone = (Button) findViewById(R.id.btnGoldPhone);
-        btnGreyPhone = (Button) findViewById(R.id.btnGreyPhone);
-
-
-        btnBlackPhone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btnBlackPhone.setBackground(getDrawable(R.drawable.white_selected_button));
-                btnBlackPhone.setScaleX((float) 1.3);
-                btnBlackPhone.setScaleY((float) 1.3);
-
-                btnGoldPhone.setScaleX(1);
-                btnGoldPhone.setScaleY(1);
-
-                btnGreyPhone.setScaleX(1);
-                btnGreyPhone.setScaleY(1);
-                seletedColor = "black";
-
-
-                if (c.getImage2() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(PhoneDescriptionActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        btnGoldPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-                btnGoldPhone.setBackground(getDrawable(R.drawable.red_selected_botton));
-                btnGoldPhone.setScaleX((float) 1.3);
-                btnGoldPhone.setScaleY((float) 1.3);
-
-                btnBlackPhone.setScaleX(1);
-                btnBlackPhone.setScaleY(1);
-
-                btnGreyPhone.setScaleX(1);
-                btnGreyPhone.setScaleY(1);
-                seletedColor = "Gold";
-
-
-                if (c.getImage1() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage2())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btnGreyPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
-
-                btnGreyPhone.setBackground(getDrawable(R.drawable.black_selected_button));
-                btnGreyPhone.setScaleX((float) 1.3);
-                btnGreyPhone.setScaleY((float) 1.3);
-
-                btnBlackPhone.setScaleX(1);
-                btnBlackPhone.setScaleY(1);
-
-                btnGoldPhone.setScaleX(1);
-                btnGoldPhone.setScaleY(1);
-                seletedColor = "Grey";
-                if (c.getImage() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(c.getImage1())
-                            .into(imageView);
-                } else {
-                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
+//        btnBlackPhone = (Button) findViewById(R.id.btnBlackPhone);
+//        btnGoldPhone = (Button) findViewById(R.id.btnGoldPhone);
+//        btnGreyPhone = (Button) findViewById(R.id.btnGreyPhone);
+//
+//
+//        btnBlackPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btnBlackPhone.setBackground(getDrawable(R.drawable.white_selected_button));
+//                btnBlackPhone.setScaleX((float) 1.3);
+//                btnBlackPhone.setScaleY((float) 1.3);
+//
+//                btnGoldPhone.setScaleX(1);
+//                btnGoldPhone.setScaleY(1);
+//
+//                btnGreyPhone.setScaleX(1);
+//                btnGreyPhone.setScaleY(1);
+//                seletedColor = "black";
+//
+//
+//                if (c.getImage2() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+//
+//
+//        btnGoldPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//                btnGoldPhone.setBackground(getDrawable(R.drawable.red_selected_botton));
+//                btnGoldPhone.setScaleX((float) 1.3);
+//                btnGoldPhone.setScaleY((float) 1.3);
+//
+//                btnBlackPhone.setScaleX(1);
+//                btnBlackPhone.setScaleY(1);
+//
+//                btnGreyPhone.setScaleX(1);
+//                btnGreyPhone.setScaleY(1);
+//                seletedColor = "Gold";
+//
+//
+//                if (c.getImage1() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage2())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        btnGreyPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // btn_red.segetResources().getDrawable(R.drawable.red_selected_botton);
+//
+//                btnGreyPhone.setBackground(getDrawable(R.drawable.black_selected_button));
+//                btnGreyPhone.setScaleX((float) 1.3);
+//                btnGreyPhone.setScaleY((float) 1.3);
+//
+//                btnBlackPhone.setScaleX(1);
+//                btnBlackPhone.setScaleY(1);
+//
+//                btnGoldPhone.setScaleX(1);
+//                btnGoldPhone.setScaleY(1);
+//                seletedColor = "Grey";
+//                if (c.getImage() != null) {
+//                    Glide.with(getApplicationContext())
+//                            .load(c.getImage1())
+//                            .into(imageView);
+//                } else {
+//                    Toast.makeText(PhoneDescriptionActivity.this, "Color not Available", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        });
 
 
 //
@@ -342,11 +277,8 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         tvOsPhone.setText(c.getOs());
         tvRamPh.setText(c.getRam());
         name = c.getTitle();
-        if (c.getOs().contains("android")) {
-            typeOs = "android";
-        } else {
-            typeOs = "ios";
-        }
+      tvQuantity.setText(c.getQuantity());
+
 
 
         image = c.getImage();
@@ -357,14 +289,14 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
 
     }
 
-    private void getDialogBook() {
+    private void getDialogBook()
+    {
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/History");
+        databaseUserItem = FirebaseDatabase.getInstance().getReference("Users/" +  userId + "/History");
         ///DIALOG BOX INITIALIZATION
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(PhoneDescriptionActivity.this);
-        mBuilder.setCancelable(false);
         View mView = getLayoutInflater().inflate(R.layout.activity_confirm_request_activty, null);
 
         btnOk = mView.findViewById(R.id.btnOk);
@@ -397,7 +329,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         Loading = mView.findViewById(R.id.Loading);
 
         //
-        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/Profile");
+        DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/" +FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/Profile");
 
 
         databaseUser.addValueEventListener(new ValueEventListener() {
@@ -427,6 +359,11 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         });
 
 
+
+
+
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -448,8 +385,9 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         tvDay.setVisibility(View.VISIBLE);
                         ivIcon.setVisibility(View.VISIBLE);
                         Loading.setVisibility(View.GONE);
-                        if (progress == 100) {
-                            isDone = true;
+                        if(progress==100)
+                        {
+                            isDone =true;
                         }
                         if (progress >= 100) {
                             btnOk.setOnClickListener(new View.OnClickListener() {
@@ -463,8 +401,6 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                                     userItemPojo.setItemReturn(false);
                                     userItemPojo.setBookingStatus("Booked");
                                     userItemPojo.setColor(seletedColor);
-                                    userItemPojo.setTypeOs(typeOs);
-
 
                                     //returned date
                                     Date dt = new Date();
@@ -564,6 +500,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         }
 
 
+
                     }
                 });
             }
@@ -576,8 +513,8 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         //DIALOG END
 
     }
-
-    private void inputBox() {
+    private void inputBox()
+    {
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompt_text, null);
 
@@ -597,14 +534,14 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Request",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog,int id) {
                                 // get user input and set it to result
                                 // edit text
 
-                                reason = userInput.getText().toString();
-                                if (reason.isEmpty()) {
+                                 reason = userInput.getText().toString();
+                               if(reason.isEmpty()){
                                     Toast.makeText(PhoneDescriptionActivity.this, "State the reason", Toast.LENGTH_SHORT).show();
-                                } else {
+                                }else {
 
                                     getDialogBook();
                                 }
@@ -613,7 +550,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
                         })
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
                             }
                         });
@@ -621,10 +558,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
-
-            // show it
-            alertDialog.show();
-
-
+        // show it
+        alertDialog.show();
     }
 }
