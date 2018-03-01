@@ -139,7 +139,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //user item
 
-         user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 //        DatabaseReference databaseItems = FirebaseDatabase.getInstance().getReference("UserItems");
 //
 //        DatabaseReference databaseItem = databaseItems.child(user.getUid());
@@ -336,11 +336,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         ivPhoto = builder.findViewById(R.id.editMainPhoto);
         editDepartment = builder.findViewById(R.id.editDepartment);
-
         editName = builder.findViewById(R.id.editName);
-
         tvOk = builder.findViewById(R.id.tvOk);
-
         editDepartment.setHint("Enter Position e.g CEO");
 
 
@@ -401,100 +398,144 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                     //uploading the image
-                    if (filePath != null) {
-                        StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());
-                        UploadTask uploadTask = childRef.putFile(filePath);
-                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                pd.dismiss();
-                                @SuppressWarnings("VisibleForTests") Uri uir = taskSnapshot.getDownloadUrl();
-                                profileUri = uir.toString();
-                                ProfilePojo profilePojo = new ProfilePojo();
+                    if (!name.isEmpty()) {
+                        if (!department.isEmpty()) {
+                            if (!name.matches(".*[^a-z].*")) {
+                                if (!department.matches(".*[^a-z].*")) {
+//
+//
+                                    StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());
+                                    UploadTask uploadTask = childRef.putFile(filePath);
+                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            pd.dismiss();
+                                            @SuppressWarnings("VisibleForTests") Uri uir = taskSnapshot.getDownloadUrl();
+                                            profileUri = uir.toString();
 
-                                profilePojo.setImage(uir.toString());
-                                profilePojo.setDepartmentName(department);
-                                profilePojo.setName(name);
-                                profilePojo.setId(user.getUid());
-//            profilePojo.setStuffNo(stuffNo);
+                                            ProfilePojo profilePojo = new ProfilePojo();
 
-                                FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                                int i = 1;
-                                if (i == 1) {
+                                            profilePojo.setImage(uir.toString());
+                                            profilePojo.setDepartmentName(department);
+                                            profilePojo.setName(name);
+                                            profilePojo.setId(user.getUid());
 
-                                    databaseProf.setValue(profilePojo);
-                                    i = 2;
+
+                                            FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                                            int i = 1;
+                                            if (i == 1) {
+
+                                                databaseProf.setValue(profilePojo);
+                                                i = 2;
+                                            }
+
+                                            if (i == 2) {
+
+                                                databaseProfile.setValue(profilePojo);
+                                            }
+
+                                            Toast.makeText(ProfileActivity.this, "Upload successful ", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            pd.dismiss();
+                                            Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+//
+//
+                                    ProfilePojo profilePojo = new ProfilePojo();
+                                    pd.dismiss();
+                                    profilePojo.setDepartmentName(department);
+                                    profilePojo.setName(name);
+
+
+                                    FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                                    int i = 1;
+                                    if (i == 1) {
+                                        databaseProf.setValue(profilePojo);
+                                        i = 2;
+                                    }
+
+                                    if (i == 2) {
+
+                                        databaseProfile.setValue(profilePojo);
+                                    }
+                                } else {
+                                    pd.dismiss();
+                                    editDepartment.setError("Position must no contain characters");
                                 }
-
-                                if (i == 2) {
-
-                                    databaseProfile.setValue(profilePojo);
-                                }
-
-                                Toast.makeText(ProfileActivity.this, "Upload successful ", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+                            } else {
                                 pd.dismiss();
-                                Toast.makeText(ProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                editName.setError("Name must no contain characters");
                             }
-                        });
-                    }
-                    {
-                        ProfilePojo profilePojo = new ProfilePojo();
+                        } else {
+                            pd.dismiss();
+                            editDepartment.setError("Please Enter Position");
+
+                        }
+                    } else {
                         pd.dismiss();
-
-
-                        profilePojo.setDepartmentName(department);
-                        profilePojo.setName(name);
-//            profilePojo.setStuffNo(stuffNo);
-
-                        FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
-                        int i = 1;
-                        if (i == 1) {
-                            databaseProf.setValue(profilePojo);
-                            i = 2;
-                        }
-
-                        if (i == 2) {
-
-                            databaseProfile.setValue(profilePojo);
-                        }
-
+                        editName.setError("Please Enter Name");
 
                     }
 
                 } else {
-                    pd.dismiss();
-                    ProfilePojo profilePojo = new ProfilePojo();
+                    //uploading the image
+                    if (!name.isEmpty()) {
+                        if (!department.isEmpty()) {
+                            if (!name.matches(".*[^a-z].*")) {
+                                if (!department.matches(".*[^a-z].*")) {
+                                    pd.dismiss();
+                                    ProfilePojo profilePojo = new ProfilePojo();
 
-                    profilePojo.setImage(mainImage);
-                    profilePojo.setDepartmentName(department);
-                    profilePojo.setName(name);
+                                    profilePojo.setImage(mainImage);
+                                    profilePojo.setDepartmentName(department);
+                                    profilePojo.setName(name);
 //    profilePojo.setStuffNo(stuffNo);
-                    profilePojo.setSecondImage(secondImage);
+                                    profilePojo.setSecondImage(secondImage);
 
-                    FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
+                                    FirebaseUser users = FirebaseAuth.getInstance().getCurrentUser();
 
 
-                    int i = 1;
-                    if (i == 1) {
-                        databaseProf.setValue(profilePojo);
-                        i = 2;
+                                    int i = 1;
+                                    if (i == 1) {
+                                        databaseProf.setValue(profilePojo);
+                                        i = 2;
+                                    }
+
+                                    if (i == 2) {
+
+                                        databaseProfile.setValue(profilePojo);
+                                    }
+
+
+                                    builder.dismiss();
+                                } else {
+                                    pd.dismiss();
+                                    editDepartment.setError("Position must no contain characters");
+                                }
+                            } else {
+                                editName.setError("Name must no contain characters");
+                                pd.dismiss();
+                            }
+
+
+                        } else {
+                            pd.dismiss();
+                            editDepartment.setError("Please Enter Position");
+
+
+                        }
+                    } else {
+
+                        editName.setError("Please Enter Name");
+
+
+                        pd.dismiss();
                     }
-
-                    if (i == 2) {
-
-                        databaseProfile.setValue(profilePojo);
-                    }
-
                 }
-
-
-                builder.dismiss();
-
-
             }
         });
 

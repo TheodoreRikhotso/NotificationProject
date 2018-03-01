@@ -98,17 +98,19 @@ public class ProfileActivityIcon extends AppCompatActivity {
                         tvUserEmail.setText(user.getEmail());
 
 
+                        if (person.getImage() != null) {
 
+                            Glide.with(ProfileActivityIcon.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(imProfile) {
+                                @Override
+                                protected void setResource(Bitmap resource) {
+                                    RoundedBitmapDrawable circularBitmapDrawable =
+                                            RoundedBitmapDrawableFactory.create(ProfileActivityIcon.this.getResources(), resource);
+                                    circularBitmapDrawable.setCircular(true);
+                                    imProfile.setImageDrawable(circularBitmapDrawable);
+                                }
+                            });
+                        }
 
-                        Glide.with(ProfileActivityIcon.this).load(person.getImage()).asBitmap().centerCrop().placeholder(R.drawable.profile_icon_).into(new BitmapImageViewTarget(imProfile) {
-                            @Override
-                            protected void setResource(Bitmap resource) {
-                                RoundedBitmapDrawable circularBitmapDrawable =
-                                        RoundedBitmapDrawableFactory.create(ProfileActivityIcon.this.getResources(), resource);
-                                circularBitmapDrawable.setCircular(true);
-                                imProfile.setImageDrawable(circularBitmapDrawable);
-                            }
-                        });
                     }
 
                 }
