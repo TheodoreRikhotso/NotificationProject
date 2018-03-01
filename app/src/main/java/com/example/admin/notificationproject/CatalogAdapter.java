@@ -26,7 +26,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
 
 
         private Activity context;
-        private List<Catalog> catalogList,catalogss;
+        private List<Catalog> catalogList,searchCatalogList;
         private Activity applicationContext;
         private   Catalog catalog;
 
@@ -34,7 +34,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
                 this.context = context;
                 this.catalogList = catalogList;
 
-                this.catalogss=catalogList;
+                this.searchCatalogList=catalogList;
         }
 
 
@@ -48,6 +48,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
+
                 final Catalog catalog = catalogList.get(position);
                 holder.item1.setText(catalog.getTitle());
                 Glide.with(context)
@@ -112,17 +113,20 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.MyViewHo
 
                                 if (charString.isEmpty()) {
 
-                                        catalogList = catalogss;
+                                        catalogList = searchCatalogList;
                                 } else {
 
                                         ArrayList<Catalog> filteredList = new ArrayList<>();
 
-                                        for (Catalog androidVersion : catalogss) {
+                                        for (Catalog androidVersion : searchCatalogList) {
 
                                                 if (androidVersion.getAssetTitle().toLowerCase().contains(charString) ) {
 
                                                         filteredList.add(androidVersion);
                                                 }
+
+                                                System.out.println("SEARCHLIST: " + catalogList.size());
+
                                         }
 
                                         catalogList = filteredList;

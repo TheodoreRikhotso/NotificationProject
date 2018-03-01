@@ -107,8 +107,8 @@ public class CatalogAdminActivity extends AppCompatActivity {
 
         //ITEM ADD INSTANCES
         IBAdmin = (ImageButton) findViewById(R.id.IBAdmin);
-        colorImage = (ImageButton) findViewById(R.id.IBAdmin1);
-        colorImage2 = (ImageButton) findViewById(R.id.IBAdmin2);
+//        colorImage = (ImageButton) findViewById(R.id.IBAdmin1);
+//        colorImage2 = (ImageButton) findViewById(R.id.IBAdmin2);
 
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
@@ -300,19 +300,19 @@ public class CatalogAdminActivity extends AppCompatActivity {
             filePath = mStorageReference.child("CarsImages").child(uri.getLastPathSegment());
         }
         if (MainActivity.CATA.equals("furniture")) {
-
-
-
-                filePath = mStorageReference.child("FurnitureImages").child(uri.getLastPathSegment());
+        filePath = mStorageReference.child("FurnitureImages").child(uri.getLastPathSegment());
 
 
         }
         final String ids = databaseNot.push().getKey();
         final String id = databaseLaptops.push().getKey();
+
+
+
         if (MainActivity.CATA.equals("furniture")) {
 
-if(filePath!=null) {
-    filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        if(filePath!=null) {
+        filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
         @Override
         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -400,6 +400,10 @@ if(filePath!=null) {
 
         }
 
+        /**
+         * LAPTOP ACTIVITY
+         */
+
         if (MainActivity.CATA.equals("laptop")) {
 
 System.out.println(" file path "+filePath+" 1 "+filePath1+" 2 "+filePath2);
@@ -453,6 +457,14 @@ if(uri !=null) {
 
                                     catalog.setCatalogimageurl(imageUri3.toString());
 
+//                                    final String date = edDate.getText().toString().trim();
+//                                    final String location = edArea.getText().toString().trim();
+//                                    final String price = edPrice.getText().toString().trim();
+//                                    final String discount = edDiscount.getText().toString().trim();
+//                                    final String time = edTime.getText().toString().trim();
+//                                    final String fulldesscription = tvFullDes.getText().toString().trim();
+//                                    final String cellno = edCellNo.getText().toString().trim();
+//                                    final String enquiries = edEnquiries.getText().toString().trim();
 
                                     ///notifacaion
                                     NOTIFY = catalog;
@@ -487,6 +499,9 @@ if(uri !=null) {
                                 }
                             });
                         }
+                        /**
+                         *
+                         */
                         Catalog catalog = new Catalog(id, imageUri1.toString());
 
                         catalog.setAssetTitle(title);
@@ -714,6 +729,10 @@ if(uri !=null) {
 
         notificationBuilder.setSmallIcon(R.drawable.ic_add_alert_black_24dp);
 
+
+        /**
+         * LOADS IMAGE INTO PICASSO
+         */
         Picasso.with(getApplicationContext()).load(picture).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
