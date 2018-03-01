@@ -127,7 +127,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
-                            android:id="@+id/tvQuantity"
+                            android:id="@+id/tvQuantit"
                             android:text="Item Capacity"
                             android:layout_marginTop="10dp"/>
 

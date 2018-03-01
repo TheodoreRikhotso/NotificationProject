@@ -196,7 +196,8 @@ inputBox();
                             .into(imageView);
 
 
-        tvQuantity.setText(c.getQuantity());
+        tvQuantity.setText(c.getTotalQuantity());
+
 
 
 //

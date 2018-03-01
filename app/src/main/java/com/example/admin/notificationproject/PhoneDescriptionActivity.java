@@ -111,7 +111,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         tvMemory = (TextView) findViewById(R.id.tvMemory);
         tvOsPhone = (TextView) findViewById(R.id.tvOsPhone);
         tvBattery = (TextView) findViewById(R.id.tvBattery);
-        tvQuantity = (TextView) findViewById(R.id.tvQuantity);
+        tvQuantity = (TextView) findViewById(R.id.tvQuantit);
 
 
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -277,7 +277,7 @@ public class PhoneDescriptionActivity extends AppCompatActivity {
         tvOsPhone.setText(c.getOs());
         tvRamPh.setText(c.getRam());
         name = c.getTitle();
-      tvQuantity.setText(c.getQuantity());
+      tvQuantity.setText(c.getTotalQuantity());
 
 
 
