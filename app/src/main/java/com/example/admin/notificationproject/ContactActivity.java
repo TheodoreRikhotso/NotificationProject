@@ -51,8 +51,9 @@ public class ContactActivity extends AppCompatActivity {
         });
         FirebaseApp.initializeApp(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("message");
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        myRef = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Message");
 
 
         // ename = (TextView) findViewById(R.id.etname);
@@ -60,16 +61,16 @@ public class ContactActivity extends AppCompatActivity {
         eaddress = (TextView) findViewById(R.id.eaddress);
         ename = (TextView) findViewById(R.id.edName);
         save = (Button) findViewById(R.id.save);
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if(user!=null) {
             eemail.setText(" " + user.getEmail());
 
 
-            DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Profiles");
+            DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Profile");
 
-            DatabaseReference buisnessAccRef = databaseUser.child(user.getUid());
 
-            buisnessAccRef.addValueEventListener(new ValueEventListener() {
+
+            databaseUser.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -101,7 +102,7 @@ public class ContactActivity extends AppCompatActivity {
                 String address =  eaddress.getText().toString();
                 String name =  eaddress.getText().toString();
 
-                if(email.contains("@")) {
+
 
                     String key = myRef.push().getKey();
                     UserContact userdetails = new UserContact();
@@ -118,9 +119,6 @@ public class ContactActivity extends AppCompatActivity {
                     ename.setText("");
                     Toast.makeText(ContactActivity.this, "Message sent ", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(ContactActivity.this, "Incorrect Email ", Toast.LENGTH_SHORT).show();
-                }
 
 
             }

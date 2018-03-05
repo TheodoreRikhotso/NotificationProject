@@ -397,11 +397,12 @@ public class ProfileActivity extends AppCompatActivity {
                 if (isImage == "2") {
 
 
+                    String namess=name.replaceAll("\\s+","");
                     //uploading the image
                     if (!name.isEmpty()) {
                         if (!department.isEmpty()) {
-                            if (!name.matches(".*[^a-z].*")) {
-                                if (!department.matches(".*[^a-z].*")) {
+                            if (!namess.matches("[a-zA-Z]+") == false&& name.length() > 2) {
+                                if (!department.matches("[a-zA-Z]+") == false&&department.length() > 2) {
 //
 //
                                     StorageReference childRef = mStorageReference.child("ProfileImage").child(filePath.getLastPathSegment());
@@ -482,11 +483,18 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                 } else {
+                    String namess;
+                    if(name.contains(" ")) {
+                         namess = name.replaceAll("\\s+", "");
+                    }else {
+                        namess =name;
+                    }
+
                     //uploading the image
                     if (!name.isEmpty()) {
                         if (!department.isEmpty()) {
-                            if (!name.matches(".*[^a-z].*")) {
-                                if (!department.matches(".*[^a-z].*")) {
+                            if (!namess.matches("[a-zA-Z]+") == false && name.length() > 2) {
+                                if (!department.matches("[a-zA-Z]+") == false&&department.length() > 2) {
                                     pd.dismiss();
                                     ProfilePojo profilePojo = new ProfilePojo();
 

@@ -147,14 +147,7 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
 
 
                         }
-                        if (filteredList.size() == 0){
-                            System.out.println("Nothing found....");
-                            Toast.makeText(context, "Search result not Found", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //System.out.println("Something found....");
-                            Toast.makeText(context, "Search result Found", Toast.LENGTH_SHORT).show();
-
-                        }
+//
                     }
 
                     catalogList = filteredList;
@@ -168,6 +161,15 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.MyViewHold
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 catalogList = (ArrayList<Laptop>) filterResults.values;
+
+
+                if (catalogList.size() == 0){
+                    System.out.println("Nothing found....");
+                            Toast.makeText(context, "Search result not Found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //System.out.println("Something found....");
+
+                        }
                 notifyDataSetChanged();
             }
         };

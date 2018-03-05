@@ -206,14 +206,7 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
 
 
                         }
-                        if (filteredList.size() == 0){
-                            System.out.println("Nothing found....");
-                            Toast.makeText(context, "Search result not Found", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //System.out.println("Something found....");
-                            Toast.makeText(context, "Search result Found", Toast.LENGTH_SHORT).show();
 
-                        }
                     }
 
                     catalogList = filteredList;
@@ -227,6 +220,13 @@ public class FurnitureAdapter extends RecyclerView.Adapter<FurnitureAdapter.MyVi
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 catalogList = (ArrayList<FurniturePojo>) filterResults.values;
+                if (catalogList.size() == 0){
+                    System.out.println("Nothing found....");
+                    Toast.makeText(context, "Search result not Found", Toast.LENGTH_SHORT).show();
+                } else {
+                    //System.out.println("Something found....");
+
+                }
                 notifyDataSetChanged();
             }
         };
