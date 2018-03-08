@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class loginsignup extends AppCompatActivity {
     TextView signin;
-    TextView signup;
+//    TextView signup;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     public static String CHECK="NON";
@@ -50,7 +50,7 @@ public class loginsignup extends AppCompatActivity {
 
         }
         signin = (TextView)findViewById(R.id.signin);
-        signup = (TextView)findViewById(R.id.signup);
+//        signup = (TextView)findViewById(R.id.signup);
 
 
         signin.setOnClickListener(new View.OnClickListener() {
@@ -63,15 +63,15 @@ public class loginsignup extends AppCompatActivity {
         });
 
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent it = new Intent(loginsignup.this,SignUpActivity.class);
-                startActivity(it);
-
-            }
-        });
+//        signup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent it = new Intent(loginsignup.this,SignUpActivity.class);
+//                startActivity(it);
+//
+//            }
+//        });
     }
 
     @Override

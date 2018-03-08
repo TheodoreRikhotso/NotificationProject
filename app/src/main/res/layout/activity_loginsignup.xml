@@ -114,39 +114,38 @@
 
                     <TextView
                         android:id="@+id/signin"
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="Sign in"
-                        android:textSize="21dp"
                         android:textColor="@color/colortext"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        />
+                        android:textSize="24dp" />
 
 
-                    <View
+                    <!--<View-->
 
-                        android:layout_width="1dp"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="13dp"
-                        android:layout_marginTop="13dp"
+                        <!--android:layout_width="1dp"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_marginBottom="13dp"-->
+                        <!--android:layout_marginTop="13dp"-->
 
-                        android:gravity="center"
-                        android:background="@color/colordevider"
+                        <!--android:gravity="center"-->
+                        <!--android:background="@color/colordevider"-->
 
-                        />
-                    <TextView
-                        android:id="@+id/signup"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sign up"
-                        android:textSize="21dp"
-                        android:textColor="@color/colortext"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        />
+                        <!--/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/signup"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Sign up"-->
+                        <!--android:textSize="21dp"-->
+                        <!--android:textColor="@color/colortext"-->
+                        <!--android:gravity="center"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--/>-->
                 </LinearLayout>
 
 

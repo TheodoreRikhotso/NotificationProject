@@ -10,7 +10,7 @@
         android:id="@+id/tvReason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Why do need  : "
+        android:text="Why do need this item: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
