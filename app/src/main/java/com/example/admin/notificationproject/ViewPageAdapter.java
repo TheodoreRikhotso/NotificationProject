@@ -16,7 +16,7 @@ class ViewPageAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.nonhlanhla_m, R.drawable.theo, R.drawable.rob,R.drawable.khumbudzo, R.drawable.nathi0};
+    private Integer [] images = {R.drawable.nonhlanhla_m, R.drawable.theo, R.drawable.rob,R.drawable.khumbudzo, R.drawable.nathi01};
 
     private String [] person = {"Nonhlanhla Mkhonza", "Theodore Paseka  Rikhotso", "Lesego Mohalanyane", "Khumbudzo Ramulifho", "Nkosinathi Madlophe"};
 
